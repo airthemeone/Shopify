@@ -2,19 +2,9 @@
     {% if section.settings.link %}
         <a href="{{ section.settings.link }}">
     {% endif %}
-    <img
-        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-        data-sizes="auto"
-        width="1280"
-        data-src="{{ section.settings.image | img_url: '768x' }}"
-        data-srcset="{{ section.settings.image | img_url: '320x' }} 320w,
-                        {{ section.settings.image | img_url: '640x' }} 640w,
-                        {{ section.settings.image | img_url: '768x' }} 768w,
-                        {{ section.settings.image | img_url: '1024x' }} 1024w,
-                        {{ section.settings.image | img_url: '1280x' }} 1280w"
-        alt="{{section.settings.image.alt}}"
-        class="lazyload"
-    />
+
+    {% include 'image', image_object: section.settings.image, alt: section.settings.image.alt, disable_lazyload: section.settings.disable_lazyload %}
+
     {% if section.settings.link %}
         </a>
     {% endif %}
@@ -33,6 +23,14 @@
                 "type": "text",
                 "id": "link",
                 "label": "Link"
+            },
+            {
+                "type": "checkbox",
+                "id": "disable_lazyload",
+                "label": {
+                    "en": "Disable Lazyload"
+                },
+                "default": false
             }
         ],
         "presets": [
