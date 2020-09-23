@@ -1,0 +1,176 @@
+<div class="{{ section.settings.background_color }} h-full">
+    <form action="/cart" method="post" novalidate>
+      <div class="container mx-auto px-4 xl:px-0 py-8">
+        <div class="md:-mx-4 flex md:flex justify-between">
+            <div class="md:w-2/3 px-4">
+                <div class="bg-white p-8">
+                    <h1 class="text-2xl font-bold leading-7 text-font-color-900 sm:text-3xl sm:leading-9 sm:truncate mb-4"> {{ "cart.title" | t }}</h1>
+                    
+                    <div class="relative">
+                        <div 
+                            class="absolute inset-0 bg-gray-400 opacity-25 z-10"
+                            x-show="cart_updating"
+                        ></div>
+
+                        <template
+                            x-for="(item, index) in cart.items"
+                            x-if="cart_rendered"
+                            :key="index"
+                        >
+                            <div class="flex items-start mb-4 pb-4 border-b">
+                                
+                                <img 
+                                    :data-src="item.featured_image.url"
+                                    class="w-20 h-auto mr-2 mt-2 lazyload"
+                                    :alt="item.product_title"
+                                >
+
+                                <div class="flex flex-col w-full">
+                                    <a :href="item.url" class="font-semibold text-black" x-text="item.product_title"></a>
+                                    
+                                    <span class="font-thin" x-text="item.variant_title"></span>
+                                    
+                                    <span>
+                                        <span x-html="formatMoney(item.final_line_price)"></span>
+                                    </span>
+
+                                    <div class="flex justify-between mt-2">
+                                        <div class="flex">
+                                            <div 
+                                                @click="update_line(index, -1)"
+                                                class="border border-r-0 w-6 h-6 flex justify-center items-center cursor-pointer"
+                                            >
+                                                -
+                                            </div>
+                                            <input 
+                                                type="text" 
+                                                x-model="item.quantity"
+                                                name="updates[]" 
+                                                :id="`updates_${ item.key }`" 
+                                                class="h-6 w-6 p-0 text-center text-sm rounded-none form-input"
+                                            >
+                                            <div
+                                                @click="update_line(index, 1)"
+                                                class="border border-l-0 w-6 h-6 flex justify-center items-center cursor-pointer"
+                                            >
+                                                +
+                                            </div>
+                                        </div>
+                                        <button
+                                            @click.prevent="remove_line(index)"
+                                            class="focus:outline-none leading-none text-sm flex items-center text-font-color-500 hover:text-red-500"
+                                        >
+                                            <svg class="w-4 h-4 mr-1 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>                                    
+                                            {{ "cart.remove" | t }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    {%- if section.settings.cart_notes_enable -%}
+                        <div class="mt-4">
+                            <label 
+                                for="CartSpecialInstructions" 
+                                class="block font-bold text-sm text-font-color-600"
+                            >{{ 'cart.note' | t }}</label>
+                            <textarea 
+                                name="note" 
+                                id="CartSpecialInstructions" 
+                                class="form-textarea w-full"
+                                x-model="cart.note"
+                            >{{ cart.note }}</textarea>
+                        </div>
+                    {%- endif -%}
+
+                </div>
+            </div>
+
+            <div class="md:w-1/3 px-4">
+                <div class="bg-white p-8">
+                    <h2 class="text-2xl font-bold leading-7 text-font-color-900 sm:text-3xl sm:leading-9 sm:truncate mb-4">{{ "cart.total" | t }}</h2>
+                    <div class="flex justify-between">
+                        <div>{{ "cart.total" | t }}</div>
+                        <div x-html="formatMoney(cart.total_price)"></div>
+                    </div>
+        
+                    <button
+                        type="submit" 
+                        name="checkout" 
+                        class="mt-6 block w-full text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+                    >{{ "cart.to_payment" | t }}</button>
+                </div>
+            </div>
+            
+            </div>
+      </div>
+    </form>
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Cart page"
+  },
+  "class": "flex-1",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "cart_notes_enable",
+      "label": {
+        "en": "Enable cart notes"
+      },
+      "default": false
+    },
+    {
+        "type": "select",
+        "id": "background_color",
+        "label": "Background",
+        "default": "bg-gray-200",
+        "options": [
+            {
+                "value": "bg-white",
+                "label": "White"
+            },{
+                "value": "bg-gray-100",
+                "label": "Gray 100"
+            },
+            {
+                "value": "bg-gray-200",
+                "label": "Gray 200"
+            },
+            {
+                "value": "bg-gray-300",
+                "label": "Gray 300"
+            },
+            {
+                "value": "bg-gray-400",
+                "label": "Gray 400"
+            },
+            {
+                "value": "bg-gray-500",
+                "label": "Gray 500"
+            },
+            {
+                "value": "bg-gray-600",
+                "label": "Gray 600"
+            },
+            {
+                "value": "bg-gray-700",
+                "label": "Gray 700"
+            },
+            {
+                "value": "bg-gray-800",
+                "label": "Gray 800"
+            },
+            {
+                "value": "bg-gray-900",
+                "label": "Gray 900"
+            }
+        ]
+    }
+  ]
+}
+{% endschema %}

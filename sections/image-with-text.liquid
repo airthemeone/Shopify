@@ -1,0 +1,92 @@
+<div id="image-width-text-{{ section.id }}" class="container mx-auto px-2 sm:px-4 xl:px-0">
+	<div class="md:flex flex-row items-center {% if section.settings.alignment == 'right' %}flex-row-reverse{% endif %}">
+		<div class="md:w-1/2">
+			{%- if section.settings.image == blank -%}
+				{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+			{%- else -%}
+					
+			{%- endif -%}
+		</div>
+
+		<div class="md:w-1/2 {% if section.settings.alignment == 'right' %}md:pr-8{% else %}md:pl-8{% endif %}">
+			<div class="prose">
+				{%- if section.settings.title != blank -%}
+					<h2 class="text-font-color-900">
+						{{ section.settings.title | escape }}
+					</h2>
+				{%- endif -%}
+				
+				{%- if section.settings.text != blank -%}
+					<div>
+						{{ section.settings.text }}
+					</div>
+				{%- endif -%}
+			</div>
+
+			{%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+				<a 
+					href="{{ section.settings.button_link }}"
+					class="inline-flex items-center mt-3 md:mt-5 justify-center py-2 px-8 border border-transparent text-base leading-6 no-underline font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+				>
+					{{- section.settings.button_label | escape -}}
+				</a>
+			{%- endif -%}
+		</div>
+
+
+	</div>
+
+</div>
+
+{% schema %}
+{
+	"name": "Image with text",
+	"settings": [{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		},
+		{
+			"type": "select",
+			"id": "alignment",
+			"label": "Image alignment",
+			"default": "left",
+			"options": [{
+					"value": "left",
+					"label": "Left"
+				},
+				{
+					"value": "right",
+					"label": "Right"
+				}
+			]
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Image with text"
+		},
+		{
+			"type": "richtext",
+			"id": "text",
+			"label": "Text",
+			"default": "<p>TODO: (This text has to be changed) Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+		},
+		{
+			"type": "text",
+			"id": "button_label",
+			"label": "Button label"
+		},
+		{
+			"type": "url",
+			"id": "button_link",
+			"label": "Button link"
+		}
+	],
+	"presets": [{
+		"name": "Image with text",
+		"category": "Image"
+	}]
+}
+{% endschema %}

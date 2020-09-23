@@ -1,0 +1,11 @@
+{% comment %}
+    Renders a form status message
+    Accepts:
+    - form: {Object} Form Liquid object (required)
+    - form_id: {String} Form's id attribute for accessibility purpose (required)
+    - success_message: {String} Success message locale key. Default to 'contact.form.post_success' (optional)
+
+    Usage:
+    {% include 'form-status', form: form, form_id: formId, success_message: post_message %}
+{% endcomment %}
+

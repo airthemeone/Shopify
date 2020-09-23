@@ -1,0 +1,45 @@
+<div>
+    {% case media.media_type %}
+        {% when 'image' %}
+            {% include 'image', image_object: media.src, alt: media.alt %}
+            
+        {% when 'external_video' %}
+            <div class="relative" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100 }}%;">
+                <iframe 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen="allowfullscreen" 
+                    data-src="{{ media | external_video_url }}"
+                    class="lazyload inset-0 w-full h-full absolute"
+                ></iframe>
+            </div>
+    
+        {% when 'video' %}
+            <div class="relative" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100 }}%;">
+                <video 
+                    playsinline="true" 
+                    controls 
+                    preload="none"
+                    class="inset-0 w-full h-full absolute lazyload"
+                    data-poster="{{ media.preview_image.src | img_url }}"
+                    alt="{{ media.alt }}"
+                    data-src="{{ media.sources[0].url }}"
+                >
+                    {% for video in media.sources %}
+                        <source data-src="{{ video.url }}" type="{{ video.mime_type }}">
+                    {% endfor %}
+                    <img src="{{ media.preview_image.src | img_url }}">
+                </video>
+            </div>
+        
+        {% when 'model' %}
+            <div class="relative" style="padding-top: 100%">
+                {{ media | model_viewer_tag: class: "inset-0 w-full h-full absolute" }}
+            </div>
+        
+        {% else %}
+            <div class="relative" style="padding-top: {{ 1 | divided_by: media.aspect_ratio | times: 100 }}%;">
+                {{ media | media_tag: class: "inset-0 w-full h-full absolute" }}
+            </div>
+  {% endcase %}
+</div>

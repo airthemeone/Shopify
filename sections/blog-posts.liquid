@@ -1,0 +1,264 @@
+<div class="container mx-auto px-3 sm:px-4 xl:px-0 py-8">
+    
+    {% if section.settings.title != blank %}
+        <div class="">
+            <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+        </div>
+    {% endif %}
+  
+    {%- assign blog = blogs[section.settings.blog] -%}
+    {% unless blog.articles_count == 0 %}
+        <div class="flex flex-wrap -mx-3">
+            {% for article in blog.articles limit: section.settings.post_limit %}
+                <div class="px-2 md:px-3 mb-3 {{ section.settings.column_width_mobile }} {{ section.settings.column_width_table }} {{ section.settings.column_width_desktop }}">
+                    <a href="{{ article.url }}" class="">
+                        {% if article.image %}
+                            {% include 'image', image_object: article.image, alt: article.image.alt, class: "w-full mb-4" %}
+                        {% endif %}
+            
+                        <h3 class="font-bold text-lg leading-8">{{ article.title }}</h3>
+                    </a>
+            
+                    <div class="flex justify-between text-font-color-500">
+                        {% if section.settings.blog_show_author %}
+                            <span class="">{{ 'blogs.article.by_author' | t: author: article.author }}</span>
+                        {% endif %}
+            
+                        {% if section.settings.blog_show_date %}
+                            <span class="article__date">
+                            {{ article.published_at | time_tag: format: 'date' }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="prose-sm">
+                        {% if article.excerpt.size > 0 %}
+                            {{ article.excerpt }}
+                        {% else %}
+                            {{ article.content | strip_html | truncate: 150 }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a 
+                            href="{{ article.url }}" 
+                            class="border-secondary-800 border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200" 
+                            aria-label="{{ 'blogs.article.read_more_title' | t: title: article.title }}"
+                        >
+                            {{ 'blogs.article.read_more' | t }}
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endunless %}
+  
+    {% if section.settings.show_view_all %}
+      <div class="text-center pt-8">
+        <a 
+            href="{{ blog.url }}" 
+            class="border-secondary-800 border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200" 
+            aria-label="{{ 'blogs.article.view_all_blogs' | t }}"
+        >
+          {{ 'blogs.article.view_all' | t }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+  
+  
+  
+{% schema %}
+{
+	"name": {
+		"en": "Blog posts"
+	},
+	"class": "index-section",
+	"settings": [{
+			"type": "text",
+			"id": "title",
+			"label": {
+				"en": "Heading"
+			},
+			"default": {
+				"en": "Blog posts"
+			}
+		},
+		{
+			"id": "blog",
+			"type": "blog",
+			"label": {
+				"en": "Blog"
+			}
+		},
+		{
+			"type": "range",
+			"id": "post_limit",
+			"label": {
+				"en": "Posts"
+			},
+			"min": 1,
+			"max": 12,
+			"step": 1,
+			"default": 3
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_show_author",
+			"label": {
+				"en": "Show author"
+			},
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_show_date",
+			"label": {
+				"en": "Show date"
+			},
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "show_view_all",
+			"label": {
+				"en": "Show 'View all' button"
+			},
+			"default": false
+		},
+		{
+			"type": "select",
+			"id": "column_width_mobile",
+			"label": "Column Width - Mobile",
+			"default": "w-full",
+			"options": [{
+					"value": "w-1/3",
+					"label": "33.3%"
+				},
+				{
+					"value": "w-1/2",
+					"label": "50%"
+				},
+				{
+					"value": "w-full",
+					"label": "100%"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "column_width_tablet",
+			"label": "Column Width - Tablet",
+			"default": "md:w-1/3",
+			"options": [{
+					"value": "md:w-1/6",
+					"label": "16.6%"
+				},
+				{
+					"value": "md:w-1/5",
+					"label": "20%"
+				},
+				{
+					"value": "md:w-1/4",
+					"label": "25%"
+				},
+				{
+					"value": "md:w-1/3",
+					"label": "33.3%"
+				},
+				{
+					"value": "md:w-2/5",
+					"label": "40%"
+				},
+				{
+					"value": "md:w-1/2",
+					"label": "50%"
+				},
+				{
+					"value": "md:w-3/5",
+					"label": "60%"
+				},
+				{
+					"value": "md:w-2/3",
+					"label": "66.6%"
+				},
+				{
+					"value": "md:w-4/5",
+					"label": "80%"
+				},
+				{
+					"value": "md:w-5/6",
+					"label": "83.3%"
+				},
+				{
+					"value": "md:w-full",
+					"label": "100%"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "column_width_desktop",
+			"label": "Column Width - Desktop",
+			"default": "lg:w-1/3",
+			"options": [{
+					"value": "lg:w-1/6",
+					"label": "16.6%"
+				},
+				{
+					"value": "lg:w-1/5",
+					"label": "20%"
+				},
+				{
+					"value": "lg:w-1/4",
+					"label": "25%"
+				},
+				{
+					"value": "lg:w-1/3",
+					"label": "33.3%"
+				},
+				{
+					"value": "lg:w-2/5",
+					"label": "40%"
+				},
+				{
+					"value": "lg:w-1/2",
+					"label": "50%"
+				},
+				{
+					"value": "lg:w-3/5",
+					"label": "60%"
+				},
+				{
+					"value": "lg:w-2/3",
+					"label": "66.6%"
+				},
+				{
+					"value": "lg:w-4/5",
+					"label": "80%"
+				},
+				{
+					"value": "lg:w-5/6",
+					"label": "83.3%"
+				},
+				{
+					"value": "lg:w-full",
+					"label": "100%"
+				}
+			]
+		}
+	],
+	"presets": [{
+		"name": {
+			"en": "Blog posts"
+		},
+		"category": {
+			"en": "Blog"
+		},
+		"settings": {
+			"blog": "News"
+		}
+	}]
+}
+{% endschema %}
+  

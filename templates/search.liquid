@@ -1,0 +1,87 @@
+{% paginate search.results by 10 %}
+
+
+<div class="container mx-auto px-3 sm:px-4 xl:px-0 py-12">
+  {% if search.performed == false %}
+      <h1
+        class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}"
+      >{{ 'general.search.title' | t }}</h1>
+  {% else %}
+      <h1
+        class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}"
+      >
+        {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+      </h1>
+  {% endif %}
+  
+  <form 
+    action="{{ routes.search_url }}" 
+    method="get" 
+    role="search" 
+    class="relative flex mb-8"
+  >
+    <div type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+    </div>
+
+    <input
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'general.search.placeholder' | t }}"
+      class="block w-full pl-10 pr-2 h-12 border border-gray-300 rounded-l-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" 
+    />
+
+    <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+
+    <button 
+        type="submit" 
+        class="inline-flex items-center px-4 h-12 border border-transparent font-medium rounded-r-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+    >
+        {{ 'general.search.placeholder' | t }}
+    </button>
+
+  </form>
+  {% if search.performed and search.results_count == 0 %}
+    <div class="text-red-500 -mt-6">{{ 'general.search.no_results' | t }}</div>
+  {% endif %}
+
+
+  {% if search.performed %}
+
+    <div class="">
+      {% for item in search.results %}
+        {% if item.object_type == 'product' %}
+          {% include 'product-card-list', product: item, class: "border-b" %}
+        {% else %}
+          <a 
+            href="{{ item.url }}"
+            class="px-2 py-4 flex border-b"
+          >
+            <div class="w-1/3 md:w-1/5 mr-4">
+              {% unless item.image == null %}
+                {% include 'image', image_object: item.image.src, alt: item.image.alt %}
+              {% endunless %}
+            </div>
+            
+            <div class="flex-1">
+              <h2 class="text-font-color-900 text-lg font-bold block">
+                  {{ item.title }}
+              </h2>
+              <p>
+                {{ item.content | strip_html | truncate: 200 }}
+              </p>
+            </div>
+          
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      {% include 'pagination', paginate: paginate %}
+    {%- endif -%}
+  {% endif %}
+
+</div>
+{% endpaginate %}

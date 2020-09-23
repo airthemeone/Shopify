@@ -1,0 +1,112 @@
+<div class="container mx-auto px-2 sm:px-4 xl:px-0">
+    {% if section.settings.video_link != blank %}
+        <div class="w-full relative" style="padding-bottom: 56.25%;">
+            {% if section.settings.video_link.type == 'youtube' %}
+                <iframe 
+                    class="inset-0 w-full h-full absolute lazyload"
+                    data-src="https://www.youtube.com/embed/{{ section.settings.video_link.id }}?iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" 
+                    allowfullscreen 
+                    allowtransparency allow="autoplay"
+                    width="1280"
+                    height="720"
+                ></iframe>
+            {% elsif section.settings.video_link.type == 'vimeo' %}
+                <iframe 
+                    class="inset-0 w-full h-full absolute lazyload"
+                    data-src="https://player.vimeo.com/video/{{ section.settings.video_link.id }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" 
+                    allowfullscreen 
+                    allowtransparency allow="autoplay"
+                    width="1280"
+                    height="720"
+                ></iframe>
+            {% endif %}
+        </div>
+    {% else %}
+        {% if section.settings.local_video_url_desktop != blank %}
+            <video 
+                playsinline="true" 
+                controls 
+                preload="none"
+                class="lazyload hidden md:block"
+                data-poster="{{ section.settings.image | img_url: "master" }}"
+                alt="{{ media.alt }}"
+                data-src="{{ section.settings.local_video_url_desktop }}"
+            ></video>
+        {% endif %}
+        
+        {% if section.settings.local_video_url_mobile != blank %}
+            <video 
+                playsinline="true" 
+                controls 
+                preload="none"
+                class="lazyload md:hidden"
+                data-poster="{{ section.settings.image | img_url: "640x" }}"
+                alt="{{ media.alt }}"
+                data-src="{{ section.settings.local_video_url_mobile }}"
+            ></video>
+        {% endif %}
+    {% endif %}
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Video"
+  },
+  "settings": [
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": {
+            "en": "Cover image"
+        },
+        "info": {
+            "en": "Always shown on mobile devices"
+        }
+    },
+    {
+        "type": "video_url",
+        "id": "video_link",
+        "label": {
+          "en": "Video link"
+        },
+        "accept": ["youtube", "vimeo"],
+        "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+    },
+    {
+        "type": "text",
+        "id": "local_video_url_desktop",
+        "label": {
+          "en": "Local video url - Desktop"
+        },
+        "info": {
+            "en": "If not YouTube or Vimeo, could be a file uploaded to Shopify"
+        }
+    },
+    {
+        "type": "text",
+        "id": "local_video_url_mobile",
+        "label": {
+          "en": "Local video url - Mobile"
+        },
+        "info": {
+            "en": "If not YouTube or Vimeo, could be a file uploaded to Shopify"
+        }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Video"
+      },
+      "category": {
+        "en": "Video"
+      },
+      "settings": {
+      }
+    }
+  ]
+
+}
+{% endschema %}

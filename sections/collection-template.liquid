@@ -1,0 +1,235 @@
+{% paginate collection.products by section.settings.pagination_limit %}
+{% if section.settings.collection_breadcrumb %}
+    <div class="container mx-auto flex justify-between px-2 sm:px-4 xl:px-0 pt-8">
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                        "@id": "{{ shop.url }}",
+                        "name": "{{ 'general.breadcrumbs.home' | t }}"
+                    }
+                    },
+                    {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                        "@id": "{{ shop.url }}/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}",
+                        "name": "{{ collection.title }}"
+                    }
+                    }
+                    {% if current_tags %}
+                        {% for tag in current_tags %}
+                            {% unless tag contains 'meta-' %}
+                            ,
+                            {
+                                "@type": "ListItem",
+                                "position": {{ forloop.index | plus: 2 }},
+                                "item": {
+                                "@id": "{{ shop.url }}/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}",
+                                "name": "{{ tag }}"
+                                }
+                            }
+                            {% endunless %}
+                        {% endfor %}
+                    {% endif %}
+                ]
+            }
+        </script>
+    
+        <nav class="flex items-center text-sm leading-4 font-medium">
+            <a 
+                href="{{ shop.url }}" 
+                title="{{ shop.name | escape }}"
+                class="text-font-color-500 hover:text-font-color-700"
+            >
+                {{ 'general.breadcrumbs.home' | t }}
+            </a>
+            <svg 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                viewBox="0 0 24 24" 
+                class="w-4 h-4 text-font-color-400"
+            >
+                <path d="M9 5l7 7-7 7"></path>
+            </svg>
+
+            <a 
+                href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}"
+                title="{{ collection.title | escape }}" 
+                class="text-font-color-500 hover:text-font-color-700"
+            >
+                {{ collection.title }}
+            </a>
+
+            {% if current_tags %}
+                {% for tag in current_tags %}
+                <svg 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    viewBox="0 0 24 24" 
+                    class="w-4 h-4 text-font-color-400"
+                >
+                    <path d="M9 5l7 7-7 7"></path>
+                </svg>
+                <a 
+                    href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}"
+                    title="{{ tag | escape }}"
+                    class="text-font-color-500 hover:text-font-color-700"
+                >
+                    {{ tag }}
+                </a>
+                {% endfor %}
+            {% endif %}
+        </nav>
+        <div class="text-sm text-font-color-500">
+            {% if paginate.pages != 0 %}
+                {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
+            {% endif %}    
+        </div>
+    </div>
+{%- else -%}
+    <div class="pt-8"></div>    
+{% endif %}
+
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+    <div class="flex justify-between items-center">
+        <h1 
+            class="text-2xl font-bold leading-7 text-font-color-900 sm:text-3xl sm:leading-9 sm:truncate"
+        >{{ collection.title }}</h1>
+        <div 
+            class=""
+            x-data="sort_by()"
+            x-init="$watch('sort_by', change_sort_by)"
+        >
+            {% if section.settings.collection_sort %}
+                <select 
+                    class="inline-block form-select py-1 pl-4 sm:text-sm sm:leading-5 focus:outline-none"
+                    x-model="sort_by"
+                    id="sort_by"
+                >
+                    <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+                    <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+                    <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+                    <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+                    <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+                    <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+                    <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+                    <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+                </select>
+            {% endif %}
+    
+        </div>
+    </div>
+</div>
+
+{% if collection.description != blank %}
+    <div class="text-font-color-800">
+        {{ collection.description }}
+    </div>
+{% endif %}
+
+{% if collection.products.size == 0 %}
+    <div class="">
+        <p class="italic">{{ 'collections.general.no_matches' | t }}</p>
+    </div>
+{% else %}
+    {% include 'product-loop', sidebar: sidebar, per_row_sm: section.settings.products_per_row_mobile, per_row_md: section.settings.products_per_row_tablet, per_row_lg: section.settings.products_per_row_desktop %}
+{% endif %}
+
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+    {% include 'pagination' with sidebar %}
+</div>
+
+{% endpaginate %}
+
+<script>
+    var sort_by = function() {
+        let sort_by = 'manual';
+
+        if(window.location.search.match(/sort_by=([a-z-]+)/)) {
+            const matches = window.location.search.match(/sort_by=([a-z-]+)/);
+            sort_by = matches[1];
+        }   
+
+        return {
+            sort_by: sort_by,
+        }
+    }
+
+    var change_sort_by = function(value) {
+        window.location.search = 'sort_by=' + value;
+    }
+</script>
+
+
+{% schema %}
+{
+	"name": "Collection",
+	"class": "collection-template-section",
+    "settings": [
+        {
+			"type": "checkbox",
+			"id": "collection_breadcrumb",
+			"label": "Show breadcrumb links",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "collection_sort",
+			"label": "Enable collection sorting"
+		},
+		{
+			"type": "header",
+			"content": "Products"
+		},
+		{
+			"type": "range",
+			"id": "products_per_row_mobile",
+			"label": "Products per row (mobile)",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"default": 1
+		},
+		{
+			"type": "range",
+			"id": "products_per_row_tablet",
+			"label": "Products per row (tablet)",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"default": 2
+		},
+		{
+			"type": "range",
+			"id": "products_per_row_desktop",
+			"label": "Products per row (desktop)",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"default": 3
+		},
+		{
+			"type": "range",
+			"id": "pagination_limit",
+			"label": "Products per page",
+			"min": 1,
+			"max": 100,
+			"step": 1,
+			"default": 48
+		}
+	]
+}
+
+{% endschema %}

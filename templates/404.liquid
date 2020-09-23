@@ -1,0 +1,19 @@
+<div id="columns-{{ section.id }}" class="container mx-auto px-3 sm:px-4 xl:px-0 py-8">
+    <div class="w-full">
+        <h1 class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 text-center">
+            {{ 'general.404.title' | t }}
+        </h1>
+        <div class="mx-auto prose text-center mt-8">
+            <p>{{ 'general.404.subtext' | t }}</p>
+        </div>
+    </div>
+    <div class="text-center mt-8">
+        <a 
+            href="{{ routes.root_url }}" 
+            class="inline-flex items-center px-5 py-3  border border-transparent font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+        >
+            {{ 'general.404.link' | t }}
+        </a>
+    </div>
+</div>
+  

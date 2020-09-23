@@ -1,0 +1,28 @@
+
+<div class="container mx-auto px-2 sm:px-4 xl:px-0">
+  <div class="-mx-2 flex flex-wrap">
+
+    {% for product in products limit: limit %}
+      {% include 'product-card-grid', per_row_sm: per_row_sm, per_row_md: per_row_md, per_row_lg: per_row_lg %}
+    {% endfor %}
+  
+  </div>
+</div>
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "itemListElement": [
+      {% for product in products limit: for_limit %}
+        {
+          "@type": "ListItem",
+          "position": "{{ forloop.index | json }}",
+          "url": "{{ shop.url }}{{ product.url }}",
+          "name": "{{ product.title }}"
+        } {%- unless forloop.last -%},{%- endunless -%}
+      {% endfor %}
+    ]
+  }
+</script>

@@ -1,0 +1,144 @@
+
+{% comment %} HTML markup {% endcomment %}
+{% if section.blocks.size > 0 %}
+
+    <div class="container mx-auto my-12 flex items-start justify-{{ section.settings.alignment }}">
+        {% for block in section.blocks %}
+
+
+            {% if block.settings.link %}
+                <a 
+                    href="{{ block.settings.link }}" 
+                    class="mx-4 flex items-center justify-center flex-{{ section.settings.position }}"                    
+                >
+            {% else %}
+                <div class="mx-4 flex items-center justify-center flex-{{ section.settings.position }}">
+            {% endif %}
+            
+            {% if block.settings.icon != blank %}
+                {% include 'icons', name: block.settings.icon | downcase, size: section.settings.size %}
+            {% endif %}
+
+            {% if block.settings.title != blank %}
+                <div class="text-lg text-font-color-900 m-1">{{ block.settings.title }}</div>
+            {% endif %}
+            
+            {% if block.settings.text != blank %}
+                <div class="text-font-color-600">{{ block.settings.text }}</div>
+            {% endif %}
+
+            {% if block.settings.link %}
+                </a>
+            {% else %}
+                </div>
+            {% endif %}
+        {% endfor %}
+</div>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Icon bar",
+	"class": "icon-bar",
+	"max_blocks": 6,
+	"settings": [
+		{
+			"type": "select",
+			"id": "alignment",
+			"label": "Alignment",
+			"options": [{
+					"value": "start",
+					"label": "Left"
+				},
+				{
+					"value": "center",
+					"label": "Center"
+				},
+				{
+					"value": "end",
+					"label": "Right"
+				}
+			],
+			"default": "center"
+		},
+		{
+			"type": "select",
+			"id": "position",
+			"label": "Icon position",
+			"options": [{
+					"value": "row",
+					"label": "Left"
+				},
+				{
+					"value": "col",
+					"label": "Center"
+				}
+			],
+			"default": "row"
+		},
+		{
+			"type": "select",
+			"id": "size",
+			"label": "Icon size",
+			"options": [{
+					"value": "h-8 w-8",
+					"label": "Small"
+				},
+				{
+					"value": "h-12 w-12",
+					"label": "Regular"
+				},
+				{
+					"value": "h-16 w-16",
+					"label": "Large"
+				},
+				{
+					"value": "h-20 w-20",
+					"label": "Extra large"
+				},
+				{
+					"value": "h-24 w-24",
+					"label": "Extra Extra large"
+				}
+			],
+			"default": "h-12 w-12"
+		}
+	],
+	"presets": [
+	{
+		"name": "Icon bar",
+		"category": "Image",
+		"settings": {}
+	}
+	],
+	"blocks": [{
+		"type": "text",
+		"name": "Icon",
+		"settings": [{
+				"type": "text",
+				"id": "icon",
+				"label": "Icon"
+			},
+			{
+				"type": "text",
+				"id": "title",
+				"label": "Title"
+			},
+			{
+				"type": "text",
+				"id": "text",
+				"label": "text",
+				"info": "Descriptive text"
+			},
+			{
+				"type": "url",
+				"id": "link",
+				"label": "Link",
+				"info": "Optional"
+			}
+		]
+	}]
+}
+
+
+{% endschema %}

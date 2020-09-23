@@ -1,0 +1,41 @@
+{
+  "name": "AirThemeOne",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@glidejs/glide": "^3.4.1",
+    "@shopify/theme-predictive-search": "^4.0.0",
+    "@tailwindcss/custom-forms": "^0.2.1",
+    "@tailwindcss/typography": "^0.2.0",
+    "alpinejs": "^2.6.0",
+    "cross-env": "^7.0.2",
+    "del": "^5.1.0",
+    "laravel-mix": "^5.0.5",
+    "lazysizes": "^5.2.2",
+    "sass": "^1.26.10",
+    "sass-loader": "10.0.1",
+    "tailwindcss": "1.7.6",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch --watch-poll",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airthemeone/Shopify.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/airthemeone/Shopify/issues"
+  },
+  "homepage": "https://github.com/airthemeone/Shopify#readme"
+}

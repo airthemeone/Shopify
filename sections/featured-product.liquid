@@ -1,0 +1,232 @@
+{%- assign product = all_products[section.settings.featured_product] -%}
+
+<div class="container mx-auto flex flex-wrap justify-between px-2 sm:px-4 xl:px-0 pt-8 space-x-4 md:space-x-8">
+    <div 
+      class="{{ section.settings.column_width_mobile }} {{ section.settings.column_width_tablet }} {{ section.settings.column_width_desktop }} mb-6"
+	>
+		{% include 'image', image_object: product.featured_image, alt: product.featured_image.alt %}
+    </div>
+
+    <div class="flex-1">
+        <a href="{{ product.url }}" class="text-2xl font-bold mb-2 hover:underline">
+            {{ product.title }}
+        </a>
+  
+      <div class="text-3xl mt-4 mb-6">
+        {{ product.price | money }}
+      </div>
+  
+  
+      <form x-data="add_to_cart()" action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+        <div class="max-w-sm">
+        
+            <input type="hidden" name="id" value="{{ product.variant.id }}" />
+  
+            {% if section.settings.show_quantity_selector %}
+                <div class="mt-2">
+                <label for="quantity" class="text-sm block mb-1 {% unless section.settings.show_variant_labels %}hidden{% endunless %}">{{ 'products.product.quantity' | t}}</label>
+                <input 
+                    type="number" 
+                    id="quantity" 
+                    name="quantity" 
+                    x-model="quantity"
+                    class="form-input text-left w-16 mr-2 text-center"
+                >
+                </div>
+            {% else %}
+                <input 
+                    type="hidden" 
+                    name="quantity" 
+                    x-model="quantity"
+                >
+            {% endif %}
+        </div>
+        
+  
+        <div class="mt-4 max-w-xs">
+          <button 
+            @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
+            class="inline-flex items-center mt-4 w-full justify-center py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+          >
+            <svg class="h-4 w-4 mr-1 fill-current text-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <g data-name="1">
+                  <path d="M413.12 295.76H150.46a15 15 0 01-14.89-13.23L116 117.66v-.43l-4.52-38H69.13a15 15 0 110-30h55.6a15 15 0 0114.9 13.23l4.54 38.23h297a15 15 0 0114.79 17.51l-28 165.1a15 15 0 01-14.84 12.46zm-249.33-30h236.66l22.92-135.1H147.73z"/>
+                  <path d="M410.65 349.37H156.84a15 15 0 01-14.9-13.23l-16.6-139.69a15 15 0 1129.79-3.54l15 126.46h240.52a15 15 0 010 30zM191.41 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46zM370.13 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46z"/>
+              </g>
+            </svg>
+            {{ 'products.product.add_to_cart' | t }}
+            
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+{% schema %}
+{
+	"name": {
+		"en": "Featured product"
+	},
+    "settings": [
+        {
+            "type": "product",
+            "id": "featured_product",
+            "label": {
+                "en": "Product"
+            }
+        },
+        {
+			"type": "checkbox",
+			"id": "show_quantity_selector",
+			"label": {
+				"en": "Show quantity selector"
+			},
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "show_variant_labels",
+			"label": {
+				"en": "Show variant labels"
+			},
+			"default": true
+		},
+		{
+			"type": "header",
+			"content": {
+				"en": "Column size"
+			}
+		},
+		{
+			"type": "select",
+			"id": "column_width_mobile",
+			"label": "Column Width - Mobile",
+			"default": "w-full",
+			"options": [{
+					"value": "w-1/3",
+					"label": "33.3%"
+				},
+				{
+					"value": "w-1/2",
+					"label": "50%"
+				},
+				{
+					"value": "w-full",
+					"label": "100%"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "column_width_tablet",
+			"label": "Column Width - Tablet",
+			"default": "md:w-1/2",
+			"options": [{
+					"value": "md:w-1/6",
+					"label": "16.6%"
+				},
+				{
+					"value": "md:w-1/5",
+					"label": "20%"
+				},
+				{
+					"value": "md:w-1/4",
+					"label": "25%"
+				},
+				{
+					"value": "md:w-1/3",
+					"label": "33.3%"
+				},
+				{
+					"value": "md:w-2/5",
+					"label": "40%"
+				},
+				{
+					"value": "md:w-1/2",
+					"label": "50%"
+				},
+				{
+					"value": "md:w-3/5",
+					"label": "60%"
+				},
+				{
+					"value": "md:w-2/3",
+					"label": "66.6%"
+				},
+				{
+					"value": "md:w-4/5",
+					"label": "80%"
+				},
+				{
+					"value": "md:w-5/6",
+					"label": "83.3%"
+				},
+				{
+					"value": "md:w-full",
+					"label": "100%"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "column_width_desktop",
+			"label": "Column Width - Desktop",
+			"default": "lg:w-2/3",
+			"options": [{
+					"value": "lg:w-1/6",
+					"label": "16.6%"
+				},
+				{
+					"value": "lg:w-1/5",
+					"label": "20%"
+				},
+				{
+					"value": "lg:w-1/4",
+					"label": "25%"
+				},
+				{
+					"value": "lg:w-1/3",
+					"label": "33.3%"
+				},
+				{
+					"value": "lg:w-2/5",
+					"label": "40%"
+				},
+				{
+					"value": "lg:w-1/2",
+					"label": "50%"
+				},
+				{
+					"value": "lg:w-3/5",
+					"label": "60%"
+				},
+				{
+					"value": "lg:w-2/3",
+					"label": "66.6%"
+				},
+				{
+					"value": "lg:w-4/5",
+					"label": "80%"
+				},
+				{
+					"value": "lg:w-5/6",
+					"label": "83.3%"
+				},
+				{
+					"value": "lg:w-full",
+					"label": "100%"
+				}
+			]
+		}
+	],
+	"presets": [{
+		"name": {
+			"en": "Featured product"
+		},
+		"category": {
+			"en": "Product"
+		}
+	}]
+}
+{% endschema %}

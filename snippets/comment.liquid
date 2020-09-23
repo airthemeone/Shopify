@@ -1,0 +1,11 @@
+<div class="mb-4">
+    <div id="{{ comment.id }}" class="prose max-w-full">
+    {{ comment.content }}
+    </div>
+    <div class="flex space-x-2">
+        <span class="text-sm text-font-color-600">{{ comment.author }}</span>
+        <span class="">-</span>
+        <span class="text-sm text-font-color-600">{{ comment.created_at | time_tag: format: 'date' }}</span>
+    </div>
+</div>
+  

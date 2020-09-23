@@ -1,0 +1,151 @@
+<div >
+    <div
+        class="fixed inset-y-0 right-0 z-40"
+        x-show="cart_drawer"
+        x-cloak
+    >
+        <div class="fixed inset-0 flex justify-end">
+            <div 
+                @click="cart_drawer = false" 
+                x-show="cart_drawer" 
+                x-transition:enter="transition-opacity ease-linear duration-200" 
+                x-transition:enter-start="opacity-0" 
+                x-transition:enter-end="opacity-100" 
+                x-transition:leave="transition-opacity ease-linear duration-200" 
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0" 
+                class="fixed inset-0" 
+            >
+                <div class="absolute inset-0 bg-gray-600 opacity-50"></div>
+            </div>
+
+            <div 
+                x-show="cart_drawer" 
+                x-transition:enter="transition ease-in-out duration-200 transform" 
+                x-transition:enter-start="translate-x-full" 
+                x-transition:enter-end="translate-x-0" 
+                x-transition:leave="transition ease-in-out duration-300 transform" 
+                x-transition:leave-start="translate-x-0" 
+                x-transition:leave-end="translate-x-full" 
+                class="relative flex-1 flex flex-col max-w-md w-full bg-white"
+            >
+                <div class="flex items-center border">
+                    <button 
+                        @click="cart_drawer = false"
+                        class="flex items-center justify-center h-10 w-10 border-r focus:outline-none" 
+                    >
+                        <svg class="h-6 w-6 text-font-color-800" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div class="font-bold flex-grow flex justify-center items-center">
+                        Din kurv
+                    </div>
+                    <div class="h-10 w-10 border-l border-transparent"></div>
+                </div>
+                <div class="pt-5 px-2 flex-1 overflow-y-auto relative">
+                    <div 
+                        class="absolute inset-0 bg-gray-400 opacity-25 z-10"
+                        x-show="cart_updating"
+                    ></div>
+                    <template
+                        x-for="(item, index) in cart.items"
+                        :key="index"
+                    >
+                        <div class="flex items-start mb-4 pb-4 border-b">
+                            <img 
+                                :data-src="item.featured_image.url"
+                                class="w-20 h-auto mr-2 mt-2 lazyload"
+                                :alt="item.product_title"
+                            >
+                            <div class="flex flex-col w-full">
+                                <a :href="item.url" class="font-semibold text-black" x-text="item.product_title"></a>
+                                <span class="font-thin" x-text="item.variant_title"></span>
+                                <span>
+                                    <span x-html="formatMoney(item.final_line_price)"></span>
+                                </span>
+
+                                <div class="flex justify-between mt-2">
+                                    <div class="flex">
+                                        <div 
+                                            @click="update_line(index, -1)"
+                                            class="border border-r-0 w-6 h-6 flex justify-center items-center cursor-pointer"
+                                        >
+                                            -
+                                        </div>
+                                        <input 
+                                            type="text" 
+                                            x-model="item.quantity"
+                                            class="h-6 w-6 p-0 text-center text-sm rounded-none form-input"
+                                        >
+                                        <div
+                                            @click="update_line(index, 1)"
+                                            class="border border-l-0 w-6 h-6 flex justify-center items-center cursor-pointer"
+                                        >
+                                            +
+                                        </div>
+                                    </div>
+                                    <button
+                                        @click.prevent="remove_line(index)"
+                                        class="focus:outline-none leading-none text-sm flex items-center text-font-color-500 hover:text-red-500 group"
+                                    >
+                                        <svg class="w-4 h-4 mr-1 text-font-color-500 group-hover:text-red-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>                                    
+                                        {{ "cart.remove" | t }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="flex flex-col py-5 px-2">
+                    <a 
+                        class="mb-2 block text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+                        href="/checkout"
+                    >{{ "checkout.to_checkout" | t }}</a>
+                    <a 
+                        class="block text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-black bg-white hover:bg-secondary-300 focus:outline-none focus:bg-gray-300 focus:shadow-outline-primary active:bg-gray-300 transition ease-in-out duration-150"
+                        href="/cart"
+                    >{{ "cart.to_cart" | t }}</a>
+                </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div 
+    x-show="cart_notification" 
+    x-transition:enter="transform ease-out duration-300 transition" 
+    x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2" 
+    x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0" 
+    x-transition:leave="transition ease-in duration-100" 
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0" 
+    class="md:max-w-sm md:w-full bg-white shadow-lg rounded-lg fixed left-0 md:left-auto bottom-0 right-0 mx-6 mb-6"
+    x-cloak
+>
+    <div class="rounded-lg shadow-xs overflow-hidden">
+        <div class="p-4">
+            <div class="flex items-center">
+                <div class="w-0 flex-1 flex justify-between">
+                    <p class="w-0 flex-1 text-sm leading-5 font-medium text-gray-900">
+                        {{ "cart.notification" | t }}
+                    </p>
+                    <button 
+                        @click="cart_drawer = true; cart_notification = false;"
+                        class="ml-3 cursor-pointer flex-shrink-0 text-sm leading-5 font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                    >
+                        {{ "cart.show_cart" | t }}
+                    </button>
+                </div>
+                <div class="ml-4 flex-shrink-0 flex">
+                    
+                    <button @click="cart_notification = false" class="inline-flex cursor-pointer text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

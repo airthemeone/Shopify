@@ -1,0 +1,310 @@
+{% if section.settings.sticky_header %}
+    <div class="h-12 lg:h-16 w-full"></div>
+{% endif %}
+
+<nav class="bg-white shadow {% if section.settings.sticky_header %}fixed top-0 inset-x-0 z-30{% endif %}">
+    <div class="container mx-auto px-2 sm:px-4 xl:px-0">
+        <div class="flex justify-between h-12 lg:h-16">
+            <div class="flex lg:hidden">
+                <button
+                        @click="menu_open = !menu_open"
+                        class="inline-flex items-center justify-center rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                >
+                    <svg class="h-6 w-6 fill-current text-font-color-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="inline-flex" fill-rule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex px-2 lg:px-0">
+                <div class="flex items-center">
+                    {% if section.settings.logo %}
+                        <a href="{{ shop.url }}" title="{{ shop.name }}" class="inline-flex items-center" style="max-width: {{ section.settings.logo_max_width }}px;">
+                            {% include 'image', image_object: section.settings.logo, alt: section.settings.logo.alt %}
+                        </a>
+                    {% else %}
+                        <a 
+                            href="{{ shop.url }}" title="{{ shop.name }}" 
+                            class="font-black uppercase text-sm md:text-xl"
+                            style="font-size: {{ section.settings.logo_font_size }};"
+                        >
+                            {% if section.settings.header_text %}
+                                {{ section.settings.header_text }}
+                            {% else %}
+                                {{ shop.name }}
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="hidden lg:ml-6 lg:flex">
+                    {% for link in linklists[section.settings.main_linklist].links %}
+                        <a class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-font-color-500 hover:text-font-color-700 hover:border-gray-300 focus:outline-none focus:text-font-color-700" href="{{ link.url }}">{{ link.title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div
+                class="hidden absolute md:relative md:flex mt-12 md:mt-0 inset-x-0 mx-2 flex-1 lg:flex items-center px-2 lg:ml-6 md:justify-end"
+                :class="{'flex': search_open, 'hidden': !search_open}"
+            >
+                <form action="/search" method="get" class="w-full mt-2 md:mt-0 md:max-w-sm lg:max-w-xs" role="search">
+                    <label for="search" class="sr-only">{{ "general.search.placeholder" | t }}</label>
+                    <div class="relative">
+                        <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer">
+                            <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                        <input 
+                            id="search"
+                            name="q"
+                            class="block w-full pl-10 pr-2 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" 
+                            placeholder="{{ "general.search.placeholder" | t }}"
+                            x-model="search_query"
+                            x-on:input.debounce.150ms="search()"
+                            autocomplete="off"
+                            @click="search_results_show = search_results.products.length > 0 ? true : false"
+                        />
+                        <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+
+
+                        <div
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                            x-show="search_query.length"
+                            @click="clear_search()"
+                            x-cloak
+                        >
+                            <svg class="w-4 h-4 text-font-color-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </div>
+
+                        <div
+                            x-show="search_results_show"
+                            class="absolute bg-white top-0 right-0 max-height-search overflow-auto mt-10 border rounded shadow w-full"
+                            @click.away="search_results_show = false"
+                            x-cloak
+                        >
+                            <template
+                                x-for="(product, index) in search_results.products"
+                                :key="index"
+                            >
+                                <a :href="product.url" class="flex p-4 hover:bg-gray-200">
+                                    <img 
+                                        class="w-24 mr-4"
+                                        :src="product.featured_image.url" 
+                                        :alt="product.featured_image.alt"
+                                    >
+                                    <div class="-mt-1">
+                                        <div class="font-bold" x-text="product.title"></div>
+                                        <div class="" x-text="formatMoney(product.price)"></div>
+                                    </div>
+                                </a>
+                            </template>
+
+                            <button 
+                                x-show="search_results.products.length == 10" 
+                                class="w-full text-center hover:bg-gray-200"
+                            >{{ "general.search.show_more" |t }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flex items-center lg:hidden">
+                <button
+                    @click="search_open = !search_open"
+                    class="inline-flex md:hidden items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                >
+                    <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+                <a 
+                    href="/cart"
+                    @click.prevent="cart_drawer = true"
+                    class="block relative rounded-full text-font-color-600 hover:text-font-color-800 focus:outline-none focus:text-font-color-500 transition duration-150 ease-in-out"
+                >
+                    {% include "icons", name: section.settings.header_cart_icon, size: "h-6 w-6 fill-current" %}
+                    <span
+                        x-show="cart_items_count > 0"
+                        x-text="cart_items_count"
+                        class="text-xxs text-white leading-none px-1 py-1 bg-primary-600 rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
+                    ></span>
+                </a>
+            </div>
+            <div 
+                class="hidden lg:ml-4 lg:flex lg:items-center"
+            >
+        
+                <a 
+                    href="/cart"
+                    @click.prevent="cart_drawer = true"
+                    class="block relative rounded-full text-font-color-600 hover:text-font-color-800 focus:outline-none focus:text-font-color-500 transition duration-150 ease-in-out"
+                >
+                    {% include "icons", name: section.settings.header_cart_icon, size: "h-6 w-6 fill-current" %}
+                    <span
+                        x-show="cart_items_count > 0"
+                        x-text="cart_items_count"
+                        class="text-xxs text-white leading-none px-1 py-1 bg-primary-600 rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
+                    ></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div >
+        <div
+            class="fixed inset-y-0 right-0 z-40"
+            x-show="menu_open"
+            x-cloak
+        >
+            <div class="fixed inset-0 flex justify-start">
+                <div 
+                    @click="menu_open = false" 
+                    x-show="menu_open" 
+                    x-transition:enter="transition-opacity ease-linear duration-200" 
+                    x-transition:enter-start="opacity-0" 
+                    x-transition:enter-end="opacity-100" 
+                    x-transition:leave="transition-opacity ease-linear duration-200" 
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0" 
+                    class="fixed inset-0" 
+                >
+                    <div class="absolute inset-0 bg-gray-600 opacity-50"></div>
+                </div>
+    
+                <div 
+                    x-show="menu_open" 
+                    x-transition:enter="transition ease-in-out duration-200 transform" 
+                    x-transition:enter-start="-translate-x-full" 
+                    x-transition:enter-end="translate-x-0" 
+                    x-transition:leave="transition ease-in-out duration-300 transform" 
+                    x-transition:leave-start="translate-x-0" 
+                    x-transition:leave-end="-translate-x-full" 
+                    class="relative flex-1 flex flex-col max-w-md w-full bg-white"
+                >
+                    <div class="flex items-center border">
+                        <button 
+                            @click="menu_open = false"
+                            class="flex items-center justify-center h-10 w-10 border-r focus:outline-none" 
+                        >
+                            <svg class="h-6 w-6 text-font-color-800" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        <div class="font-bold flex-grow flex justify-center items-center">
+                            {% if section.settings.header_text %}
+                                {{ section.settings.header_text }}
+                            {% else %}
+                                {{ shop.name }}
+                            {% endif %}
+                        </div>
+                        <div class="h-10 w-10 border-l border-transparent"></div>
+                    </div>
+
+                    <div class="pt-2 pb-3">
+                        {% for link in linklists[section.settings.drawer_menu].links %}
+                            {% assign child_list_handle = link.title | handleize %}
+                            <a class="mt-1 block pl-3 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" href="{{ link.url }}">{{ link.title }}</a>
+                            {% if linklists[child_list_handle].links != blank %}
+                                {% for childlink in linklists[child_list_handle].links %}
+                                    <a class="mt-1 block pl-6 pr-4 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{% schema %}
+{
+  "name": {
+    "en": "Header"
+  },
+  "settings": [
+    {
+        "type": "header",
+        "content": "Logo"
+    },
+    {
+        "type": "text",
+        "id": "header_text",
+        "label": "Logo",
+        "default": "AirThemeOne"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "en": "Logo image"
+      }
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": {
+        "en": "Logo width"
+      },
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "logo_font_size",
+      "label": {
+        "en": "Font Size"
+      },
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "label": {
+            "en": "Sticky Header"
+        },
+        "default": true
+    },
+    {
+        "type": "header",
+        "content": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "en": "Menu"
+      },
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_menu",
+      "label": {
+        "en": "Mobile Menu"
+      }
+    },
+    {
+        "type": "header",
+        "content": "Cart"
+    },
+    {
+        "type": "select",
+        "id": "header_cart_icon",
+        "label": "Cart icon",
+        "default": "bag",
+        "options": [{
+            "value": "bag",
+            "label": "Bag"
+          },
+          {
+            "value": "cart",
+            "label": "Cart"
+          }
+        ]
+      }
+  ]
+}
+{% endschema %}
+

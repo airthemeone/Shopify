@@ -1,0 +1,36 @@
+
+{% if collection.image %}
+    {%- assign collection_image = collection.image -%}
+{% elsif collection.products.first and collection.products.first.media != empty %}
+    {%- assign collection_image = collection.products.first.featured_media.preview_image -%}
+{% else %}
+    {% assign collection_image = blank %}
+{% endif %}
+
+<a 
+    href="{% if collection.products == empty %}#{% else %}{{ collection.url }}{% endif %}" 
+    class="block relative"
+    style="padding-bottom: 100%;"
+>
+    {% unless collection_image == black %}
+        {% include 'image', image_object: collection_image, alt: collection_image.alt, class: "absolute w-full h-full object-cover" %}
+    {% else %}
+        {% capture current %}{% cycle 1, 2, 3 %}{% endcapture %}
+        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endunless %}
+
+
+    <div class="absolute inset-0 bg-{{ settings.color_image_overlay_background }} opacity-{{ settings.color_image_overlay_opacity }} z-0"></div>
+
+    {% unless hide_title %}
+        <div class="absolute inset-0 bg-{{ settings.color_image_overlay_background }} opacity-{{ settings.color_image_overlay_opacity }} z-0"></div>
+
+        <div class="absolute inset-0 flex justify-center items-center text-center leading-none text-{{ settings.color_image_overlay_text }} {{ title_size }} font-bold z-20">
+            {% if collection.title == blank %}
+                {{ 'collections.general.empty_title' | t }}
+            {% else %}
+                {{ collection.title }}
+            {% endif %}
+        </div>
+    {% endunless %}
+</a>

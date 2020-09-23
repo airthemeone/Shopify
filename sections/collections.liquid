@@ -1,0 +1,238 @@
+<div id="collections-{{ section.id }}" class="container mx-auto px-3 sm:px-4 xl:px-0">
+    {% if section.settings.title != blank %}
+        <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+    <div class="flex flex-wrap -mx-3">
+
+        {% for block in section.blocks %}
+
+            <div class="px-2 md:px-3 mb-3 {{ block.settings.column_width_mobile }} {{ block.settings.column_width_tablet }} {{ block.settings.column_width_desktop }}" {{ block.shopify_attributes }}>
+                {%- assign collection = collections[block.settings.collection] -%}
+                {% include 'collection-item', collection: collection, hide_title: block.settings.hide_title, title_size: section.settings.title_size %}
+            </div>
+
+        {% endfor %}
+        
+    </div>
+    
+    {% if section.blocks.size == 0 %}
+        <em class="text-center">No Blocks</em>
+    {% endif %}
+</div>
+
+  
+{% schema %}
+{
+	"name": {
+		"en": "Collections"
+	},
+	"class": "index-section",
+	"max_blocks": 24,
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": {
+				"en": "Heading"
+			},
+			"default": {
+				"en": "Collections"
+			}
+		},
+		{
+			"type": "select",
+			"id": "title_size",
+			"label": {
+				"en": "Title size"
+			},
+			"default": "text-xl sm:text-2xl",
+			"options": [
+				{
+					"label": "Small",
+					"value": "md:text-lg"
+
+				},
+				{
+					"label": "Medium",
+					"value": "text-lg sm:text-xl"
+
+				},
+				{
+					"label": "Large",
+					"value": "text-xl sm:text-2xl"
+
+				},
+				{
+					"label": "Extra Large",
+					"value": "text-2xl sm:text-3xl"
+				},
+				{
+					"label": "Extra Extra Large",
+					"value": "text-3xl sm:text-4xl"
+				}
+			]
+		}
+	],
+	"blocks": [{
+		"type": "featured_collection",
+		"name": {
+			"en": "Collection"
+		},
+		"settings": [
+			{
+				"label": {
+					"en": "Collection"
+				},
+				"id": "collection",
+				"type": "collection"
+			},
+			{
+				"type": "checkbox",
+				"id": "hide_title",
+				"label": {
+					"en": "Hide name on image"
+				},
+				"default": false
+			},
+			{
+				"type": "select",
+				"id": "column_width_mobile",
+				"label": "Column Width - Mobile",
+				"default": "w-full",
+				"options": [{
+						"value": "w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "column_width_tablet",
+				"label": "Column Width - Tablet",
+				"default": "md:w-1/2",
+				"options": [
+					{
+						"value": "md:w-1/5",
+						"label": "20%"
+					},
+					{
+						"value": "md:w-1/4",
+						"label": "25%"
+					},
+					{
+						"value": "md:w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "md:w-2/5",
+						"label": "40%"
+					},
+					{
+						"value": "md:w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "md:w-3/5",
+						"label": "60%"
+					},
+					{
+						"value": "md:w-2/3",
+						"label": "66.6%"
+					},
+					{
+						"value": "md:w-4/5",
+						"label": "80%"
+					},
+					{
+						"value": "md:w-5/6",
+						"label": "83.3%"
+					},
+					{
+						"value": "md:w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "column_width_desktop",
+				"label": "Column Width - Desktop",
+				"default": "lg:w-1/3",
+				"options": [{
+						"value": "lg:w-1/6",
+						"label": "16.6%"
+					},
+					{
+						"value": "lg:w-1/5",
+						"label": "20%"
+					},
+					{
+						"value": "lg:w-1/4",
+						"label": "25%"
+					},
+					{
+						"value": "lg:w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "lg:w-2/5",
+						"label": "40%"
+					},
+					{
+						"value": "lg:w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "lg:w-3/5",
+						"label": "60%"
+					},
+					{
+						"value": "lg:w-2/3",
+						"label": "66.6%"
+					},
+					{
+						"value": "lg:w-4/5",
+						"label": "80%"
+					},
+					{
+						"value": "lg:w-5/6",
+						"label": "83.3%"
+					},
+					{
+						"value": "lg:w-full",
+						"label": "100%"
+					}
+				]
+			}
+		]
+	}],
+	"presets": [{
+		"name": {
+			"en": "Collections"
+		},
+		"category": {
+			"en": "Collection"
+		},
+		"blocks": [{
+				"type": "featured_collection"
+			},
+			{
+				"type": "featured_collection"
+			},
+			{
+				"type": "featured_collection"
+			}
+		]
+	}]
+}
+{% endschema %}
+  

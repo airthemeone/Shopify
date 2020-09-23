@@ -1,0 +1,165 @@
+<!doctype html>
+<html class="h-full">
+<head>
+    <meta charset="utf-8">
+    <title>
+    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags |
+    join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{
+    current_page }}{% endif %}{% unless page_title contains shop.name %}
+    &ndash; {{ shop.name }}{% endunless %}
+    </title>
+    
+    {% if page_description %}
+        <meta name="description" content="{{ page_description | escape }}" />
+    {% endif %}
+
+    {%- if settings.favicon != blank -%}
+        <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url }}" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ 'app.css' | asset_url }}">
+    <script src="{{ 'lazysizes.js' | asset_url }}" async></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '{{ "theme.scss.css" | asset_url }}';
+        link.media = 'all';
+        link.importance = 'low'
+        head.appendChild(link);
+      }, false);
+    </script>
+
+    <style>
+      :root {
+        --color-primary-100: {{ settings.primary_color_100 }};
+        --color-primary-200: {{ settings.primary_color_200 }};
+        --color-primary-300: {{ settings.primary_color_300 }};
+        --color-primary-400: {{ settings.primary_color_400 }};
+        --color-primary-500: {{ settings.primary_color_500 }};
+        --color-primary-600: {{ settings.primary_color_600 }};
+        --color-primary-700: {{ settings.primary_color_700 }};
+        --color-primary-800: {{ settings.primary_color_800 }};
+        --color-primary-900: {{ settings.primary_color_900 }};
+        --color-secondary-100: {{ settings.secondary_color_100 }};
+        --color-secondary-200: {{ settings.secondary_color_200 }};
+        --color-secondary-300: {{ settings.secondary_color_300 }};
+        --color-secondary-400: {{ settings.secondary_color_400 }};
+        --color-secondary-500: {{ settings.secondary_color_500 }};
+        --color-secondary-600: {{ settings.secondary_color_600 }};
+        --color-secondary-700: {{ settings.secondary_color_700 }};
+        --color-secondary-800: {{ settings.secondary_color_800 }};
+        --color-secondary-900: {{ settings.secondary_color_900 }};
+        --color-font-color-100: {{ settings.font_color_color_100 }};
+        --color-font-color-200: {{ settings.font_color_color_200 }};
+        --color-font-color-300: {{ settings.font_color_color_300 }};
+        --color-font-color-400: {{ settings.font_color_color_400 }};
+        --color-font-color-500: {{ settings.font_color_color_500 }};
+        --color-font-color-600: {{ settings.font_color_color_600 }};
+        --color-font-color-700: {{ settings.font_color_color_700 }};
+        --color-font-color-800: {{ settings.font_color_color_800 }};
+        --color-font-color-900: {{ settings.font_color_color_900 }};
+      }
+    </style>
+
+    <!-- Header hook for plugins -->
+    {{ content_for_header }}
+
+
+</head>
+
+{% assign text_font = "" %}
+{% unless settings.use_local_font %}
+  {% assign text_font = "font-custom-text" %}
+{% endunless %}
+
+{% assign header_font = "" %}
+{% unless settings.use_local_font %}
+  {% assign header_font = "font-custom-header" %}
+{% endunless %}
+
+
+<body class="font-sans h-full {{ text_font }} {{ header_font }}">
+    <div
+        class="flex flex-col h-full"
+        x-data="app()"
+        x-init="update_cart()"
+        @cartupdated.window="update_cart()"
+        @cartnotification.window="cart_notification = true"
+    >
+        {% section 'header' %}
+
+        
+        <main class="flex-1 flex flex-col" role="main">
+            {{ content_for_layout }}
+        </main>
+
+
+        {% section 'footer' %}
+
+        {% include 'cart' %}
+    </div>
+
+    {% capture randomFile %}{{ 'app.js' | asset_url }}{% endcapture %}
+    {% assign assetsPath = randomFile | split: '.js' | first %}
+
+    <script>
+      window.__webpack_public_path__ = "{{ assetsPath }}";
+    </script>
+    <script src="{{ 'app.js' | asset_url }}" defer></script>
+
+    <script>
+        window.theme = {
+            public_path: "{{ assetsPath }}",
+            moneyFormat: "{{ shop.money_with_currency_format }}",
+        }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "{{ shop.name }}",
+        {% if section.settings.logo %}
+        {% assign image_size = section.settings.logo.width | append:'x' %}
+          "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+        {% endif %}
+        "sameAs": [
+          "{{ settings.twitter_link }}",
+          "{{ settings.facebook_link }}",
+          "{{ settings.pinterest_link }}",
+          "{{ settings.instagram_link }}",
+          "{{ settings.tumblr_link }}",
+          "{{ settings.snapchat_link }}",
+          "{{ settings.youtube_link }}",
+          "{{ settings.vimeo_link }}"
+        ],
+        "url": "{{ shop.url }}{{ page.url }}"
+      }
+    </script>
+
+    {% if template.name == 'index' %}
+        <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "WebSite",
+          "name": "{{ shop.name }}",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ shop.url }}/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          },
+          "url": "{{ shop.url }}{{ page.url }}"
+        }
+      </script>
+    {% endif %}
+</body>
+</html>

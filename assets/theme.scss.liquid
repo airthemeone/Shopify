@@ -1,0 +1,38 @@
+{% assign base_font = settings.text_font %}
+{% assign base_font_italic = settings.text_font | font_modify: 'style', 'italic' %}
+{% assign base_font_bold = settings.text_font | font_modify: 'weight', '700' %}
+{% assign base_font_light = settings.text_font | font_modify: 'weight', '300' %}
+
+
+{% assign header_font = settings.header_font %}
+{% assign header_font_italic = settings.header_font | font_modify: 'style', 'italic' %}
+{% assign header_font_bold = settings.header_font | font_modify: 'weight', '700' %}
+{% assign header_font_extrabold = settings.header_font | font_modify: 'weight', '800' %}
+{% assign header_font_black = settings.header_font | font_modify: 'weight', '900' %}
+{% assign header_font_light = settings.header_font | font_modify: 'weight', '300' %}
+
+{{ base_font | font_face: font_display: 'swap' }}
+{{ base_font_italic | font_face: font_display: 'swap' }}
+{{ base_font_bold | font_face: font_display: 'swap' }}
+{{ base_font_light | font_face: font_display: 'swap' }}
+
+{{ header_font | font_face: font_display: 'swap' }}
+{{ header_font_italic | font_face: font_display: 'swap' }}
+{{ header_font_bold | font_face: font_display: 'swap' }}
+{{ header_font_extrabold | font_face: font_display: 'swap' }}
+{{ header_font_black | font_face: font_display: 'swap' }}
+{{ header_font_light | font_face: font_display: 'swap' }}
+
+    
+.font-custom-text {
+    font-family: {{ base_font.family }}, {{ base_font.fallback_families }};
+}
+
+.font-custom-header h1,
+.font-custom-header h2,
+.font-custom-header h3,
+.font-custom-header h4,
+.font-custom-header h5,
+.font-custom-header h6 {
+    font-family: {{ header_font.family }}, {{ header_font.fallback_families }};
+}

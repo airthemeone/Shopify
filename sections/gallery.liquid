@@ -1,0 +1,288 @@
+<div id="gallery-{{ section.id }}" class="container mx-auto px-2 sm:px-4 xl:px-0">
+  <div class="flex flex-wrap">
+    {% for block in section.blocks %}
+      <div class="{{ block.settings.column_width_mobile }} {{ block.settings.column_width_tablet }} {{ block.settings.column_width_desktop }} relative">
+        
+        {% if block.settings.link != blank %}
+          <a
+            class="block"
+            href="{{ block.settings.link }}"
+          >
+        {% else %}
+          <div>
+        {% endif %}
+
+        {% if block.settings.image != black %}
+          {% capture class %}{{ block.settings.image_fit }} {{ section.settings.section_height }}{% endcapture %}
+          {% include 'image', image_object: block.settings.image, alt: block.settings.image.alt, class: class %}
+        {% else %}
+          <div class="{{ section.settings.section_height }}">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.cta_label != blank %}
+          <div class="absolute inset-0 bg-{{ settings.color_image_overlay_background }} opacity-{{ settings.color_image_overlay_opacity }} z-0"></div>
+          <div class="absolute inset-0 flex justify-center items-center text-{{ settings.color_image_overlay_text }} text-2xl font-bold z-20">{{ block.settings.cta_label | escape }}</div>
+        {% endif %}
+        
+        {% if block.settings.link != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+	"name": {
+		"en": "Gallery"
+	},
+	"settings": [{
+		"type": "select",
+		"id": "section_height",
+		"label": {
+			"en": "Section height"
+		},
+		"default": "h-48",
+		"options": [{
+				"label": {
+					"en": "Extra Small"
+				},
+				"value": "h-12"
+			},
+			{
+				"label": {
+					"en": "Small"
+				},
+				"value": "h-24"
+			},
+			{
+				"label": {
+					"en": "Medium"
+				},
+				"value": "h-48"
+			},
+			{
+				"label": {
+					"en": "Large"
+				},
+				"value": "h-64"
+			},
+			{
+				"label": {
+					"en": "Extra Large"
+				},
+				"value": "h-80"
+			}
+		]
+	}],
+	"blocks": [{
+		"type": "image",
+		"name": {
+			"en": "Image"
+		},
+		"settings": [{
+				"type": "image_picker",
+				"id": "image",
+				"label": {
+					"en": "Image"
+				}
+			},
+			{
+				"type": "select",
+				"id": "column_width_mobile",
+				"label": "Column Width - Mobile",
+				"default": "w-full",
+				"options": [{
+						"value": "w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "column_width_tablet",
+				"label": "Column Width - Tablet",
+				"default": "md:w-1/3",
+				"options": [{
+						"value": "md:w-1/6",
+						"label": "16.6%"
+					},
+					{
+						"value": "md:w-1/5",
+						"label": "20%"
+					},
+					{
+						"value": "md:w-1/4",
+						"label": "25%"
+					},
+					{
+						"value": "md:w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "md:w-2/5",
+						"label": "40%"
+					},
+					{
+						"value": "md:w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "md:w-3/5",
+						"label": "60%"
+					},
+					{
+						"value": "md:w-2/3",
+						"label": "66.6%"
+					},
+					{
+						"value": "md:w-4/5",
+						"label": "80%"
+					},
+					{
+						"value": "md:w-5/6",
+						"label": "83.3%"
+					},
+					{
+						"value": "md:w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "column_width_desktop",
+				"label": "Column Width - Desktop",
+				"default": "lg:w-1/3",
+				"options": [{
+						"value": "lg:w-1/6",
+						"label": "16.6%"
+					},
+					{
+						"value": "lg:w-1/5",
+						"label": "20%"
+					},
+					{
+						"value": "lg:w-1/4",
+						"label": "25%"
+					},
+					{
+						"value": "lg:w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "lg:w-2/5",
+						"label": "40%"
+					},
+					{
+						"value": "lg:w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "lg:w-3/5",
+						"label": "60%"
+					},
+					{
+						"value": "lg:w-2/3",
+						"label": "66.6%"
+					},
+					{
+						"value": "lg:w-4/5",
+						"label": "80%"
+					},
+					{
+						"value": "lg:w-5/6",
+						"label": "83.3%"
+					},
+					{
+						"value": "lg:w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "image_fit",
+				"label": "Image Fit",
+
+				"default": "object-cover",
+				"options": [{
+						"value": "object-contain",
+						"label": {
+							"en": "Contain"
+						}
+					},
+					{
+						"value": "object-cover",
+						"label": {
+							"en": "Cover"
+						}
+					},
+					{
+						"value": "object-fill",
+						"label": {
+							"en": "Fill"
+						}
+					},
+
+					{
+						"value": "object-none",
+						"label": {
+							"en": "None"
+						}
+					}
+				]
+			},
+			{
+				"type": "url",
+				"id": "link",
+				"label": {
+					"en": "Link"
+				},
+				"info": {
+					"en": "Optional"
+				}
+			},
+			{
+				"type": "text",
+				"id": "cta_label",
+				"label": {
+					"en": "Caption"
+				}
+			}
+		]
+	}],
+	"presets": [{
+		"name": {
+			"en": "Gallery"
+		},
+		"category": {
+			"en": "Image"
+		},
+		"blocks": [{
+				"type": "image"
+			},
+			{
+				"type": "image"
+			},
+			{
+				"type": "image"
+			}
+		]
+	}]
+}
+{% endschema %}

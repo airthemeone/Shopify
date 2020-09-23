@@ -1,0 +1,269 @@
+<div class="{{ section.settings.background_color }} py-8">
+    <div class="container mx-auto px-2 sm:px-4 xl:px-0">
+        <div class="section-header text-center">
+            {% if section.settings.title != blank %}
+		        <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-4 text-center">{{ section.settings.title | escape }}</h2>
+                
+            {% endif %}
+            {% if section.settings.subheading != blank %}
+                <div class="prose max-w-full text-center mb-4">{{ section.settings.subheading }}</div>
+            {% endif %}
+        </div>
+
+        {%- assign formId = 'Contact_' | append: section.id -%}
+        
+        {% form 'customer', id: formId, novalidate: 'novalidate', class: 'contact-form form-single-field' %}
+            {%- if form.posted_successfully? -%}
+                <p class="bg-green-100 text-green-600 rounded p-4 mb-4" tabindex="-1" data-form-status>
+                    {{ 'general.newsletter_form.confirmation' | t }}
+                </p>
+            {%- endif -%}
+            
+            <input type="hidden" name="contact[tags]" value="newsletter">
+        
+            <div class="flex">
+                <input 
+                    type="email"
+                    name="contact[email]"
+                    id="{{ formId }}-email"
+                    class="form-input h-12 focus:outline-none focus:shadow-none rounded-r-none block w-full{% if form.errors %} border-red-500{% endif %}"
+                    value="{{ form.email }}"
+                    placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                    aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                    aria-required="true"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    {% if form.errors %}
+                    aria-invalid="true"
+                    aria-describedby="{{ formId }}-email-error"
+                    data-form-status
+                    {% endif %}
+                >
+                <button 
+                    type="submit" 
+                    class="inline-flex items-center px-4 h-12 border border-transparent font-medium rounded-r-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+                    name="commit" 
+                >
+                    {{ 'general.newsletter_form.submit' | t }}
+                </button>
+            </div>
+
+            {%- if form.errors contains 'email' -%}
+                <div 
+                    id="{{ formId }}-email-error"
+                    class="text-red-500"
+                >
+                    <span class="hidden">{{ 'general.accessibility.error' | t }} </span>
+                    <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+                </div>
+            {%- endif -%}
+        {% endform %}
+    </div>
+</div>
+  
+  
+  
+{% schema %}
+{
+	"name": {
+		"en": "Newsletter"
+	},
+	"class": "index-section index-section--flush",
+	"settings": [{
+			"type": "text",
+			"id": "title",
+			"label": {
+				"en": "Heading"
+			},
+			"default": {
+				"en": "Subscribe to our newsletter"
+			}
+		},
+		{
+			"type": "richtext",
+			"id": "subheading",
+			"label": {
+				"en": "Subheading"
+			},
+			"default": {
+				"en": "<p>A short sentence describing what someone will receive by subscribing</p>"
+			}
+		},
+		{
+			"type": "select",
+			"id": "background_color",
+			"label": "Background",
+			"default": "bg-gray-200",
+			"options": [
+				{
+					"value": "bg-primary-100",
+					"label": "Primary 100"
+				},
+				{
+					"value": "bg-primary-200",
+					"label": "Primary 200"
+				},
+				{
+					"value": "bg-primary-300",
+					"label": "Primary 300"
+				},
+				{
+					"value": "bg-primary-400",
+					"label": "Primary 400"
+				},
+				{
+					"value": "bg-primary-500",
+					"label": "Primary 500"
+				},
+				{
+					"value": "bg-primary-600",
+					"label": "Primary 600"
+				},
+				{
+					"value": "bg-primary-700",
+					"label": "Primary 700"
+				},
+				{
+					"value": "bg-primary-800",
+					"label": "Primary 800"
+				},
+				{
+					"value": "bg-primary-900",
+					"label": "Primary 900"
+				},
+				{
+					"value": "bg-secondary-100",
+					"label": "Seconday 100"
+				},
+				{
+					"value": "bg-secondary-200",
+					"label": "Seconday 200"
+				},
+				{
+					"value": "bg-secondary-300",
+					"label": "Seconday 300"
+				},
+				{
+					"value": "bg-secondary-400",
+					"label": "Seconday 400"
+				},
+				{
+					"value": "bg-secondary-500",
+					"label": "Seconday 500"
+				},
+				{
+					"value": "bg-secondary-600",
+					"label": "Seconday 600"
+				},
+				{
+					"value": "bg-secondary-700",
+					"label": "Seconday 700"
+				},
+				{
+					"value": "bg-secondary-800",
+					"label": "Seconday 800"
+				},
+				{
+					"value": "bg-secondary-900",
+					"label": "Seconday 900"
+				},
+				{
+					"value": "bg-font-color-100",
+					"label": "Font color 100"
+				},
+				{
+					"value": "bg-font-color-200",
+					"label": "Font color 200"
+				},
+				{
+					"value": "bg-font-color-300",
+					"label": "Font color 300"
+				},
+				{
+					"value": "bg-font-color-400",
+					"label": "Font color 400"
+				},
+				{
+					"value": "bg-font-color-500",
+					"label": "Font color 500"
+				},
+				{
+					"value": "bg-font-color-600",
+					"label": "Font color 600"
+				},
+				{
+					"value": "bg-font-color-700",
+					"label": "Font color 700"
+				},
+				{
+					"value": "bg-font-color-800",
+					"label": "Font color 800"
+				},
+				{
+					"value": "bg-font-color-900",
+					"label": "Font color 900"
+				},
+				{
+					"value": "bg-gray-100",
+					"label": "Gray 100"
+				},
+				{
+					"value": "bg-gray-200",
+					"label": "Gray 200"
+				},
+				{
+					"value": "bg-gray-300",
+					"label": "Gray 300"
+				},
+				{
+					"value": "bg-gray-400",
+					"label": "Gray 400"
+				},
+				{
+					"value": "bg-gray-500",
+					"label": "Gray 500"
+				},
+				{
+					"value": "bg-gray-600",
+					"label": "Gray 600"
+				},
+				{
+					"value": "bg-gray-700",
+					"label": "Gray 700"
+				},
+				{
+					"value": "bg-gray-800",
+					"label": "Gray 800"
+				},
+				{
+					"value": "bg-gray-900",
+					"label": "Gray 900"
+				},
+				{
+					"value": "bg-white",
+					"label": "White"
+				},
+				{
+					"value": "bg-black",
+					"label": "Black"
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"content": {
+				"en": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+			}
+		}
+	],
+	"presets": [{
+		"name": {
+			"en": "Newsletter"
+		},
+		"category": {
+			"en": "Promotional"
+		}
+	}]
+}
+{% endschema %}
+  

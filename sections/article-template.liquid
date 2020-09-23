@@ -1,0 +1,352 @@
+{%- if comment.status == 'pending' -%}
+  {%- assign number_of_comments = article.comments_count | plus: 1 -%}
+{%- else -%}
+  {%- assign number_of_comments = article.comments_count -%}
+{%- endif -%}
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 pt-8">
+
+  <div class="{{ section.settings.width }} mx-auto">
+    <article>
+        <div class="w-full">
+            <h1 class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}">{{ article.title }}</h1>
+        </div>
+    
+        <div class="flex justify-center space-x-2 text-font-color-500 mb-8 md:mb-12">
+            {% if section.settings.blog_show_author %}
+                <div>{{ 'blogs.article.by_author' | t: author: article.author }}</div>
+            {% endif %}
+    
+            {% if section.settings.blog_show_author and section.settings.blog_show_date %}
+                <div>-</div>
+            {% endif %}
+    
+            {% if section.settings.blog_show_date %}
+                <div>{{ article.published_at | time_tag: format: 'date' }}</div>
+            {% endif %}
+        </div>
+    
+        <div class="prose md:prose-lg max-w-none">
+            {{ article.content }}
+        </div>
+    </article>
+    
+
+    {% if blog.comments_enabled? %}
+      <div id="comments">
+        {% if number_of_comments > 0 %}
+          
+          <hr class="mt-8 pb-8">
+
+          <h2 class="text-2xl font-bold leading-tight text-font-color-900 mb-4">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h2>
+
+          {% paginate article.comments by 2 %}
+
+            <div>
+              {% if comment.status == 'pending' %}
+                  {% include 'comment', comment: comment %}
+              {% endif %}
+
+              {% for comment in article.comments %}
+                  {% include 'comment', comment: comment %}
+              {% endfor %}
+
+              {%- if paginate.pages > 1 -%}
+                {% include 'pagination', paginate: paginate %}
+              {%- endif -%}
+
+            </div>
+          {% endpaginate %}
+        {% endif %}
+      </div>
+    
+      <hr class="mt-8 pb-8">
+      
+      <div>
+        {% form 'new_comment', article %}
+
+          {%- assign formId = 'CommentForm' -%}
+          <h2 class="text-2xl font-bold leading-tight text-font-color-900 mb-4">{{ 'blogs.comments.title' | t }}</h2>
+
+          {%- assign post_message = 'blogs.comments.success' -%}
+
+          {%- if blog.moderated? and comment.status == 'pending' -%}
+            {%- assign post_message = 'blogs.comments.success_moderated' -%}
+          {%- elsif comment.status == 'unapproved' or comment.status == 'spam' -%}
+            {%- assign post_message = 'blogs.comments.unapproved' -%}
+          {%- endif -%}
+
+          
+          {%- if form.posted_successfully? -%}
+            <p class="bg-green-100 text-green-600 rounded p-4 mb-4" tabindex="-1" data-form-status>
+              {{ success_message | default: 'blogs.comments.post_success' | t }}
+            </p>
+          {%- endif -%}
+
+          {% assign error_order = "author, email, body, password, form" | split: ", " %}
+
+          {%- if form.errors -%}
+
+            <div class="bg-red-100 text-red-700 rounded p-4 mb-4">
+              <h2 class="text-red-800 font-bold text-sm" tabindex="-1" data-form-status>{{ 'general.form.error_heading' | t }}</h2>
+              <ul>
+                {% for error in error_order %}
+                  {% for field in form.errors %}
+                    {% if error == field %}
+                      {% capture field_label %}
+                        {% case field %}
+                          {% when 'author' %}
+                            {{ 'general.form.name' | t }}
+                          {% when 'body' %}
+                            {{ 'general.form.message' | t }}
+                          {% else %}
+                            {{ form.errors.translated_fields[field] }}
+                        {% endcase %}
+                      {% endcapture %}
+
+                      <li>
+                        {%- if field == 'form' -%}
+                          {{ form.errors.messages[field] }}
+                        {%- else -%}
+                          <a href="#{{ formId }}-{{ field }}">{{ field_label | strip | capitalize }} {{ form.errors.messages[field] }}</a>
+                        {%- endif -%}
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          <div class="md:flex space-x-2">
+            <div class="flex-1 text-font-color-700">
+              <label for="{{ formId }}-author">{{ 'blogs.comments.name' | t }}</label>
+
+              <input 
+                type="text" 
+                name="comment[author]" 
+                id="{{ formId }}-author" 
+                class="form-input w-full {% if form.errors contains 'author' %} border-red-500{% endif %}" 
+                value="{{ form.author }}"
+                {% if form.errors contains 'author' %} aria-invalid="true" aria-describedby="{{ formId}}-author-error"{% endif %}
+              >
+              
+              {% if form.errors contains 'author' %}
+                  <span 
+                    id="{{ formId}}-author-error" 
+                    class="text-red-500"
+                  >
+                    <span class="hidden">{{ 'general.accessibility.error' | t }} </span>
+                    <span>{{ 'blogs.comments.name' | t }} {{ form.errors.messages['author'] }}.</span>
+                  </span>
+                {% endif %}
+            </div>
+
+            <div class="flex-1 text-font-color-700">
+                <label 
+                  for="{{ formId }}-email"
+                >
+                  {{ 'blogs.comments.email' | t }}
+                </label>
+
+                <input 
+                  type="email" 
+                  name="comment[email]" 
+                  id="{{ formId }}-email" 
+                  class="form-input w-full{% if form.errors contains 'email' %} border-red-500{% endif %}" 
+                  value="{{ form.email }}" 
+                  autocorrect="off" 
+                  autocapitalize="off" 
+                  {% if form.errors contains 'email' %} 
+                    aria-invalid="true" 
+                    aria-describedby="{{ formId}}-email-error"
+                  {% endif %}
+                >
+
+                {% if form.errors contains 'email' %}
+                  <span 
+                    id="{{ formId}}-email-error" 
+                    class="text-red-500"
+                  >
+                    <span class="hidden">{{ 'general.accessibility.error' | t }} </span>
+                    <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+                  </span>
+                {% endif %}
+              </div>
+          </div>
+
+          <div class="mt-4">
+            <label for="{{ formId }}-body">{{ 'blogs.comments.message' | t }}</label>
+            
+            <textarea 
+              name="comment[body]" 
+              id="{{ formId }}-body" 
+              class="form-textarea w-full {% if form.errors contains 'body' %} border-red-500{% endif %}"
+              {% if form.errors contains 'body' %} 
+                aria-invalid="true" 
+                aria-describedby="{{ formId}}-body-error"
+              {% endif %}
+            >{{ form.body }}</textarea>
+
+            {% if form.errors contains 'body' %}
+              <span 
+                id="{{ formId}}-body-error" 
+                class="text-red-500"
+              >
+                <span class="hidden">{{ 'general.accessibility.error' | t }} </span>
+                <span>{{ 'blogs.comments.message' | t }} {{ form.errors.messages['body'] }}.</span>
+              </span>
+            {% endif %}
+          </div>
+
+        
+          <input 
+            type="submit" 
+            class="mt-6 cursor-pointer inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+            value="{{ 'blogs.comments.post' | t }}"
+          >
+          {% if blog.moderated? %}
+            <div class="prose-sm mt-4">
+              <p>{{ 'blogs.comments.moderated' | t }}</p>
+            </div>
+          {% endif %}
+        {% endform %}
+      </div>
+  {% endif %}
+</div>
+  
+  <div class="text-center py-8">
+    <a 
+      href="{{ blog.url }}"
+      class="border-black border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200 inline-block"
+    >
+      {{ 'blogs.article.back_to_blog' | t: title: blog.title }}
+    </a>
+  </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "articleBody": {{ article.content | strip_html | json }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ shop.url | append: page.url | json }}
+  },
+  "headline": {{ article.title | json }},
+  {% if article.excerpt != blank %}
+    "description": {{ article.excerpt | strip_html | json }},
+  {% endif %}
+  {% if article.image %}
+    {% assign image_size = article.image.width | append: 'x' %}
+    "image": [
+      {{ article | img_url: image_size | prepend: "https:" | json }}
+    ],
+  {% endif %}
+  "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    {% if settings.share_image %}
+      {% assign image_size = settings.share_image.width | append: 'x' %}
+      "logo": {
+        "@type": "ImageObject",
+        "height": {{ settings.share_image.height | json }},
+        "url": {{ settings.share_image | img_url: image_size | prepend: "https:" | json }},
+        "width": {{ settings.share_image.width | json }}
+      },
+    {% endif %}
+    "name": {{ shop.name | json }}
+  }
+}
+</script>
+
+
+{% schema %}
+{
+	"name": {
+		"en": "Posts"
+	},
+	"settings": [{
+			"type": "select",
+			"id": "header_alignment",
+			"label": {
+				"en": "Header alignment"
+			},
+			"default": "text-center",
+			"options": [{
+					"label": {
+						"en": "Center"
+					},
+					"value": "text-center"
+				},
+				{
+					"label": {
+						"en": "Left"
+					},
+					"value": "text-left"
+				}
+			]
+        },
+        {
+			"type": "select",
+			"id": "width",
+			"label": {
+				"en": "Max Width"
+			},
+			"default": "max-w-3xl",
+			"options": [{
+					"label": {
+						"en": "Full Width"
+					},
+					"value": "w-full"
+				},
+				{
+					"label": {
+						"en": "Small"
+					},
+					"value": "max-w-lg"
+				},
+				{
+					"label": {
+						"en": "Medium"
+					},
+					"value": "max-w-xl"
+				},
+				{
+					"label": {
+						"en": "Large"
+					},
+					"value": "max-w-3xl"
+				},
+				{
+					"label": {
+						"en": "Extra Large"
+					},
+					"value": "max-w-5xl"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_show_author",
+			"label": {
+				"en": "Show author"
+			},
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_show_date",
+			"label": {
+				"en": "Show date"
+			},
+			"default": true
+		}
+	]
+}
+{% endschema %}

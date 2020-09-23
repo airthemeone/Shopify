@@ -1,0 +1,94 @@
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+
+  <div class="{{ section.settings.width }} mx-auto">
+    <article>
+        {% if section.settings.show_title %}
+            <div class="w-full">
+                <h1 class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}">{{ page.title }}</h1>
+            </div>
+        {% endif %}
+    
+        <div class="prose md:prose-lg max-w-none">
+            {{ page.content }}
+        </div>
+    </article>
+</div>
+
+
+
+{% schema %}
+{
+	"name": {
+		"en": "Page"
+	},
+	"settings": [{
+			"type": "select",
+			"id": "header_alignment",
+			"label": {
+				"en": "Header alignment"
+			},
+			"default": "text-center",
+			"options": [{
+					"label": {
+						"en": "Center"
+					},
+					"value": "text-center"
+				},
+				{
+					"label": {
+						"en": "Left"
+					},
+					"value": "text-left"
+				}
+			]
+        },
+        {
+			"type": "select",
+			"id": "width",
+			"label": {
+				"en": "Max Width"
+			},
+			"default": "max-w-3xl",
+			"options": [{
+					"label": {
+						"en": "Full Width"
+					},
+					"value": "w-full"
+				},
+				{
+					"label": {
+						"en": "Small"
+					},
+					"value": "max-w-lg"
+				},
+				{
+					"label": {
+						"en": "Medium"
+					},
+					"value": "max-w-xl"
+				},
+				{
+					"label": {
+						"en": "Large"
+					},
+					"value": "max-w-3xl"
+				},
+				{
+					"label": {
+						"en": "Extra Large"
+					},
+					"value": "max-w-5xl"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "show_title",
+			"label": {
+				"en": "Show title"
+			},
+			"default": true
+		}
+	]
+}
+{% endschema %}

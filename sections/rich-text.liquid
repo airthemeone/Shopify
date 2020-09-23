@@ -1,0 +1,83 @@
+<div id="columns-{{ section.id }}" class="container mx-auto px-3 sm:px-4 xl:px-0">
+    {% if section.settings.title != blank %}
+        <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+    <div class="{{ section.settings.text_size }} max-w-full">
+        {{ section.settings.text }}
+    </div>
+
+</div>
+  
+  
+{% schema %}
+{
+	"name": {
+		"en": "Rich text"
+	},
+	"class": "index-section",
+	"settings": [{
+			"type": "text",
+			"id": "title",
+			"label": {
+				"en": "Heading"
+			},
+			"default": {
+				"en": "Talk about your store"
+			}
+		},
+		{
+			"type": "richtext",
+			"id": "text",
+			"label": {
+				"en": "Text"
+			},
+			"default": {
+				"en": "<p>Use this text to share information about your store.</p>"
+			}
+		},
+		{
+			"type": "select",
+			"id": "text_size",
+			"label": {
+				"en": "Size"
+			},
+			"default": "prose",
+			"options": [{
+					"label": {
+						"en": "Small"
+					},
+					"value": "prose-sm"
+				},
+				{
+					"label": {
+						"en": "Medium"
+					},
+					"value": "prose"
+				},
+				{
+					"label": {
+						"en": "Large"
+					},
+					"value": "prose-lg"
+				},
+				{
+					"label": {
+						"en": "Extra large"
+					},
+					"value": "prose-xl"
+				}
+			]
+		}
+	],
+	"presets": [{
+		"name": {
+			"en": "Rich text"
+		},
+		"category": {
+			"en": "Text"
+		}
+	}]
+}
+{% endschema %}
+  

@@ -1,0 +1,1 @@
+__webpack_public_path__ = window.theme.public_path.split('assets/app')[0];

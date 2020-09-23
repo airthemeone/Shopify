@@ -1,0 +1,125 @@
+<div id="collection-{{ section.id }}" class="container mx-auto px-2 sm:px-4 xl:px-0">
+    {% if section.settings.title != blank %}
+      <div class="">
+        <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+      </div>
+    {% endif %}
+  
+    {%- assign collection = collections[section.settings.collection] -%}
+    {%- assign product_limit = section.settings.per_row_desktop | times: section.settings.rows -%}
+  
+    <div class="flex flex-wrap -mx-2">
+      
+      {% for product in collection.products limit: product_limit %}
+        {% include 'product-card-grid', sidebar: sidebar, per_row_sm: section.settings.per_row_mobile, per_row_md: section.settings.per_row_table, per_row_lg: section.settings.per_row_desktop %}
+      {% else %}
+        <div class="text-center">
+          {{ 'collections.general.no_matches' | t }}
+        </div>
+      {% endfor %}
+  
+    </div>
+  
+    {% if section.settings.show_view_all %}
+      <div class="flex justify-center w-full mt-6">
+        <a 
+          href="{{ collection.url }}"
+          class="inline-flex items-center mt-3 md:mt-5 justify-center py-2 px-8 border border-transparent text-base leading-6 no-underline font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+        >
+          {{ 'collections.general.view_all' | t }}
+        </a>
+      </div>
+      
+    {% endif %}
+  
+</div>
+  
+  
+  
+{% schema %}
+{
+	"name": {
+		"en": "Featured collection"
+	},
+	"class": "index-section",
+	"settings": [{
+			"type": "text",
+			"id": "title",
+			"label": {
+				"en": "Heading"
+			},
+			"default": {
+				"en": "Featured collection"
+			}
+		},
+		{
+			"id": "collection",
+			"type": "collection",
+			"label": {
+				"en": "Collection"
+			}
+		},
+		{
+			"type": "range",
+			"id": "per_row_desktop",
+			"label": {
+				"en": "Products per row"
+			},
+			"min": 2,
+			"max": 5,
+			"step": 1,
+			"default": 3
+		},
+		{
+			"type": "range",
+			"id": "rows",
+			"label": {
+				"en": "Rows"
+			},
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"default": 2
+		},
+		{
+			"type": "range",
+			"id": "per_row_table",
+			"label": {
+				"en": "Products per row - Tablet"
+			},
+			"min": 2,
+			"max": 4,
+			"step": 1,
+			"default": 3
+		},
+		{
+			"type": "range",
+			"id": "per_row_mobile",
+			"label": {
+				"en": "Products per row - Mobile"
+			},
+			"min": 1,
+			"max": 3,
+			"step": 1,
+			"default": 2
+		},
+		{
+			"type": "checkbox",
+			"id": "show_view_all",
+			"label": {
+				"en": "Show 'View all' button"
+			},
+			"default": false
+		}
+	],
+	"presets": [{
+		"name": {
+			"en": "Featured collection"
+		},
+		"category": {
+			"en": "Collection"
+		}
+	}]
+}
+{% endschema %}
+  

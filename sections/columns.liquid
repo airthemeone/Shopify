@@ -1,0 +1,265 @@
+<div id="columns-{{ section.id }}" class="container mx-auto px-3 sm:px-4 xl:px-0">
+  {% if section.settings.title != blank %}
+  	<div class="">
+		<h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+  	</div>
+  {% endif %}
+
+  <div class="flex flex-wrap -mx-3">
+    {% for block in section.blocks %}
+
+      <div class="px-2 md:px-3 mb-3 {{ block.settings.column_width_mobile }} {{ block.settings.column_width_tablet }} {{ block.settings.column_width_desktop }}" {{ block.shopify_attributes }}>
+        <div class="text-{{ section.settings.align_text }}">
+          {% if block.settings.enable_image %}
+            
+            {% if block.settings.image != blank %}
+              {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+  
+              <div class="mb-4">
+                <img id="{{ img_id }}"
+                      class="feature-row__image lazyload"
+                      src="{{ block.settings.image | img_url: '300x300' }}"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                      data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                      data-sizes="auto"
+                      alt="{{ block.settings.image.alt | escape }}">
+              </div>
+            {% else %}
+              <div class="h-56 mb-4">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+          {% endif %}
+  
+          {% if block.settings.title != blank %}
+            <h3 class="font-bold text-lg leading-8">{{ block.settings.title | escape }}</h3>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <div class="prose">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+  
+          {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+            <a 
+              href="{{ block.settings.button_link }}"
+              class="inline-flex items-center mt-3 md:mt-5 justify-center py-2 px-8 border border-transparent text-base leading-6 no-underline font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+            >
+              {{- block.settings.button_label | escape -}}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if section.blocks.size == 0 %}
+    <em class="text-center">No Blocks</em>
+  {% endif %}
+</div>
+
+
+
+{% schema %}
+{
+	"name": "Columns",
+	"settings": [{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Columns"
+		},
+		{
+			"type": "select",
+			"id": "align_text",
+			"label": "Text alignment",
+			"default": "left",
+			"options": [{
+					"value": "left",
+					"label": "Left"
+				},
+				{
+					"value": "center",
+					"label": "Center"
+				}
+			]
+		}
+	],
+	"blocks": [{
+		"type": "text_block",
+		"name": "Column",
+		"settings": [{
+				"type": "checkbox",
+				"id": "enable_image",
+				"label": "Show image",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Image"
+			},
+			{
+				"type": "select",
+				"id": "column_width_mobile",
+				"label": "Column Width - Mobile",
+				"default": "w-full",
+				"options": [{
+						"value": "w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "column_width_tablet",
+				"label": "Column Width - Tablet",
+				"default": "md:w-1/3",
+				"options": [{
+						"value": "md:w-1/6",
+						"label": "16.6%"
+					},
+					{
+						"value": "md:w-1/5",
+						"label": "20%"
+					},
+					{
+						"value": "md:w-1/4",
+						"label": "25%"
+					},
+					{
+						"value": "md:w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "md:w-2/5",
+						"label": "40%"
+					},
+					{
+						"value": "md:w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "md:w-3/5",
+						"label": "60%"
+					},
+					{
+						"value": "md:w-2/3",
+						"label": "66.6%"
+					},
+					{
+						"value": "md:w-4/5",
+						"label": "80%"
+					},
+					{
+						"value": "md:w-5/6",
+						"label": "83.3%"
+					},
+					{
+						"value": "md:w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "column_width_desktop",
+				"label": "Column Width - Desktop",
+				"default": "lg:w-1/3",
+				"options": [{
+						"value": "lg:w-1/6",
+						"label": "16.6%"
+					},
+					{
+						"value": "lg:w-1/5",
+						"label": "20%"
+					},
+					{
+						"value": "lg:w-1/4",
+						"label": "25%"
+					},
+					{
+						"value": "lg:w-1/3",
+						"label": "33.3%"
+					},
+					{
+						"value": "lg:w-2/5",
+						"label": "40%"
+					},
+					{
+						"value": "lg:w-1/2",
+						"label": "50%"
+					},
+					{
+						"value": "lg:w-3/5",
+						"label": "60%"
+					},
+					{
+						"value": "lg:w-2/3",
+						"label": "66.6%"
+					},
+					{
+						"value": "lg:w-4/5",
+						"label": "80%"
+					},
+					{
+						"value": "lg:w-5/6",
+						"label": "83.3%"
+					},
+					{
+						"value": "lg:w-full",
+						"label": "100%"
+					}
+				]
+			},
+			{
+				"type": "text",
+				"id": "title",
+				"label": "Heading",
+				"default": "Add a title or tagline"
+			},
+			{
+				"type": "richtext",
+				"id": "text",
+				"label": "Text",
+				"default": "<p>TODO: Change text - Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>"
+			},
+			{
+				"type": "text",
+				"id": "button_label",
+				"label": "Button label"
+			},
+			{
+				"type": "url",
+				"id": "button_link",
+				"label": "Button link"
+			}
+		]
+	}],
+	"presets": [{
+		"name": "Columns",
+		"category": {
+			"en": "Text"
+		},
+		"blocks": [{
+				"type": "text_block"
+			},
+			{
+				"type": "text_block"
+			},
+			{
+				"type": "text_block"
+			}
+		]
+	}]
+}
+{% endschema %}

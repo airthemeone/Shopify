@@ -1,0 +1,142 @@
+{% case section.settings.space_between %}
+    {% when "mb-2 px-1" %}
+        {%- assign margin_bottom = '-mb-2' -%}
+    {% when "mb-4 px-2" %}
+        {%- assign margin_bottom = '-mb-4' -%}
+    {% when "mb-8 px-4" %}
+        {%- assign margin_bottom = '-mb-8' -%}
+    {% when "mb-16 px-8" %}
+        {%- assign margin_bottom = '-mb-16' -%}
+{% endcase %}
+
+<div id="columns-{{ section.id }}" class="container mx-auto px-3 sm:px-4 xl:px-0">
+    {% if section.settings.title != blank %}
+        <div class="">
+          <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+        </div>
+    {% endif %}
+  
+    <div class="flex justify-center flex-wrap {{ margin_bottom }}">
+        {% for block in section.blocks %}
+            {% if block.settings.link != blank %}
+                <a href="{{ block.settings.link }}" class="block {{ section.settings.space_between }}">
+            {% else %}
+                <div class="{{ section.settings.space_between }}">
+            {% endif %}
+            
+            <img
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                data-sizes="auto"
+                width="{{ block.settings.logo.width }}"
+                data-src="{{ block.settings.logo | img_url: 'master' }}"
+                data-srcset="{{ block.settings.logo | img_url: '320x' }} 320w,
+                                {{ block.settings.logo | img_url: '640x' }} 640w,
+                                {{ block.settings.logo | img_url: '768x' }} 768w"
+                alt="{{ alt }}"
+                class="lazyload {{ class }}"
+            />
+
+            {% if block.settings.link != blank %}
+                </a>
+            {% else %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+  
+    {% if section.blocks.size == 0 %}
+      <em class="text-center">No Blocks</em>
+    {% endif %}
+  </div>
+  
+  
+  
+{% schema %}
+{
+	"name": "Columns",
+    "settings": [
+        {
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Partners"
+		},
+		{
+			"type": "select",
+			"id": "align_text",
+			"label": "Title alignment",
+			"default": "left",
+			"options": [{
+					"value": "left",
+					"label": "Left"
+				},
+				{
+					"value": "center",
+					"label": "Center"
+				}
+			]
+        },
+		{
+			"type": "select",
+			"id": "space_between",
+			"label": "Space around logos",
+			"default": "mb-4 px-2",
+            "options": [
+                {
+					"value": "mb-2 px-1",
+					"label": "Small"
+				},
+                {
+					"value": "mb-4 px-2",
+					"label": "Medium"
+				},
+                {
+					"value": "mb-8 px-4",
+					"label": "Large"
+				},
+                {
+					"value": "mb-16 px-8",
+					"label": "Extra large"
+				}
+			]
+        }
+        
+	],
+	"blocks": [{
+		"type": "text_block",
+		"name": "Column",
+		"settings": [
+
+			{
+				"type": "image_picker",
+				"id": "logo",
+				"label": "Image"
+			},
+			{
+				"type": "url",
+				"id": "link",
+				"label": {
+                    "en": "Link"
+                }
+			}
+		]
+	}],
+	"presets": [{
+		"name": "Logo list",
+		"category": {
+			"en": "Image"
+		},
+		"blocks": [{
+				"type": "text_block"
+			},
+			{
+				"type": "text_block"
+			},
+			{
+				"type": "text_block"
+			}
+		]
+	}]
+}
+{% endschema %}
+  
