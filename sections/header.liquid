@@ -60,10 +60,11 @@
                 {% if section.settings.search_desktop == 'icon' %}
                     x-cloak
                     class="hidden absolute md:relative md:flex lg:absolute mt-14 md:mt-0 lg:mt-20 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 justify-center"
+                    :class="{'flex': search_open, 'hidden lg:hidden': !search_open}"
                 {% else %}
                     class="hidden absolute md:relative md:flex mt-14 md:mt-0 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 md:justify-end"
+                    :class="{'flex': search_open, 'hidden': !search_open}"
                 {% endif %}
-                :class="{'flex': search_open, 'hidden lg:hidden': !search_open}"
             >   
                 <form 
                     action="/search" 
