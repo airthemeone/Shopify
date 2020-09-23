@@ -19,10 +19,6 @@
 
 .max-height-search {
     max-height: calc(100vh - 6.5rem);
-
-    @screen md {
-        max-height: calc(100vh - 4rem);
-    }
 }
 
 @import "tailwindcss/utilities";

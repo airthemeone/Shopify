@@ -2,15 +2,30 @@
     <div class="h-12 lg:h-16 w-full"></div>
 {% endif %}
 
+<div 
+    @click="search_open = false; search_query = '';" 
+    x-show="search_open" 
+    x-transition:enter="transition-opacity ease-linear duration-200" 
+    x-transition:enter-start="opacity-0" 
+    x-transition:enter-end="opacity-100" 
+    x-transition:leave="transition-opacity ease-linear duration-200" 
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0" 
+    class="fixed inset-0 z-30" 
+    x-cloak
+>
+    <div class="absolute inset-0 bg-gray-600 opacity-50"></div>
+</div>
+
 <nav class="bg-white shadow {% if section.settings.sticky_header %}fixed top-0 inset-x-0 z-30{% endif %}">
     <div class="container mx-auto px-2 sm:px-4 xl:px-0">
-        <div class="flex justify-between h-12 lg:h-16">
+        <div class="flex justify-between h-14 lg:h-16">
             <div class="flex lg:hidden">
                 <button
-                        @click="menu_open = !menu_open"
-                        class="inline-flex items-center justify-center rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                    @click="menu_open = !menu_open"
+                    class="inline-flex items-center justify-center rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
                 >
-                    <svg class="h-6 w-6 fill-current text-font-color-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <svg class="h-8 w-8 fill-current text-font-color-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path class="inline-flex" fill-rule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z"/>
                     </svg>
                 </button>
@@ -42,10 +57,21 @@
                 </div>
             </div>
             <div
-                class="hidden absolute md:relative md:flex mt-12 md:mt-0 inset-x-0 mx-2 flex-1 lg:flex items-center px-2 lg:ml-6 md:justify-end"
-                :class="{'flex': search_open, 'hidden': !search_open}"
-            >
-                <form action="/search" method="get" class="w-full mt-2 md:mt-0 md:max-w-sm lg:max-w-xs" role="search">
+                {% if section.settings.search_desktop == 'icon' %}
+                    x-cloak
+                    class="hidden absolute md:relative md:flex lg:absolute mt-14 md:mt-0 lg:mt-20 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 justify-center"
+                {% else %}
+                    class="hidden absolute md:relative md:flex mt-14 md:mt-0 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 md:justify-end"
+                {% endif %}
+                :class="{'flex': search_open, 'hidden lg:hidden': !search_open}"
+            >   
+                <form 
+                    action="/search" 
+                    method="get" 
+                    class="w-full mt-2 md:mt-0 md:max-w-sm {% if section.settings.search_desktop == 'search_bar' %}lg:max-w-xs{% endif %}" 
+                    role="search"
+                    @click.away="search_open = false"
+                >
                     <label for="search" class="sr-only">{{ "general.search.placeholder" | t }}</label>
                     <div class="relative">
                         <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer">
@@ -59,6 +85,7 @@
                             x-model="search_query"
                             x-on:input.debounce.150ms="search()"
                             autocomplete="off"
+                            x-ref="search_bar"
                             @click="search_results_show = search_results.products.length > 0 ? true : false"
                         />
                         <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
@@ -106,7 +133,7 @@
             </div>
             <div class="flex items-center lg:hidden">
                 <button
-                    @click="search_open = !search_open"
+                    @click="search_open = !search_open; $refs.search_bar.focus();search_query = '';"
                     class="inline-flex md:hidden items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
                 >
                     <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -127,7 +154,13 @@
             <div 
                 class="hidden lg:ml-4 lg:flex lg:items-center"
             >
-        
+                <button
+                    @click="search_open = !search_open;  $refs.search_bar.focus();search_query = '';"
+                    class="hidden {% if section.settings.search_desktop == 'icon' %}lg:inline-flex{% endif %} items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                >
+                    <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+
                 <a 
                     href="/cart"
                     @click.prevent="cart_drawer = true"
@@ -287,7 +320,28 @@
     },
     {
         "type": "header",
-        "content": "Cart"
+        "content": {
+            "en": "Search"
+        }
+    },
+    {
+        "type": "select",
+        "id": "search_desktop",
+        "label": "Desktop - Show",
+        "default": "search_bar",
+        "options": [{
+            "value": "search_bar",
+            "label": "Search bar"
+          },
+          {
+            "value": "icon",
+            "label": "Icon"
+          }
+        ]
+    },
+    {
+        "type": "header",
+        "content": "Logo"
     },
     {
         "type": "select",
@@ -303,7 +357,7 @@
             "label": "Cart"
           }
         ]
-      }
+    }
   ]
 }
 {% endschema %}
