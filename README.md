@@ -6,5 +6,4 @@ A Lightweight and fast theme for Shopify
 
 ## Installation
 
-Goto 
-[releases](https://github.com/airthemeone/Shopify/releases) and download latest zip
+Download the lastest zip here [lastest zip here](https://github.com/airthemeone/Shopify/archive/master.zip) and upload it to Shopify
