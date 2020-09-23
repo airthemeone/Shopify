@@ -133,7 +133,11 @@
             </div>
             <div class="flex items-center lg:hidden">
                 <button
-                    @click="search_open = !search_open; $refs.search_bar.focus();search_query = '';"
+                    @click="
+                        search_open = !search_open;
+                        search_query = '';
+                        $nextTick(() => {refs.search_bar.focus()});
+                    "
                     class="inline-flex md:hidden items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
                 >
                     <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -155,7 +159,11 @@
                 class="hidden lg:ml-4 lg:flex lg:items-center"
             >
                 <button
-                    @click="search_open = !search_open;  $refs.search_bar.focus();search_query = '';"
+                    @click="
+                        search_open = !search_open;
+                        search_query = '';
+                        $nextTick(() => {refs.search_bar.focus()});
+                    "
                     class="hidden {% if section.settings.search_desktop == 'icon' %}lg:inline-flex{% endif %} items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
                 >
                     <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
