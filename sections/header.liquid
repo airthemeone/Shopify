@@ -235,7 +235,7 @@
                         <div class="h-10 w-10 border-l border-transparent"></div>
                     </div>
 
-                    <div class="pt-2 pb-3">
+                    <div class="pt-5 px-2 flex-1 overflow-y-auto relative">
                         {% for link in linklists[section.settings.drawer_menu].links %}
                             {% assign child_list_handle = link.title | handleize %}
                             <a class="mt-1 block pl-3 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" href="{{ link.url }}">{{ link.title }}</a>
