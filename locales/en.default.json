@@ -87,8 +87,8 @@
       "description": "Description"
     }
   },
-  "blogs":{
-    "article": { 
+  "blogs": {
+    "article": {
       "by_author": "By {{ author }}",
       "read_more": "Read more",
       "back_to_blog": "Back to {{ title }}",
@@ -112,5 +112,4 @@
       "post_success": "Thank you for your comment"
     }
   }
-  
 }
