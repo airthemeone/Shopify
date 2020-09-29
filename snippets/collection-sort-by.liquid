@@ -1,0 +1,20 @@
+<div 
+    x-data="sort_by()"
+    x-init="$watch('sort_by', change_sort_by)"
+>
+        <select 
+            class="inline-block form-select py-1 pl-4 sm:text-sm sm:leading-5 focus:outline-none"
+            x-model="sort_by"
+            id="sort_by"
+        >
+            <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+            <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+            <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+            <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+            <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+            <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+            <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+            <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+        </select>
+        
+</div>

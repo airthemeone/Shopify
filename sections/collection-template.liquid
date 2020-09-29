@@ -102,40 +102,31 @@
     <div class="pt-8"></div>    
 {% endif %}
 
-<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-4">
     <div class="flex justify-between items-center">
         <h1 
             class="text-2xl font-bold leading-7 text-font-color-900 sm:text-3xl sm:leading-9 sm:truncate"
         >{{ collection.title }}</h1>
-        <div 
-            class=""
-            x-data="sort_by()"
-            x-init="$watch('sort_by', change_sort_by)"
-        >
-            {% if section.settings.collection_sort %}
-                <select 
-                    class="inline-block form-select py-1 pl-4 sm:text-sm sm:leading-5 focus:outline-none"
-                    x-model="sort_by"
-                    id="sort_by"
-                >
-                    <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
-                    <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
-                    <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
-                    <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
-                    <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
-                    <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
-                    <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
-                    <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
-                </select>
-            {% endif %}
-    
-        </div>
+
+        {% if section.settings.collection_sort %}
+            <div class="hidden md:block">
+                {% include 'collection-sort-by'  %}
+            </div>
+        {% endif %}
     </div>
 </div>
 
 {% if collection.description != blank %}
-    <div class="text-font-color-800">
-        {{ collection.description }}
+    <div class="container mx-auto px-2 sm:px-4 xl:px-0">
+        <div class="text-font-color-800">
+            {{ collection.description }}
+        </div>
+    </div>
+{% endif %}
+
+{% if section.settings.collection_sort %}
+    <div class="md:hidden container mx-auto px-2 sm:px-4 flex justify-end pt-4">
+        {% include 'collection-sort-by'  %}
     </div>
 {% endif %}
 
