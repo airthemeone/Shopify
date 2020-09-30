@@ -157,8 +157,7 @@
                         {%- if settings[social_link] != blank -%}
                             <a 
                                 href="{{ settings[social_link] | escape }}" 
-                                class=""
-                                aria-describedby="a11y-external-message"
+                                target="_blank"
                             >
                                 {% include "icons", name: icon, size: size %}
                             </a>
