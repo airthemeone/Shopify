@@ -8,7 +8,7 @@
     {%- assign collection = collections[section.settings.collection] -%}
     {%- assign product_limit = section.settings.per_row_desktop | times: section.settings.rows -%}
   
-    <div class="flex flex-wrap -mx-2">
+    <div class="flex flex-wrap justify-center -mx-2">
       
       {% for product in collection.products limit: product_limit %}
         {% include 'product-card-grid', sidebar: sidebar, per_row_sm: section.settings.per_row_mobile, per_row_md: section.settings.per_row_table, per_row_lg: section.settings.per_row_desktop %}
