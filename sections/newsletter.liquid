@@ -1,6 +1,6 @@
-<div class="{{ section.settings.background_color }} py-8">
+<div class="{{ section.settings.background_color }} {{ section.settings.section_padding }}">
     <div class="container mx-auto px-2 sm:px-4 xl:px-0">
-        <div class="section-header text-center">
+        <div class="text-center">
             {% if section.settings.title != blank %}
 		        <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-4 text-center">{{ section.settings.title | escape }}</h2>
                 
@@ -88,6 +88,32 @@
 			"default": {
 				"en": "<p>A short sentence describing what someone will receive by subscribing</p>"
 			}
+		},
+		{
+			"type": "select",
+			"id": "section_padding",
+			"label": {
+				"en": "Padding"
+			},
+			"default": "py-12",
+			"options": [
+				{
+					"value": "py-8",
+					"label": "Small"
+				},
+				{
+					"value": "py-12",
+					"label": "Normal"
+				},
+				{
+					"value": "py-16",
+					"label": "Large"
+				},
+				{
+					"value": "py-20",
+					"label": "Extra large"
+				}
+			]
 		},
 		{
 			"type": "select",
