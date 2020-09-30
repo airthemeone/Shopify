@@ -46,9 +46,20 @@
           {{ 'products.product.see_more' | t }}
         </div>
       {%- else -%}
+
         <button 
           @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
-          class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+          class="
+            inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md transition ease-in-out duration-150
+            {% if product.available %}
+              text-white bg-primary-600 hover:bg-primary-500 focus:border-primary-700 active:bg-primary-700
+            {% else %}
+              text-primary-100 bg-primary-400 cursor-not-allowed
+            {% endif %}
+          "
+          {% unless product.available %}
+            disabled
+          {% endunless %}
         >
           <svg class="h-4 w-4 mr-1 fill-current text-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <g data-name="1">
@@ -56,7 +67,12 @@
                 <path d="M410.65 349.37H156.84a15 15 0 01-14.9-13.23l-16.6-139.69a15 15 0 1129.79-3.54l15 126.46h240.52a15 15 0 010 30zM191.41 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46zM370.13 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46z"/>
             </g>
           </svg>
-          {{ 'products.product.add_to_cart' | t }}
+
+          {% if product.available %}
+            {{ 'products.product.add_to_cart' | t }}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
           
         </button>
       {%- endif -%}
