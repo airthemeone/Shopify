@@ -61,7 +61,8 @@ module.exports = {
         xxs: '0.5rem'
       },
       inset: {
-        '1/2': '50%'
+        '1/2': '50%',
+        'full': '100%'
       },
       height: {
         80: '20rem',

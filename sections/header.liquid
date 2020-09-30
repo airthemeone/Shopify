@@ -17,7 +17,13 @@
     <div class="absolute inset-0 bg-gray-600 opacity-50"></div>
 </div>
 
-<nav class="bg-white shadow {% if section.settings.sticky_header %}fixed top-0 inset-x-0 z-30{% endif %}">
+<nav 
+    class="
+        shadow 
+        {% if section.settings.sticky_header %}fixed top-0 inset-x-0 z-30{% endif %}
+    "
+    style="background-color: {{ section.settings.background_color }}"
+>
     <div class="container mx-auto px-2 sm:px-4 xl:px-0">
         <div class="flex justify-between h-14 lg:h-16">
             <div class="flex lg:hidden">
@@ -50,9 +56,55 @@
                         </a>
                     {% endif %}
                 </div>
-                <div class="hidden lg:ml-6 lg:flex">
+                <div class="hidden lg:ml-6 lg:flex items-center">
                     {% for link in linklists[section.settings.main_linklist].links %}
-                        <a class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-font-color-500 hover:text-font-color-700 hover:border-gray-300 focus:outline-none focus:text-font-color-700" href="{{ link.url }}">{{ link.title }}</a>
+                        {% assign child_list_handle = link.title | handleize %}
+
+                        <div
+                            {% if linklists[child_list_handle].links != blank %}
+                                x-data="{ isOpen: false }"
+                                @mouseenter="isOpen = true"
+                                @mouseleave="isOpen = false"
+                            {% endif %}
+                            class="ml-8 relative"
+                        >
+                            <a 
+                                href="{{ link.url }}"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-font-color-500 hover:text-font-color-700 hover:border-gray-300 focus:outline-none focus:text-font-color-700 transition duration-200" 
+                            >
+                                {{ link.title }}
+
+                                {% if linklists[child_list_handle].links != blank %}
+                                    <svg 
+                                        class="w-4 h-4" 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        viewBox="0 0 24 24" 
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                {% endif %}
+                            </a>
+    
+                            {% if linklists[child_list_handle].links != blank %}
+                                <div 
+                                    x-show="isOpen"
+                                    class="absolute top-full shadow"
+                                    style="background-color: {{ section.settings.background_color }}"
+                                    x-cloak
+                                >
+                                    {% for childlink in linklists[child_list_handle].links %}
+                                        <a 
+                                            class="p-2 block whitespace-no-wrap border-b-1 text-sm font-medium leading-5 text-font-color-500 hover:text-font-color-700 focus:outline-none focus:text-font-color-700 transition duration-200" 
+                                            href="{{ childlink.url }}"
+                                        >
+                                            {{ childlink.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -103,7 +155,8 @@
 
                         <div
                             x-show="search_results_show"
-                            class="absolute bg-white top-0 right-0 max-height-search overflow-auto mt-10 border rounded shadow w-full"
+                            class="absolute top-0 right-0 max-height-search overflow-auto mt-10 border rounded shadow w-full"
+                            style="background-color: {{ section.settings.background_color }}"
                             @click.away="search_results_show = false"
                             x-cloak
                         >
@@ -215,7 +268,8 @@
                     x-transition:leave="transition ease-in-out duration-300 transform" 
                     x-transition:leave-start="translate-x-0" 
                     x-transition:leave-end="-translate-x-full" 
-                    class="relative flex-1 flex flex-col max-w-md w-full bg-white"
+                    class="relative flex-1 flex flex-col max-w-md w-full"
+                    style="background-color: {{ section.settings.background_color }}"
                 >
                     <div class="flex items-center border">
                         <button 
@@ -240,7 +294,9 @@
                         {% for link in linklists[section.settings.drawer_menu].links %}
                             {% assign child_list_handle = link.title | handleize %}
                             <div
-                                x-data="{ isOpen: false }"
+                                {% if linklists[child_list_handle].links != blank %}
+                                    x-data="{ isOpen: false }"
+                                {% endif %}
                             >
                                 <a 
                                     class="mt-1 flex justify-between items-center block pl-3 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" 
@@ -295,6 +351,16 @@
     "en": "Header"
   },
   "settings": [
+    {
+        "type": "header",
+        "content": "Color"
+    },
+    {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#ffffff"
+    },
     {
         "type": "header",
         "content": "Logo"
