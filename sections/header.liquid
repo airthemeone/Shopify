@@ -239,14 +239,50 @@
                     <div class="pt-5 px-2 flex-1 overflow-y-auto relative">
                         {% for link in linklists[section.settings.drawer_menu].links %}
                             {% assign child_list_handle = link.title | handleize %}
-                            <a class="mt-1 block pl-3 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" href="{{ link.url }}">{{ link.title }}</a>
-                            {% if linklists[child_list_handle].links != blank %}
-                                {% for childlink in linklists[child_list_handle].links %}
-                                    <a class="mt-1 block pl-6 pr-4 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" href="{{ childlink.url }}">{{ childlink.title }}</a>
-                                {% endfor %}
-                            {% endif %}
+                            <div
+                                x-data="{ isOpen: false }"
+                            >
+                                <a 
+                                    class="mt-1 flex justify-between items-center block pl-3 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" 
+                                    href="{{ link.url }}"
+                                >
+                                    {{ link.title }}
+
+                                    {% if linklists[child_list_handle].links != blank %}
+                                        <span 
+                                            @click=" isOpen = !isOpen" 
+                                            class="p-3 cursor-pointer text-font-color-600" 
+                                        >
+                                            <svg 
+                                                class="h-6 w-6 transform transition duration-200 ease-in-out" 
+                                                :class="{ '-rotate-45' : isOpen }" 
+                                                fill="none" 
+                                                viewBox="0 0 24 24" 
+                                                stroke="currentColor"
+                                            >
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                            </svg>
+                                        </span>
+                                    {% endif %}
+                                </a>
+                                
+                                {% if linklists[child_list_handle].links != blank %}
+                                    <div x-show="isOpen">
+                                        {% for childlink in linklists[child_list_handle].links %}
+                                            <a 
+                                                class="mt-1 block pl-6 pr-4 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" 
+                                                href="{{ childlink.url }}"
+                                                >
+                                                    {{ childlink.title }}
+                                                </a>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
                         {% endfor %}
+
                     </div>
+
                 </div>
             </div>
         </div>
