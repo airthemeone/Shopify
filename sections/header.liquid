@@ -203,6 +203,7 @@
                 >
                     {% include "icons", name: section.settings.header_cart_icon, size: "h-6 w-6 fill-current" %}
                     <span
+                        x-cloak
                         x-show="cart_items_count > 0"
                         x-text="cart_items_count"
                         class="text-xxs text-white leading-none px-1 py-1 bg-primary-600 rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
