@@ -1,0 +1,150 @@
+<div id="columns-{{ section.id }}" class="container mx-auto px-3 sm:px-4 xl:px-0">
+	<h2 
+		class="text-font-color-900 leading-8 {{ section.settings.font_weight}} {{ section.settings.text_size}} {{ section.settings.text_align }}"
+	>{{ section.settings.title | escape }}</h2>
+</div>
+  
+  
+{% schema %}
+{
+	"name": {
+        "en": "Header line"
+    },
+	"class": "index-section",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": {
+				"en": "Heading"
+			},
+			"default": {
+				"en": "Talk about your store"
+			}
+		},
+		{
+			"type": "select",
+			"id": "text_size",
+			"label": {
+				"en": "Size"
+			},
+			"default": "text-3xl",
+			"options": [
+				{
+					"label": {
+						"en": "Small"
+					},
+					"value": "text-sm"
+				},
+				{
+					"label": {
+						"en": "Medium"
+					},
+					"value": "text-base"
+				},
+				{
+					"label": {
+						"en": "Large"
+					},
+					"value": "text-lg"
+				},
+				{
+					"label": {
+						"en": "Xl"
+					},
+					"value": "text-xl"
+				},
+				{
+					"label": {
+						"en": "2 Xl"
+					},
+					"value": "text-2xl"
+				},
+				{
+					"label": {
+						"en": "3 Xl"
+					},
+					"value": "text-3xl"
+				},
+				{
+					"label": {
+						"en": "4 Xl"
+					},
+					"value": "text-4xl"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "font_weight",
+			"label": {
+				"en": "Weight"
+			},
+			"default": "font-bold",
+			"options": [
+				{
+					"label": {
+						"en": "Normal"
+					},
+					"value": "font-normal"
+				},
+				{
+					"label": {
+						"en": "Bold"
+					},
+					"value": "font-bold"
+				},
+				{
+					"label": {
+						"en": "Extra Bold"
+					},
+					"value": "font-extrabold"
+				},
+				{
+					"label": {
+						"en": "Black"
+					},
+					"value": "font-black"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "text_align",
+			"label": {
+				"en": "Align"
+			},
+			"default": "text-center",
+			"options": [
+				{
+					"label": {
+						"en": "Left"
+					},
+					"value": "text-left"
+				},
+				{
+					"label": {
+						"en": "Center"
+					},
+					"value": "text-center"
+				},
+				{
+					"label": {
+						"en": "Right"
+					},
+					"value": "text-right"
+				}
+			]
+		}
+	],
+	"presets": [{
+		"name": {
+			"en": "Header line"
+		},
+		"category": {
+			"en": "Text"
+		}
+	}]
+}
+{% endschema %}
+  
