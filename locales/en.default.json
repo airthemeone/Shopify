@@ -10,7 +10,8 @@
     },
     "breadcrumbs": {
       "home": "Home",
-      "page": "Page {{ current_page }} of {{ pages }}"
+      "page": "Page {{ current_page }} of {{ pages }}",
+      "all": "All"
     },
     "pagination": {
       "previous": "Previous",
