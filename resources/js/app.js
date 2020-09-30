@@ -1,13 +1,29 @@
+/**
+ * Vendors
+ */
 import "alpinejs";
-import "./components/public_path";
+
+/**
+ * Glide
+ */
 import glide from "./components/glide";
 glide.init();
 
+/**
+ * Utilities
+ */
+import "./utilities/public_path";
 import objectToQueryParams from './utilities/object_to_query_params';
 
 import moneyFormat from './utilities/format_money';
 window.formatMoney = moneyFormat;
 
+import add_to_cart from './utilities/add_to_cart';
+window.add_to_cart = add_to_cart;
+
+/**
+ * Main App
+ */
 window.app = function() {
 	const currency = window.Shopify.currency;
 
@@ -139,44 +155,5 @@ window.app = function() {
 			};
 			this.search_results_show = false;
 		}
-	};
-};
-
-window.add_to_cart = function() {
-	return {
-		quantity: 1,
-		add_to_cart(id) {
-			// https://nozzlegear.com/shopify/using-javascript-to-manage-a-shopify-cart
-			fetch("/cart/add.json", {
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-				},
-				method: "POST",
-				body: JSON.stringify({
-					quantity: this.quantity,
-					id: id,
-				}),
-			}).then((response) => {
-				window.dispatchEvent(
-					new Event("cartupdated", {
-						bubbles: true,
-						cancelable: true,
-						detail: {
-							quantity: this.quantity,
-							id: id,
-						},
-					})
-				);
-
-				window.dispatchEvent(
-					new Event("cartnotification", {
-						bubbles: true,
-						cancelable: true,
-						detail: {},
-					})
-				);
-			});
-		},
 	};
 };

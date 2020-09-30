@@ -16,7 +16,7 @@ mix.sass('resources/scss/app.scss', 'assets')
 
 mix.sass('resources/scss/glide.scss', 'assets')
 
-del(['assets/async*.js']);
+del(['assets/async*.js', ['assets/async*.txt']]);
 mix.js('resources/js/app.js', 'assets')
     .webpackConfig({
         output: {

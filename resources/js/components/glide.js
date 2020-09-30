@@ -43,7 +43,7 @@ export default {
         const link  = document.createElement('link');
         link.rel  = 'stylesheet';
         link.type = 'text/css';
-        link.href =  window.theme.public_path.split('assets/')[0] + 'assets/glide.css';
+        link.href =  window.theme.public_path.split('assets/')[0] + 'assets/glide.css?v=3';
         link.media = 'all';
         link.importance = 'low'
         head.appendChild(link);
