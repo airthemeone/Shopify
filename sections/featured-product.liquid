@@ -1,6 +1,6 @@
 {%- assign product = all_products[section.settings.featured_product] -%}
 
-<div class="container mx-auto flex flex-wrap justify-between px-2 sm:px-4 xl:px-0 pt-8 space-x-4 md:space-x-8">
+<div class="container mx-auto flex flex-wrap {{ section.settings.align_items }} justify-between px-2 sm:px-4 xl:px-0 pt-8 space-x-4 md:space-x-8">
     <div 
       class="{{ section.settings.column_width_mobile }} {{ section.settings.column_width_tablet }} {{ section.settings.column_width_desktop }} mb-6"
 	>
@@ -91,6 +91,21 @@
 				"en": "Show variant labels"
 			},
 			"default": true
+		},
+		{
+			"type": "select",
+			"id": "align_items",
+			"label": "Align items",
+			"default": "items-center",
+			"options": [{
+					"value": "items-start",
+					"label": "Start"
+				},
+				{
+					"value": "items-center",
+					"label": "Center"
+				}
+			]
 		},
 		{
 			"type": "header",
