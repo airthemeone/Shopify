@@ -48,7 +48,7 @@
         >
           <div class="px-2 md:px-4 py-4">
             {%- if block.settings.title -%}
-              <p class="text-2xl mb-2 font-bold {{ section.settings.text_color }}">{{ block.settings.title | escape }}</p>
+              <h2 class="text-2xl mb-2 font-bold {{ section.settings.text_color }}">{{ block.settings.title | escape }}</h2>
             {%- endif -%}
 
             {%- case block.type -%}
