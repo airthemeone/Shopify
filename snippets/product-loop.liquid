@@ -1,8 +1,8 @@
-<div class="container mx-auto px-2 sm:px-4 xl:px-0">
-  <div class="-mx-2 flex flex-wrap">
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 mt-4">
+  <div class="grid gap-4 {{ per_row_sm }} {{ per_row_md }} {{ per_row_lg }}">
 
     {% for product in products limit: limit %}
-      {% include 'product-card-grid', hide_add_to_cart: hide_add_to_cart, per_row_sm: per_row_sm, per_row_md: per_row_md, per_row_lg: per_row_lg %}
+      {% include 'product-card-grid', hide_add_to_cart: hide_add_to_cart %}
     {% endfor %}
   
   </div>
