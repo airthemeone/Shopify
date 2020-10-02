@@ -30,6 +30,7 @@
                 <button
                     @click="menu_open = !menu_open"
                     class="inline-flex items-center justify-center rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                    aria-label="{{ "general.button_labels.menu" | t }}"
                 >
                     <svg class="h-8 w-8 fill-current text-font-color-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path class="inline-flex" fill-rule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z"/>
@@ -192,6 +193,7 @@
                         search_query = '';
                         $nextTick(() => {refs.search_bar.focus()});
                     "
+                    aria-label="{{ "general.button_labels.search" | t }}"
                     class="inline-flex md:hidden items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
                 >
                     <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -228,6 +230,7 @@
                     href="/cart"
                     @click.prevent="cart_drawer = true"
                     class="block relative rounded-full text-font-color-600 hover:text-font-color-800 focus:outline-none focus:text-font-color-500 transition duration-150 ease-in-out"
+                    aria-label="{{ "general.button_labels.cart" | r }}"
                 >
                     {% include "icons", name: section.settings.header_cart_icon, size: "h-6 w-6 fill-current" %}
                     <span
