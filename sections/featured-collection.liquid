@@ -6,19 +6,13 @@
     {% endif %}
   
     {%- assign collection = collections[section.settings.collection] -%}
-    {%- assign product_limit = section.settings.per_row_desktop | times: section.settings.rows -%}
   
-    <div class="flex flex-wrap justify-center -mx-2">
-      
-      {% for product in collection.products limit: product_limit %}
-        {% include 'product-card-grid', sidebar: sidebar, per_row_sm: section.settings.per_row_mobile, per_row_md: section.settings.per_row_table, per_row_lg: section.settings.per_row_desktop %}
-      {% else %}
-        <div class="text-center">
-          {{ 'collections.general.no_matches' | t }}
-        </div>
-      {% endfor %}
-  
-    </div>
+	<div class="grid gap-4 {{ section.settings.per_row_sm }} {{ section.settings.per_row_md }} {{ section.settings.per_row_lg }}">
+    	{% for product in collection.products limit: section.settings.product_limit %}
+      	{% include 'product-card-grid', hide_add_to_cart: section.settings.hide_add_to_cart %}
+    	{% endfor %}
+  	</div>
+
   
     {% if section.settings.show_view_all %}
       <div class="flex justify-center w-full mt-6">
@@ -61,47 +55,113 @@
 		},
 		{
 			"type": "range",
-			"id": "per_row_desktop",
+			"id": "product_limit",
 			"label": {
-				"en": "Products per row"
-			},
-			"min": 2,
-			"max": 5,
-			"step": 1,
-			"default": 3
-		},
-		{
-			"type": "range",
-			"id": "rows",
-			"label": {
-				"en": "Rows"
+				"en": "Products"
 			},
 			"min": 1,
-			"max": 5,
+			"max": 48,
 			"step": 1,
-			"default": 2
+			"default": 8
 		},
 		{
-			"type": "range",
-			"id": "per_row_table",
-			"label": {
-				"en": "Products per row - Tablet"
+			"type": "select",
+			"id": "per_row_sm",
+			"label": { 
+				"en": "Products per row (mobile)"
 			},
-			"min": 2,
-			"max": 4,
-			"step": 1,
-			"default": 3
+			"default": "grid-cols-2",
+			"options": [
+				{
+					"label": "1",
+					"value": "grid-cols-1"
+				},
+				{
+					"label": "2",
+					"value": "grid-cols-2"
+				},
+				{
+					"label": "3",
+					"value": "grid-cols-3"
+				}
+			]
 		},
 		{
-			"type": "range",
-			"id": "per_row_mobile",
-			"label": {
-				"en": "Products per row - Mobile"
+			"type": "select",
+			"id": "per_row_md",
+			"label": { 
+				"en": "Products per row (tablet)"
 			},
-			"min": 1,
-			"max": 3,
-			"step": 1,
-			"default": 2
+			"default": "md:grid-cols-3",
+			"options": [
+				{
+					"label": "1",
+					"value": "md:grid-cols-1"
+				},
+				{
+					"label": "2",
+					"value": "md:grid-cols-2"
+				},
+				{
+					"label": "3",
+					"value": "md:grid-cols-3"
+				},
+				{
+					"label": "4",
+					"value": "md:grid-cols-4"
+				},
+				{
+					"label": "5",
+					"value": "md:grid-cols-5"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "per_row_lg",
+			"label": { 
+				"en": "Products per row (desktop)"
+			},
+			"default": "lg:grid-cols-4",
+			"options": [
+				{
+					"label": "1",
+					"value": "lg:grid-cols-1"
+				},
+				{
+					"label": "2",
+					"value": "lg:grid-cols-2"
+				},
+				{
+					"label": "3",
+					"value": "lg:grid-cols-3"
+				},
+				{
+					"label": "4",
+					"value": "lg:grid-cols-4"
+				},
+				{
+					"label": "5",
+					"value": "lg:grid-cols-5"
+				},
+				{
+					"label": "6",
+					"value": "lg:grid-cols-6"
+				},
+				{
+					"label": "7",
+					"value": "lg:grid-cols-7"
+				},
+				{
+					"label": "8",
+					"value": "lg:grid-cols-8"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "hide_add_to_cart",
+			"label": "Hide Add to Cart button"
 		},
 		{
 			"type": "checkbox",
