@@ -46,6 +46,9 @@
       },
       "no_results": "Try checking your spelling or using different words.",
       "button": "Search"
+    },
+    "payment": {
+      "method": "Payment methods"
     }
   },
   "collections": {
