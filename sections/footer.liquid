@@ -24,19 +24,18 @@
 
 
 {%- capture payment_icon_markup -%}
-  {%- if show_payment_icons -%}
-    <div class="grid__item site-footer__payment-icons">
-      <span class="visually-hidden">{{ 'general.payment.method' | t }}</span>
-      <ul class="payment-icons list--inline site-footer__icon-list">
-        {%- for type in shop.enabled_payment_types -%}
-          <li class="payment-icon">
-            {{ type | payment_type_svg_tag: class: 'h-10 w-10' }}
-          </li>
-        {%- endfor -%}
-      </ul>
-    </div>
-  {%- endif -%}
+	{%- if show_payment_icons -%}
+		<ul class="flex justify-center space-x-2">
+			{%- for type in shop.enabled_payment_types -%}
+				<li class="">
+					{{ type | payment_type_svg_tag: class: 'h-10 w-10' }}
+				</li>
+			{%- endfor -%}
+		</ul>
+  	{%- endif -%}
 {%- endcapture -%}
+
+
 
 <footer style="background-color: {{ section.settings.background_color }};">
   <div class="container mx-auto px-4 xl:px-0 py-8">
@@ -146,10 +145,10 @@
   {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo TikTok" | split: ' ' -%}
 
     <div class="container mx-auto px-2 sm:px-4 xl:px-0 py-4">
-        <div class="flex flex-col md:flex-row items-center justify-between">
-            {% if show_payment_icons %}
-                <div >{{ payment_icon_markup }}</div>
-            {% endif %}
+		{% if show_payment_icons %}
+			<div class="mb-4">{{ payment_icon_markup }}</div>
+		{% endif %}
+		<div class="flex flex-col md:flex-row items-center justify-between">
 
             {%- if social_icons -%}
                 {% capture size %}h-6 w-6 fill-current hover:opacity-75{% endcapture %}
