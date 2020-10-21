@@ -69,6 +69,7 @@
     }
   },
   "cart": {
+    "your_cart": "Your cart",
     "to_cart": "Goto cart",
     "remove": "Remove",
     "title": "Cart",
