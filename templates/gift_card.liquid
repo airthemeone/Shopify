@@ -1,27 +1,116 @@
 {% layout none %}
+
 <!doctype html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" href="{{ 'app.css' | asset_url }}">
   {{ 'vendor/qrcode.js' | shopify_asset_url | script_tag }}
+
+  <style>
+    :root {
+      --color-button-primary: {{ settings.button_primary }};
+      --color-button-primary-hover: {{ settings.button_primary_hover }};
+      --color-button-primary-text: {{ settings.button_primary_text }};
+      --color-button-secondary: {{ settings.button_secondary }};
+      --color-button-secondary-hover: {{ settings.button_seconday_hover }};
+      --color-button-secondary-text: {{ settings.button_seconday_text }};
+      --color-font-color-light: {{ settings.font_color_color_light }};
+      --color-font-color-dark: {{ settings.font_color_color_dark }};
+      --color-font-color-darkest: {{ settings.font_color_color_darkest }};
+    }
+  </style>
+
 </head>
-<body>
-  <div id="qr-code"></div>
-  <script>
-    new QRCode(document.getElementById("qr-code"), {
-      text: "{{ gift_card.qr_identifier }}",
-      width: 120,
-      height: 120
-    });
-  </script>
-  <footer>
+<div>
+  
+{%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency -%}
+{%- assign formatted_initial_value_stripped = formatted_initial_value | strip_html -%}
+
+<div class="container mx-auto px-2 sm:px-4 xl:px-0">
+  <a 
+    href="{{ shop.url }}" title="{{ shop.name }}" 
+    class="font-black text-4xl block w-full text-center mt-12"
+  >
+    {{ shop.name }}
+  </a>
+
+  <div class="text-2xl text-center flex items-center justify-center">
+    {{ 'gift_cards.subtext' | t }}
+    
+    {% unless gift_card.enabled %}
+      <div class="rounded-full text-sm bg-red-100 text-red-700 px-4 ml-2">{{ 'gift_cards.disabled' | t }}</div>
+    {% endunless %}
+  </div>
+
+
+  {% assign gift_card_expiry_date = gift_card.expires_on | date: format: "basic" %}
+  {% if gift_card.expired and gift_card.enabled %}
+    <p class="giftcard__tag">{{ 'gift_cards.expired' | t: expiry: gift_card_expiry_date }}</p>
+  {% endif %}
+  {% if gift_card.expired != true and gift_card.expires_on and gift_card.enabled %}
+    <p class="giftcard__tag giftcard__tag--active">{{ 'gift_cards.active' | t: expiry: gift_card_expiry_date }}</p>
+  {% endif %}
+</header>
+
+<div class="max-w-lg mx-auto mt-12">
+  <div class="relative">
+    <img src="{{ 'gift-card/card.jpg' | shopify_asset_url }}" alt="">
+  
+    {%- assign initial_value_size = formatted_initial_value | size -%}
+    <div class="bg-white absolute top-0 right-0 mt-4 mr-4 py-1 px-2 font-bold text-2xl">
+      {{ formatted_initial_value }}
+    </div>
+  
+    {%- assign code_size = gift_card.code | format_code | size -%}
+    <div class="absolute bottom-0 right-0 left-0 mx-12 mb-4 bg-white p-2 rounded">
+      <input type="text"
+        class="form-input w-full text-center py-1 border border-dashed"
+        value="{{ gift_card.code | format_code }}"
+        aria-label="{{ 'gift_cards.gift_card_code' | t }}"
+        readonly 
+      />
+    </div>
+  </div>
+
+    <p class="text-center mt-2">
+      {{ 'gift_cards.redeem_html' | t: value: formatted_initial_value_stripped }}
+    </p>
+
+    <div id="qr-code" class="flex justify-center mt-8"></div>
+
+    <div class="flex flex-col items-center">
+      <a href="{{ shop.url }}"
+        class="inline-flex items-center mt-4 px-6 py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:border-button-primary-hover focus:outline-none transition ease-in-out duration-150"
+        target="_blank"
+        rel="noopener"
+        aria-describedby="a11y-new-window-message">
+          {{ 'gift_cards.shop_link' | t }}
+      </a>
+      <button 
+        type="button" 
+        class="inline-flex items-center mt-4 px-6 py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-button-secondard-text bg-button-secondary hover:bg-button-secondary-hover focus:border-button-secondary-hover focus:outline-none transition ease-in-out duration-150" 
+        onclick="window.print();"
+      >
+        {{ 'gift_cards.print' | t }}
+      </button>
     {% if gift_card.pass_url %}
-    <a href="{{ gift_card.pass_url }}">
-      <img id="apple-wallet-badge" src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="Add To Apple Wallet">
-    </a>
+        <a class="giftcard__apple-wallet" href="{{ gift_card.pass_url }}">
+          <img class="giftcard__apple-wallet-image" src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="{{ 'gift_cards.add_to_apple_wallet' | t }}">
+        </a>
     {% endif %}
-  </footer>
-</body>
+    </div>
+</div>
+
+<script>
+  new QRCode(document.getElementById("qr-code"), {
+    text: "{{ gift_card.qr_identifier }}",
+    width: 120,
+    height: 120
+  });
+</script>
+
+</div>
 </html>

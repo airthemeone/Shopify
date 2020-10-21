@@ -4,7 +4,7 @@
         <div class="md:-mx-4 flex md:flex justify-between">
             <div class="md:w-2/3 px-4">
                 <div class="bg-white p-8">
-                    <h1 class="text-2xl font-bold leading-7 text-font-color-900 sm:text-3xl sm:leading-9 sm:truncate mb-4"> {{ "cart.title" | t }}</h1>
+                    <h1 class="text-2xl font-bold leading-7 text-font-color-darkest sm:text-3xl sm:leading-9 sm:truncate mb-4"> {{ "cart.title" | t }}</h1>
                     
                     <div class="relative">
                         <div 
@@ -58,9 +58,9 @@
                                         </div>
                                         <button
                                             @click.prevent="remove_line(index)"
-                                            class="focus:outline-none leading-none text-sm flex items-center text-font-color-500 hover:text-red-500"
+                                            class="focus:outline-none leading-none text-sm flex items-center text-font-color-light hover:text-red-500"
                                         >
-                                            <svg class="w-4 h-4 mr-1 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>                                    
+                                            <svg class="w-4 h-4 mr-1 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>                                    
                                             {{ "cart.remove" | t }}
                                         </button>
                                     </div>
@@ -73,7 +73,7 @@
                         <div class="mt-4">
                             <label 
                                 for="CartSpecialInstructions" 
-                                class="block font-bold text-sm text-font-color-600"
+                                class="block font-bold text-sm text-font-color-dark"
                             >{{ 'cart.note' | t }}</label>
                             <textarea 
                                 name="note" 
@@ -89,7 +89,7 @@
 
             <div class="md:w-1/3 px-4">
                 <div class="bg-white p-8">
-                    <h2 class="text-2xl font-bold leading-7 text-font-color-900 sm:text-3xl sm:leading-9 sm:truncate mb-4">{{ "cart.total" | t }}</h2>
+                    <h2 class="text-2xl font-bold leading-7 text-font-color-darkest sm:text-3xl sm:leading-9 sm:truncate mb-4">{{ "cart.total" | t }}</h2>
                     <div class="flex justify-between">
                         <div>{{ "cart.total" | t }}</div>
                         <div x-html="formatMoney(cart.total_price)"></div>
@@ -98,7 +98,7 @@
                     <button
                         type="submit" 
                         name="checkout" 
-                        class="mt-6 block w-full text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+                        class="mt-6 block w-full text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
                     >{{ "cart.to_payment" | t }}</button>
                 </div>
             </div>

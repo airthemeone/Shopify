@@ -1,5 +1,5 @@
 {% paginate collection.products by 2 %}
-  <h1 class="text-font-color-900">{{ collection.title }}</h1>
+  <h1 class="text-font-color-darkest">{{ collection.title }}</h1>
   {% for product in collection.products %}
     <div>
       <a href="{{ product.url | within: collection }}">{{ product.title }}</a>

@@ -38,7 +38,7 @@
   {%- endif -%}
 {%- endcapture -%}
 
-<footer class="{{ section.settings.background }}">
+<footer style="background-color: {{ section.settings.background_color }};">
   <div class="container mx-auto px-4 xl:px-0 py-8">
     <div class="flex flex-wrap -mx-4">
       {%- for block in section.blocks -%}
@@ -48,7 +48,10 @@
         >
           <div class="px-2 md:px-4 py-4">
             {%- if block.settings.title -%}
-              <h2 class="text-2xl mb-2 font-bold {{ section.settings.text_color }}">{{ block.settings.title | escape }}</h2>
+			  	<h2 
+				  class="text-2xl mb-2 font-bold "
+				  style="color: {{ section.settings.header_color }};"
+				>{{ block.settings.title | escape }}</h2>
             {%- endif -%}
 
             {%- case block.type -%}
@@ -90,7 +93,7 @@
                       
                         <button 
                             type="submit" 
-                            class="inline-flex items-center px-4 h-12 border border-transparent font-medium rounded-r-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+                            class="inline-flex items-center px-4 h-12 border border-transparent font-medium rounded-r-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
                             name="commit" 
                             id="Subscribe"
                         >
@@ -108,7 +111,7 @@
 
               {%- when 'text' -%}
                 {%- if block.settings.text != blank -%}
-                  <div class="{{ section.settings.text_color }}">
+                  <div style="color:{{ section.settings.paragraph_color }};">
                       {{ block.settings.text }}
                   </div>
                 {%- endif -%}
@@ -120,8 +123,9 @@
                       <li>
                         <a 
                             href="{{ link.url }}"
-                            {% if link.current %} aria-current="page"{% endif %}
-                            class="hover:{{ section.settings.text_color_hover }} {{ section.settings.text_color }}"
+							{% if link.current %} aria-current="page"{% endif %}
+							class="hover:underline"
+                            style="color:{{ section.settings.paragraph_color }};"
                         >
                           {{ link.title | escape }}
                         </a>
@@ -148,7 +152,7 @@
             {% endif %}
 
             {%- if social_icons -%}
-                {% capture size %}h-6 w-6 fill-current hover:{{ section.settings.text_color_hover }} {{ section.settings.text_color }}{% endcapture %}
+                {% capture size %}h-6 w-6 fill-current hover:opacity-75{% endcapture %}
                 <div class="flex space-x-2">
                     {%- for social in socials -%}
                         {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
@@ -157,7 +161,8 @@
                         {%- if settings[social_link] != blank -%}
                             <a 
                                 href="{{ settings[social_link] | escape }}" 
-                                target="_blank"
+								target="_blank"
+								style="color:{{ section.settings.paragraph_color }};"
                             >
                                 {% include "icons", name: icon, size: size %}
                             </a>
@@ -170,7 +175,11 @@
                 <div></div>
             {% endif %}
 
-            <div class="{{ section.settings.text_color }} text-xs hover:underline mt-2 md:mt-0">
+			<div 
+				class="text-xs hover:underline mt-2 md:mt-0"
+				
+				style="color:{{ section.settings.paragraph_color }};"
+			>
                 &copy; {{ 'now' | date: "%Y" }} - {{ shop.name | link_to: routes.root_url }} - <a href="https://airthemeone.com/">Powered by Air Theme One</a>
             </div>
         </div>
@@ -205,340 +214,28 @@
 			}
 		},
 		{
-			"type": "select",
-			"id": "background",
-			"label": "Background",
-			"default": "bg-gray-400",
-			"options": [
-				{
-					"value": "bg-primary-100",
-					"label": "Primary 100"
-				},
-				{
-					"value": "bg-primary-200",
-					"label": "Primary 200"
-				},
-				{
-					"value": "bg-primary-300",
-					"label": "Primary 300"
-				},
-				{
-					"value": "bg-primary-400",
-					"label": "Primary 400"
-				},
-				{
-					"value": "bg-primary-500",
-					"label": "Primary 500"
-				},
-				{
-					"value": "bg-primary-600",
-					"label": "Primary 600"
-				},
-				{
-					"value": "bg-primary-700",
-					"label": "Primary 700"
-				},
-				{
-					"value": "bg-primary-800",
-					"label": "Primary 800"
-				},
-				{
-					"value": "bg-primary-900",
-					"label": "Primary 900"
-				},
-				{
-					"value": "bg-secondary-100",
-					"label": "Seconday 100"
-				},
-				{
-					"value": "bg-secondary-200",
-					"label": "Seconday 200"
-				},
-				{
-					"value": "bg-secondary-300",
-					"label": "Seconday 300"
-				},
-				{
-					"value": "bg-secondary-400",
-					"label": "Seconday 400"
-				},
-				{
-					"value": "bg-secondary-500",
-					"label": "Seconday 500"
-				},
-				{
-					"value": "bg-secondary-600",
-					"label": "Seconday 600"
-				},
-				{
-					"value": "bg-secondary-700",
-					"label": "Seconday 700"
-				},
-				{
-					"value": "bg-secondary-800",
-					"label": "Seconday 800"
-				},
-				{
-					"value": "bg-secondary-900",
-					"label": "Seconday 900"
-				},
-				{
-					"value": "bg-font-color-100",
-					"label": "Font color 100"
-				},
-				{
-					"value": "bg-font-color-200",
-					"label": "Font color 200"
-				},
-				{
-					"value": "bg-font-color-300",
-					"label": "Font color 300"
-				},
-				{
-					"value": "bg-font-color-400",
-					"label": "Font color 400"
-				},
-				{
-					"value": "bg-font-color-500",
-					"label": "Font color 500"
-				},
-				{
-					"value": "bg-font-color-600",
-					"label": "Font color 600"
-				},
-				{
-					"value": "bg-font-color-700",
-					"label": "Font color 700"
-				},
-				{
-					"value": "bg-font-color-800",
-					"label": "Font color 800"
-				},
-				{
-					"value": "bg-font-color-900",
-					"label": "Font color 900"
-				},
-				{
-					"value": "bg-gray-100",
-					"label": "Gray 100"
-				},
-				{
-					"value": "bg-gray-200",
-					"label": "Gray 200"
-				},
-				{
-					"value": "bg-gray-300",
-					"label": "Gray 300"
-				},
-				{
-					"value": "bg-gray-400",
-					"label": "Gray 400"
-				},
-				{
-					"value": "bg-gray-500",
-					"label": "Gray 500"
-				},
-				{
-					"value": "bg-gray-600",
-					"label": "Gray 600"
-				},
-				{
-					"value": "bg-gray-700",
-					"label": "Gray 700"
-				},
-				{
-					"value": "bg-gray-800",
-					"label": "Gray 800"
-				},
-				{
-					"value": "bg-gray-900",
-					"label": "Gray 900"
-				},
-				{
-					"value": "bg-white",
-					"label": "White"
-				},
-				{
-					"value": "bg-black",
-					"label": "Black"
-				}
-			]
+			"type": "color",
+			"id": "background_color",
+			"label": {
+			  "en": "Background"
+			},
+			"default": "#EDF2F7"
 		},
 		{
-			"type": "select",
-			"id": "text_color",
-			"label": "Text Color",
-			"default": "text-gray-900",
-			"options": [
-				{
-					"value": "text-white",
-					"label": "White"
-				},
-				{
-					"value": "text-black",
-					"label": "Black"
-				},
-				{
-					"value": "text-font-color-100",
-					"label": "Font color 100"
-				},
-				{
-					"value": "text-font-color-200",
-					"label": "Font color 200"
-				},
-				{
-					"value": "text-font-color-300",
-					"label": "Font color 300"
-				},
-				{
-					"value": "text-font-color-400",
-					"label": "Font color 400"
-				},
-				{
-					"value": "text-font-color-500",
-					"label": "Font color 500"
-				},
-				{
-					"value": "text-font-color-600",
-					"label": "Font color 600"
-				},
-				{
-					"value": "text-font-color-700",
-					"label": "Font color 700"
-				},
-				{
-					"value": "text-font-color-800",
-					"label": "Font color 800"
-				},
-				{
-					"value": "text-font-color-900",
-					"label": "Font color 900"
-				},
-				{
-					"value": "text-gray-100",
-					"label": "Gray 100"
-				},
-				{
-					"value": "text-gray-200",
-					"label": "Gray 200"
-				},
-				{
-					"value": "text-gray-300",
-					"label": "Gray 300"
-				},
-				{
-					"value": "text-gray-400",
-					"label": "Gray 400"
-				},
-				{
-					"value": "text-gray-500",
-					"label": "Gray 500"
-				},
-				{
-					"value": "text-gray-600",
-					"label": "Gray 600"
-				},
-				{
-					"value": "text-gray-700",
-					"label": "Gray 700"
-				},
-				{
-					"value": "text-gray-800",
-					"label": "Gray 800"
-				},
-				{
-					"value": "text-gray-900",
-					"label": "Gray 900"
-				}
-			]
+			"type": "color",
+			"id": "header_color",
+			"label": {
+			  "en": "Header"
+			},
+			"default": "#1A202C"
 		},
 		{
-			"type": "select",
-			"id": "text_color_hover",
-			"label": "Hover Text Color",
-			"default": "text-gray-900",
-			"options": [
-				{
-					"value": "text-white",
-					"label": "White"
-				},
-				{
-					"value": "text-black",
-					"label": "Black"
-				},
-				{
-					"value": "text-font-color-100",
-					"label": "Font color 100"
-				},
-				{
-					"value": "text-font-color-200",
-					"label": "Font color 200"
-				},
-				{
-					"value": "text-font-color-300",
-					"label": "Font color 300"
-				},
-				{
-					"value": "text-font-color-400",
-					"label": "Font color 400"
-				},
-				{
-					"value": "text-font-color-500",
-					"label": "Font color 500"
-				},
-				{
-					"value": "text-font-color-600",
-					"label": "Font color 600"
-				},
-				{
-					"value": "text-font-color-700",
-					"label": "Font color 700"
-				},
-				{
-					"value": "text-font-color-800",
-					"label": "Font color 800"
-				},
-				{
-					"value": "text-font-color-900",
-					"label": "Font color 900"
-				},
-				{
-					"value": "text-gray-100",
-					"label": "Gray 100"
-				},
-				{
-					"value": "text-gray-200",
-					"label": "Gray 200"
-				},
-				{
-					"value": "text-gray-300",
-					"label": "Gray 300"
-				},
-				{
-					"value": "text-gray-400",
-					"label": "Gray 400"
-				},
-				{
-					"value": "text-gray-500",
-					"label": "Gray 500"
-				},
-				{
-					"value": "text-gray-600",
-					"label": "Gray 600"
-				},
-				{
-					"value": "text-gray-700",
-					"label": "Gray 700"
-				},
-				{
-					"value": "text-gray-800",
-					"label": "Gray 800"
-				},
-				{
-					"value": "text-gray-900",
-					"label": "Gray 900"
-				}
-			]
+			"type": "color",
+			"id": "paragraph_color",
+			"label": {
+			  "en": "Paragraph"
+			},
+			"default": "#4A5568"
 		}
 	],
 	"blocks": [{

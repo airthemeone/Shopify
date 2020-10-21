@@ -29,10 +29,10 @@
             <div class="flex lg:hidden">
                 <button
                     @click="menu_open = !menu_open"
-                    class="inline-flex items-center justify-center rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                    class="inline-flex items-center justify-center rounded-md text-font-color-light focus:outline-none transition duration-150 ease-in-out"
                     aria-label="{{ "general.button_labels.menu" | t }}"
                 >
-                    <svg class="h-8 w-8 fill-current text-font-color-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <svg class="h-8 w-8 fill-current text-font-color-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path class="inline-flex" fill-rule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z"/>
                     </svg>
                 </button>
@@ -71,13 +71,13 @@
                         >
                             <a 
                                 href="{{ link.url }}"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-font-color-500 hover:text-font-color-700 hover:border-gray-300 focus:outline-none focus:text-font-color-700 transition duration-200" 
+                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-font-color-light hover:text-font-color-dark hover:border-gray-300 focus:outline-none focus:text-font-color-dark transition duration-200" 
                             >
                                 {{ link.title }}
 
                                 {% if linklists[child_list_handle].links != blank %}
                                     <svg 
-                                        class="w-4 h-4" 
+                                        class="w-4 h-4 ml-1" 
                                         fill="none" 
                                         stroke="currentColor" 
                                         viewBox="0 0 24 24" 
@@ -97,7 +97,7 @@
                                 >
                                     {% for childlink in linklists[child_list_handle].links %}
                                         <a 
-                                            class="p-2 block whitespace-no-wrap border-b-1 text-sm font-medium leading-5 text-font-color-500 hover:text-font-color-700 focus:outline-none focus:text-font-color-700 transition duration-200" 
+                                            class="p-2 pr-12 block whitespace-no-wrap border-b-1 text-sm font-medium leading-5 text-font-color-light hover:text-font-color-dark focus:outline-none focus:text-font-color-dark transition duration-200" 
                                             href="{{ childlink.url }}"
                                         >
                                             {{ childlink.title }}
@@ -129,7 +129,7 @@
                     <label for="search" class="sr-only">{{ "general.search.placeholder" | t }}</label>
                     <div class="relative">
                         <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer">
-                            <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            <svg class="h-6 w-6 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </button>
                         <input 
                             id="search"
@@ -151,7 +151,7 @@
                             @click="clear_search()"
                             x-cloak
                         >
-                            <svg class="w-4 h-4 text-font-color-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <svg class="w-4 h-4 text-font-color-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </div>
 
                         <div
@@ -194,21 +194,21 @@
                         $nextTick(() => {refs.search_bar.focus()});
                     "
                     aria-label="{{ "general.button_labels.search" | t }}"
-                    class="inline-flex md:hidden items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                    class="inline-flex md:hidden items-center justify-center p-2 rounded-md text-font-color-light focus:outline-none transition duration-150 ease-in-out"
                 >
-                    <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <svg class="h-6 w-6 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </button>
                 <a 
                     href="/cart"
                     @click.prevent="cart_drawer = true"
-                    class="block relative rounded-full text-font-color-600 hover:text-font-color-800 focus:outline-none focus:text-font-color-500 transition duration-150 ease-in-out"
+                    class="block relative rounded-full text-font-color-dark hover:text-font-color-darkest focus:outline-none focus:text-font-color-light transition duration-150 ease-in-out"
                 >
                     {% include "icons", name: section.settings.header_cart_icon, size: "h-6 w-6 fill-current" %}
                     <span
                         x-cloak
                         x-show="cart_items_count > 0"
                         x-text="cart_items_count"
-                        class="text-xxs text-white leading-none px-1 py-1 bg-primary-600 rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
+                        class="text-xxs text-button-primary-text leading-none px-1 py-1 bg-button-primary rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
                     ></span>
                 </a>
             </div>
@@ -221,22 +221,22 @@
                         search_query = '';
                         $nextTick(() => {refs.search_bar.focus()});
                     "
-                    class="hidden {% if section.settings.search_desktop == 'icon' %}lg:inline-flex{% endif %} items-center justify-center p-2 rounded-md text-font-color-400 focus:outline-none transition duration-150 ease-in-out"
+                    class="hidden {% if section.settings.search_desktop == 'icon' %}lg:inline-flex{% endif %} items-center justify-center p-2 rounded-md text-font-color-light focus:outline-none transition duration-150 ease-in-out"
                 >
-                    <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <svg class="h-6 w-6 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </button>
 
                 <a 
                     href="/cart"
                     @click.prevent="cart_drawer = true"
-                    class="block relative rounded-full text-font-color-600 hover:text-font-color-800 focus:outline-none focus:text-font-color-500 transition duration-150 ease-in-out"
+                    class="block relative rounded-full text-font-color-dark hover:text-font-color-darkest focus:outline-none focus:text-font-color-light transition duration-150 ease-in-out"
                     aria-label="{{ "general.button_labels.cart" | r }}"
                 >
                     {% include "icons", name: section.settings.header_cart_icon, size: "h-6 w-6 fill-current" %}
                     <span
                         x-show="cart_items_count > 0"
                         x-text="cart_items_count"
-                        class="text-xxs text-white leading-none px-1 py-1 bg-primary-600 rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
+                        class="text-xxs text-button-primary-text leading-none px-1 py-1 bg-button-primary rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
                     ></span>
                 </a>
             </div>
@@ -280,7 +280,7 @@
                             @click="menu_open = false"
                             class="flex items-center justify-center h-10 w-10 border-r focus:outline-none" 
                         >
-                            <svg class="h-6 w-6 text-font-color-800" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <svg class="h-6 w-6 text-font-color-darkest" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
@@ -303,15 +303,15 @@
                                 {% endif %}
                             >
                                 <a 
-                                    class="mt-1 flex justify-between items-center block pl-3 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" 
+                                    class="mt-1 flex justify-between items-center block pl-3 py-2 text-base font-medium text-font-color-dark focus:outline-none focus:text-font-color-darkest" 
                                     href="{{ link.url }}"
                                 >
                                     {{ link.title }}
 
                                     {% if linklists[child_list_handle].links != blank %}
                                         <span 
-                                            @click=" isOpen = !isOpen" 
-                                            class="p-3 cursor-pointer text-font-color-600" 
+                                            @click.stop=" isOpen = !isOpen" 
+                                            class="p-3 cursor-pointer text-font-color-dark" 
                                         >
                                             <svg 
                                                 class="h-6 w-6 transform transition duration-200 ease-in-out" 
@@ -330,7 +330,7 @@
                                     <div x-show="isOpen">
                                         {% for childlink in linklists[child_list_handle].links %}
                                             <a 
-                                                class="mt-1 block pl-6 pr-4 py-2 text-base font-medium text-font-color-600 focus:outline-none focus:text-font-color-800" 
+                                                class="mt-1 block pl-6 pr-4 py-2 text-base font-medium text-font-color-dark focus:outline-none focus:text-font-color-darkest" 
                                                 href="{{ childlink.url }}"
                                                 >
                                                     {{ childlink.title }}

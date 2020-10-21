@@ -8,10 +8,10 @@
   <div class="{{ section.settings.width }} mx-auto">
     <article>
         <div class="w-full">
-            <h1 class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}">{{ article.title }}</h1>
+            <h1 class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4 {{ section.settings.header_alignment }}">{{ article.title }}</h1>
         </div>
     
-        <div class="flex justify-center space-x-2 text-font-color-500 mb-8 md:mb-12">
+        <div class="flex justify-center space-x-2 text-font-color-light mb-8 md:mb-12">
             {% if section.settings.blog_show_author %}
                 <div>{{ 'blogs.article.by_author' | t: author: article.author }}</div>
             {% endif %}
@@ -37,7 +37,7 @@
           
           <hr class="mt-8 pb-8">
 
-          <h2 class="text-2xl font-bold leading-tight text-font-color-900 mb-4">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h2>
+          <h2 class="text-2xl font-bold leading-tight text-font-color-darkest mb-4">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h2>
 
           {% paginate article.comments by 2 %}
 
@@ -65,7 +65,7 @@
         {% form 'new_comment', article %}
 
           {%- assign formId = 'CommentForm' -%}
-          <h2 class="text-2xl font-bold leading-tight text-font-color-900 mb-4">{{ 'blogs.comments.title' | t }}</h2>
+          <h2 class="text-2xl font-bold leading-tight text-font-color-darkest mb-4">{{ 'blogs.comments.title' | t }}</h2>
 
           {%- assign post_message = 'blogs.comments.success' -%}
 
@@ -118,7 +118,7 @@
           {%- endif -%}
 
           <div class="md:flex space-x-2">
-            <div class="flex-1 text-font-color-700">
+            <div class="flex-1 text-font-color-dark">
               <label for="{{ formId }}-author">{{ 'blogs.comments.name' | t }}</label>
 
               <input 
@@ -141,7 +141,7 @@
                 {% endif %}
             </div>
 
-            <div class="flex-1 text-font-color-700">
+            <div class="flex-1 text-font-color-dark">
                 <label 
                   for="{{ formId }}-email"
                 >
@@ -201,7 +201,7 @@
         
           <input 
             type="submit" 
-            class="mt-6 cursor-pointer inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+            class="mt-6 cursor-pointer inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
             value="{{ 'blogs.comments.post' | t }}"
           >
           {% if blog.moderated? %}

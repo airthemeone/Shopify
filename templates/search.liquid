@@ -4,11 +4,11 @@
 <div class="container mx-auto px-3 sm:px-4 xl:px-0 py-12">
   {% if search.performed == false %}
       <h1
-        class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}"
+        class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4 {{ section.settings.header_alignment }}"
       >{{ 'general.search.title' | t }}</h1>
   {% else %}
       <h1
-        class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}"
+        class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4 {{ section.settings.header_alignment }}"
       >
         {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
       </h1>
@@ -21,7 +21,7 @@
     class="relative flex mb-8"
   >
     <div type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-      <svg class="h-6 w-6 text-font-color-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      <svg class="h-6 w-6 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
     </div>
 
     <input
@@ -36,7 +36,7 @@
 
     <button 
         type="submit" 
-        class="inline-flex items-center px-4 h-12 border border-transparent font-medium rounded-r-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+        class="inline-flex items-center px-4 h-12 border border-transparent font-medium rounded-r-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
     >
         {{ 'general.search.placeholder' | t }}
     </button>
@@ -65,7 +65,7 @@
             </div>
             
             <div class="flex-1">
-              <h2 class="text-font-color-900 text-lg font-bold block">
+              <h2 class="text-font-color-darkest text-lg font-bold block">
                   {{ item.title }}
               </h2>
               <p>

@@ -12,155 +12,55 @@
     "settings": [
       {
         "type": "header",
-        "content": "Primary Colors"
+        "content": "Button"
       },
       {
         "type": "color",
-        "id": "primary_color_100",
+        "id": "button_primary",
         "label": {
-          "en": "100"
-        },
-        "default": "#EBF4FF"
-      },
-      {
-        "type": "color",
-        "id": "primary_color_200",
-        "label": {
-          "en": "200"
-        },
-        "default": "#C3DAFE"
-      },
-      {
-        "type": "color",
-        "id": "primary_color_300",
-        "label": {
-          "en": "300"
-        },
-        "default": "#A3BFFA"
-      },
-      {
-        "type": "color",
-        "id": "primary_color_400",
-        "label": {
-          "en": "400"
-        },
-        "default": "#7F9CF5"
-      },
-      {
-        "type": "color",
-        "id": "primary_color_500",
-        "label": {
-          "en": "500"
-        },
-        "default": "#667EEA"
-      },
-      {
-        "type": "color",
-        "id": "primary_color_600",
-        "label": {
-          "en": "600"
+          "en": "Primary Background"
         },
         "default": "#5A67D8"
       },
       {
         "type": "color",
-        "id": "primary_color_700",
+        "id": "button_primary_hover",
         "label": {
-          "en": "700"
+          "en": "Primary Background - Hover"
         },
-        "default": "#4C51BF"
+        "default": "#667EEA"
       },
       {
         "type": "color",
-        "id": "primary_color_800",
+        "id": "button_primary_text",
         "label": {
-          "en": "800"
+          "en": "Primary text"
         },
-        "default": "#434190"
+        "default": "#fff"
       },
       {
         "type": "color",
-        "id": "primary_color_900",
+        "id": "button_seconday",
         "label": {
-          "en": "900"
+          "en": "Secondary Background"
         },
-        "default": "#3C366B"
-      },
-      {
-        "type": "header",
-        "content": "Secondary Colors"
+        "default": "#fff"
       },
       {
         "type": "color",
-        "id": "secondary_color_100",
+        "id": "button_seconday_hover",
         "label": {
-          "en": "100"
+          "en": "Secondary Background - Hover"
         },
         "default": "#F7FAFC"
       },
       {
         "type": "color",
-        "id": "secondary_color_200",
+        "id": "button_seconday_text",
         "label": {
-          "en": "200"
-        },
-        "default": "#EDF2F7"
-      },
-      {
-        "type": "color",
-        "id": "secondary_color_300",
-        "label": {
-          "en": "300"
-        },
-        "default": "#E2E8F0"
-      },
-      {
-        "type": "color",
-        "id": "secondary_color_400",
-        "label": {
-          "en": "400"
-        },
-        "default": "#CBD5E0"
-      },
-      {
-        "type": "color",
-        "id": "secondary_color_500",
-        "label": {
-          "en": "500"
-        },
-        "default": "#A0AEC0"
-      },
-      {
-        "type": "color",
-        "id": "secondary_color_600",
-        "label": {
-          "en": "600"
-        },
-        "default": "#718096"
-      },
-      {
-        "type": "color",
-        "id": "secondary_color_700",
-        "label": {
-          "en": "700"
+          "en": "Secondary Text"
         },
         "default": "#4A5568"
-      },
-      {
-        "type": "color",
-        "id": "secondary_color_800",
-        "label": {
-          "en": "800"
-        },
-        "default": "#2D3748"
-      },
-      {
-        "type": "color",
-        "id": "secondary_color_900",
-        "label": {
-          "en": "900"
-        },
-        "default": "#1A202C"
       },
       {
         "type": "header",
@@ -168,73 +68,25 @@
       },
       {
         "type": "color",
-        "id": "font_color_color_100",
+        "id": "font_color_color_light",
         "label": {
-          "en": "100"
-        },
-        "default": "#F7FAFC"
-      },
-      {
-        "type": "color",
-        "id": "font_color_color_200",
-        "label": {
-          "en": "200"
-        },
-        "default": "#EDF2F7"
-      },
-      {
-        "type": "color",
-        "id": "font_color_color_300",
-        "label": {
-          "en": "300"
-        },
-        "default": "#E2E8F0"
-      },
-      {
-        "type": "color",
-        "id": "font_color_color_400",
-        "label": {
-          "en": "400"
-        },
-        "default": "#CBD5E0"
-      },
-      {
-        "type": "color",
-        "id": "font_color_color_500",
-        "label": {
-          "en": "500"
+          "en": "Light"
         },
         "default": "#A0AEC0"
       },
       {
         "type": "color",
-        "id": "font_color_color_600",
+        "id": "font_color_color_dark",
         "label": {
-          "en": "600"
-        },
-        "default": "#718096"
-      },
-      {
-        "type": "color",
-        "id": "font_color_color_700",
-        "label": {
-          "en": "700"
+          "en": "Dark"
         },
         "default": "#4A5568"
       },
       {
         "type": "color",
-        "id": "font_color_color_800",
+        "id": "font_color_color_darkest",
         "label": {
-          "en": "800"
-        },
-        "default": "#2D3748"
-      },
-      {
-        "type": "color",
-        "id": "font_color_color_900",
-        "label": {
-          "en": "900"
+          "en": "Darekest"
         },
         "default": "#1A202C"
       },

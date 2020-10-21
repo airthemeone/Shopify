@@ -2,36 +2,36 @@
     <a 
         href="{{ shop.url }}" 
         title="{{ shop.name | escape }}"
-        class="text-font-color-500 hover:text-font-color-700"
+        class="text-font-color-light hover:text-font-color-dark"
     >
         {{ 'general.breadcrumbs.home' | t }}
     </a>
     
-    {% include 'icons', name: 'chevron-right', size: 'w-4 h-4 text-font-color-400' %}
+    {% include 'icons', name: 'chevron-right', size: 'w-4 h-4 text-font-color-light' %}
 
     {% if template contains 'product' %}
         <a 
             href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" 
             title="{{ collection.title | escape }}"
-            class="text-font-color-500 hover:text-font-color-700"
+            class="text-font-color-light hover:text-font-color-dark"
         >
             {% unless collection.title %} {{ 'general.breadcrumbs.all' | t }} {% else %} {{ collection.title }} {% endunless %}
         </a>
 
         {% if current_tags %}
-            {% include 'icons', name: 'chevron-right', size: 'w-4 h-4 text-font-color-400' %}
+            {% include 'icons', name: 'chevron-right', size: 'w-4 h-4 text-font-color-light' %}
             {% for tag in current_tags %}
                 <a 
                     href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}"
                     title="{{ tag | escape }}"
-                    class="text-font-color-500 hover:text-font-color-700"
+                    class="text-font-color-light hover:text-font-color-dark"
                 >
                     {{ tag }}
                 </a>
             {% endfor %}
         {% endif %}
 
-        {% include 'icons', name: 'chevron-right', size: 'w-4 h-4 text-font-color-400' %}
+        {% include 'icons', name: 'chevron-right', size: 'w-4 h-4 text-font-color-light' %}
         <span>
             {{ product.title }}
         </span>
@@ -39,7 +39,7 @@
         <a 
             href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" 
             title="{{ collection.title | escape }}"
-            class="text-font-color-500 hover:text-font-color-700"
+            class="text-font-color-light hover:text-font-color-dark"
         >
             {% unless collection.title %} {{ 'general.breadcrumbs.all' | t }} {% else %} {{ collection.title }} {% endunless %}
         </a>
@@ -48,7 +48,7 @@
         <a 
             href="{{ routes.search_url }}" 
             title="{{ 'general.search.title' | t | escape }}"
-            class="text-font-color-500 hover:text-font-color-700"
+            class="text-font-color-light hover:text-font-color-dark"
         >
             {{ 'general.search.title' | t }}
         </a>
@@ -56,7 +56,7 @@
         <a 
             href="{{ blog.url }}" 
             title="{{ blog.title | escape }}"
-            class="text-font-color-500 hover:text-font-color-700"
+            class="text-font-color-light hover:text-font-color-dark"
         >
             {{ blog.title }}
         </a>

@@ -9,7 +9,7 @@
 
     <div class="flex-1">
         <a href="{{ product.url }}">
-			<h2 class="text-2xl font-bold mb-2 hover:underline text-font-color-900">
+			<h2 class="text-2xl font-bold mb-2 hover:underline text-font-color-darkest">
 				{{ product.title }}
 			</h2>
         </a>
@@ -48,7 +48,7 @@
         <div class="mt-4 max-w-xs">
           <button 
             @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
-            class="inline-flex items-center mt-4 w-full justify-center py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+            class="inline-flex items-center mt-4 w-full justify-center py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
           >
             <svg class="h-4 w-4 mr-1 fill-current text-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
               <g data-name="1">

@@ -4,7 +4,7 @@
 <div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
     <div class="">
         <h1 
-            class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}"
+            class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4 {{ section.settings.header_alignment }}"
         >
             {{ page_title }}
         </h1>
@@ -19,14 +19,14 @@
                             {% endif %}
                             
                             <div class="prose max-w-full">
-                                <h2 class="text-font-color-900">
+                                <h2 class="text-font-color-darkest">
                                     {{ article.title | escape }}
                                 </h2>
                             </div>
                         </a>
     
                         <div class="">
-                            <div class="flex justify-between text-font-color-500">
+                            <div class="flex justify-between text-font-color-light">
                                 <div>
                                     {% if section.settings.blog_show_author %}
                                         <div class="h-10">

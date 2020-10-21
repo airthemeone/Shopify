@@ -4,7 +4,7 @@
         
         {% include 'breadcrumbs' %}
         
-        <div class="text-sm text-font-color-500">
+        <div class="text-sm text-font-color-light">
             {% if paginate.pages != 0 %}
                 {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
             {% endif %}    
@@ -17,7 +17,7 @@
 <div class="container mx-auto px-2 sm:px-4 xl:px-0 py-4">
     <div class="flex justify-between items-center">
         <h1 
-            class="text-2xl font-bold leading-7 text-font-color-900 sm:text-3xl sm:leading-9 sm:truncate"
+            class="text-2xl font-bold leading-7 text-font-color-darkest sm:text-3xl sm:leading-9 sm:truncate"
         >{{ collection.title }}</h1>
 
         {% if section.settings.collection_sort %}
@@ -30,7 +30,7 @@
 
 {% if collection.description != blank %}
     <div class="container mx-auto px-2 sm:px-4 xl:px-0">
-        <div class="text-font-color-800">
+        <div class="text-font-color-darkest">
             {{ collection.description }}
         </div>
     </div>

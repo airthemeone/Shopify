@@ -2,7 +2,7 @@
     
     {% if section.settings.title != blank %}
         <div class="">
-            <h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+            <h2 class="text-font-color-darkest font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
         </div>
     {% endif %}
   
@@ -16,10 +16,10 @@
                             {% include 'image', image_object: article.image, alt: article.image.alt, class: "w-full mb-4" %}
                         {% endif %}
             
-                        <h3 class="font-bold text-lg leading-8">{{ article.title }}</h3>
+                        <h3 class="font-bold text-lg leading-8 text-font-color-darkest">{{ article.title }}</h3>
                     </a>
             
-                    <div class="flex justify-between text-font-color-500">
+                    <div class="flex justify-between text-font-color-light">
                         {% if section.settings.blog_show_author %}
                             <span class="">{{ 'blogs.article.by_author' | t: author: article.author }}</span>
                         {% endif %}
@@ -42,7 +42,7 @@
                     <div class="text-center mt-4">
                         <a 
                             href="{{ article.url }}" 
-                            class="border-secondary-800 border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200" 
+                            class="border-gray-800 border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200" 
                             aria-label="{{ 'blogs.article.read_more_title' | t: title: article.title }}"
                         >
                             {{ 'blogs.article.read_more' | t }}
@@ -57,7 +57,7 @@
       <div class="text-center pt-8">
         <a 
             href="{{ blog.url }}" 
-            class="border-secondary-800 border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200" 
+            class="border-gray-800 border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200" 
             aria-label="{{ 'blogs.article.view_all_blogs' | t }}"
         >
           {{ 'blogs.article.view_all' | t }}

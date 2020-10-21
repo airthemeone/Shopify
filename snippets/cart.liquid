@@ -34,7 +34,7 @@
                         @click="cart_drawer = false"
                         class="flex items-center justify-center h-10 w-10 border-r focus:outline-none" 
                     >
-                        <svg class="h-6 w-6 text-font-color-800" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <svg class="h-6 w-6 text-font-color-darkest" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -87,9 +87,9 @@
                                     </div>
                                     <button
                                         @click.prevent="remove_line(index)"
-                                        class="focus:outline-none leading-none text-sm flex items-center text-font-color-500 hover:text-red-500 group"
+                                        class="focus:outline-none leading-none text-sm flex items-center text-font-color-light hover:text-red-500 group"
                                     >
-                                        <svg class="w-4 h-4 mr-1 text-font-color-500 group-hover:text-red-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>                                    
+                                        <svg class="w-4 h-4 mr-1 text-font-color-light group-hover:text-red-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>                                    
                                         {{ "cart.remove" | t }}
                                     </button>
                                 </div>
@@ -99,11 +99,11 @@
                 </div>
                 <div class="flex flex-col py-5 px-2">
                     <a 
-                        class="mb-2 block text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+                        class="mb-2 block text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:border-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
                         href="/checkout"
                     >{{ "checkout.to_checkout" | t }}</a>
                     <a 
-                        class="block text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-black bg-white hover:bg-secondary-300 focus:outline-none focus:bg-gray-300 focus:shadow-outline-primary active:bg-gray-300 transition ease-in-out duration-150"
+                        class="block text-center items-center py-3 border border-transparent leading-4 font-medium rounded-md text-button-secondary-text bg-button-secondary hover:bg-button-secondary-hover focus:outline-none focus:bg-gray-300 focus:shadow-outline-primary active:bg-gray-300 transition ease-in-out duration-150"
                         href="/cart"
                     >{{ "cart.to_cart" | t }}</a>
                 </div>

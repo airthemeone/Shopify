@@ -7,7 +7,7 @@
   <div class="flex-grow flex flex-col items-center">
     {% include 'image', image_object: product.featured_image.src, alt: product.featured_image.alt %}
   
-    <h2 class="text-font-color-900 text-lg pt-2 text-center block">
+    <h2 class="text-font-color-darkest text-lg pt-2 text-center block">
       {{ product.title }}
     </h2>
   
@@ -44,7 +44,7 @@
       >
         {%- if product.price_varies -%}
           <div 
-            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
           >
             <svg class="h-4 w-4 mr-1 fill-current text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
             {{ 'products.product.see_more' | t }}
@@ -54,18 +54,18 @@
           <button 
             @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
             class="
-              inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md transition ease-in-out duration-150
+              inline-flex items-center px-3 py-2 border text-sm leading-4 font-medium rounded-md transition ease-in-out duration-150
               {% if product.available %}
-                text-white bg-primary-600 hover:bg-primary-500 focus:border-primary-700 active:bg-primary-700
-              {% else %}
-                text-primary-100 bg-primary-400 cursor-not-allowed
-              {% endif %}
+              text-button-primary-text bg-button-primary hover:bg-button-primary-hover border-transparent focus:bg-button-primary-hover active:bg-button-primary-hover
+            {% else %}
+              text-button-secondary-text bg-button-secondary hover:bg-button-secondary-hover border-gray-200 focus:bg-button-secondary-hover active:bg-button-secondary-hover cursor-not-allowed
+            {% endif %}
             "
             {% unless product.available %}
               disabled
             {% endunless %}
           >
-            <svg class="h-4 w-4 mr-1 fill-current text-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <svg class="h-4 w-4 mr-1 fill-current" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
               <g data-name="1">
                   <path d="M413.12 295.76H150.46a15 15 0 01-14.89-13.23L116 117.66v-.43l-4.52-38H69.13a15 15 0 110-30h55.6a15 15 0 0114.9 13.23l4.54 38.23h297a15 15 0 0114.79 17.51l-28 165.1a15 15 0 01-14.84 12.46zm-249.33-30h236.66l22.92-135.1H147.73z"/>
                   <path d="M410.65 349.37H156.84a15 15 0 01-14.9-13.23l-16.6-139.69a15 15 0 1129.79-3.54l15 126.46h240.52a15 15 0 010 30zM191.41 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46zM370.13 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46z"/>

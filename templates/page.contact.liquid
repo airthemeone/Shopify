@@ -3,10 +3,10 @@
   <div class="max-w-xl mx-auto">
     <article>
         <div class="w-full">
-            <h1 class="text-4xl font-extrabold leading-tight text-font-color-900 mb-4 {{ section.settings.header_alignment }}">{{ page.title }}</h1>
+            <h1 class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4 {{ section.settings.header_alignment }}">{{ page.title }}</h1>
         </div>
     
-        <div class="prose md:prose-lg max-w-none text-font-color-500">
+        <div class="prose md:prose-lg max-w-none text-font-color-light">
           {{ page.content }}
         </div>
         
@@ -19,7 +19,7 @@
             <div class="mb-4">
               <label 
                 for="ContactFormName" 
-                class="block text-sm font-medium leading-5 text-font-color-700"
+                class="block text-sm font-medium leading-5 text-font-color-dark"
               >{{ "general.form.name" | t}}</label>
   
               <input 
@@ -33,7 +33,7 @@
             <div class="mb-4">
               <label 
                 for="ContactFormEmail"
-                class="block text-sm font-medium leading-5 text-font-color-700"
+                class="block text-sm font-medium leading-5 text-font-color-dark"
               >{{ "general.form.email" | t}}</label>
   
               <input 
@@ -47,7 +47,7 @@
             <div class="mb-4">
               <label 
                 for="ContactFormPhone"
-                class="block text-sm font-medium leading-5 text-font-color-700"
+                class="block text-sm font-medium leading-5 text-font-color-dark"
               >{{ "general.form.phone" | t}}</label>
               
               <input 
@@ -61,7 +61,7 @@
             <div class="mb-4">
               <label 
                 for="ContactFormMessage"
-                class="block text-sm font-medium leading-5 text-font-color-700"
+                class="block text-sm font-medium leading-5 text-font-color-dark"
               >{{ "general.form.message" | t}}</label>
               
               <textarea 
@@ -75,7 +75,7 @@
             <input 
               type="submit" 
               value="{{ "general.form.send" | t}}"
-              class="flex items-center cursor-pointer w-full justify-center py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+              class="flex items-center cursor-pointer w-full justify-center py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
             >
           {% endform %}
         </div>

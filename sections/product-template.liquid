@@ -21,16 +21,16 @@
             </ul>
           </div>
           <div class="" data-glide-el="controls">
-            <button class="absolute top-1/2 transform -translate-y-1/2 bg-secondary-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center ml-2" data-glide-dir="<">
+            <button class="absolute top-1/2 transform -translate-y-1/2 bg-gray-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center ml-2" data-glide-dir="<">
               <svg class="w-6 w-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
             </button>
-            <button class="absolute top-1/2 transform -translate-y-1/2 right-0 bg-secondary-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center mr-2" data-glide-dir=">">
+            <button class="absolute top-1/2 transform -translate-y-1/2 right-0 bg-gray-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center mr-2" data-glide-dir=">">
               <svg class="w-6 w-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
             </button>
           </div>
           <div class="-mt-6 flex justify-center relative" data-glide-el="controls[nav]">
             {% for image in product.media %}
-              <button class="w-2 h-2 rounded-full bg-secondary-200 block mx-1" data-glide-dir="{{ forloop.index }}"></button>
+              <button class="w-2 h-2 rounded-full bg-gray-200 block mx-1" data-glide-dir="{{ forloop.index }}"></button>
             {% endfor %}
           </div>
         </div>
@@ -55,10 +55,10 @@
             </ul>
           </div>
           <div data-glide-el="controls">
-            <button class="absolute top-1/2 transform -translate-y-1/2 bg-secondary-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center ml-2" data-glide-dir="<">
+            <button class="absolute top-1/2 transform -translate-y-1/2 bg-gray-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center ml-2" data-glide-dir="<">
               <svg class="w-6 w-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
             </button>
-            <button class="absolute top-1/2 transform -translate-y-1/2 right-0 bg-secondary-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center mr-2" data-glide-dir=">">
+            <button class="absolute top-1/2 transform -translate-y-1/2 right-0 bg-gray-600 hover:opacity-75 focus:outline-none opacity-50 h-8 w-8 rounded-full flex justify-center items-center mr-2" data-glide-dir=">">
               <svg class="w-6 w-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
             </button>
           </div>
@@ -67,7 +67,7 @@
     </div>
   </div>
   <div class="flex-1">
-    <h1 class="text-2xl font-bold mb-2 text-font-color-900">{{ product.title }}</h1>
+    <h1 class="text-2xl font-bold mb-2 text-font-color-darkest">{{ product.title }}</h1>
 
     <div class="text-3xl mt-4 mb-6">
       {{ product.selected_or_first_available_variant.price | money }}
@@ -128,18 +128,18 @@
         <button 
           @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
           class="
-            inline-flex items-center mt-4 w-full justify-center py-3 border border-transparent text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150
+            inline-flex items-center mt-4 w-full justify-center py-3 border text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150
             {% if product.available %}
-              text-white bg-primary-600 hover:bg-primary-500 focus:border-primary-700 active:bg-primary-700
+              text-button-primary-text bg-button-primary hover:bg-button-primary-hover border-transparent focus:bg-button-primary-hover active:bg-button-primary-hover
             {% else %}
-              text-primary-100 bg-primary-400 cursor-not-allowed
+              text-button-secondary-text bg-button-secondary hover:bg-button-secondary-hover border-gray-200 focus:bg-button-secondary-hover active:bg-button-secondary-hover cursor-not-allowed
             {% endif %}
           "
           {% unless product.available %}
             disabled
           {% endunless %}
         >
-            <svg class="h-4 w-4 mr-1 fill-current text-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <svg class="h-4 w-4 mr-1 fill-current" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
               <g data-name="1">
                   <path d="M413.12 295.76H150.46a15 15 0 01-14.89-13.23L116 117.66v-.43l-4.52-38H69.13a15 15 0 110-30h55.6a15 15 0 0114.9 13.23l4.54 38.23h297a15 15 0 0114.79 17.51l-28 165.1a15 15 0 01-14.84 12.46zm-249.33-30h236.66l22.92-135.1H147.73z"/>
                   <path d="M410.65 349.37H156.84a15 15 0 01-14.9-13.23l-16.6-139.69a15 15 0 1129.79-3.54l15 126.46h240.52a15 15 0 010 30zM191.41 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46zM370.13 448.16a44.49 44.49 0 1144.48-44.48 44.53 44.53 0 01-44.48 44.48zm0-59a14.49 14.49 0 1014.48 14.49 14.5 14.5 0 00-14.48-14.46z"/>
@@ -157,7 +157,7 @@
     </form>
     <div id="description" class="mt-6">
       {% if product.description != '' %}
-        <h2 class="font-bold text-xl text-font-color-700">{{ 'products.product.description' | t }}</h2>
+        <h2 class="font-bold text-xl text-font-color-dark">{{ 'products.product.description' | t }}</h2>
         <div class="prose max-w-full">
           {{ product.description }}
         </div>

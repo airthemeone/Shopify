@@ -2,11 +2,12 @@ const { colors } = require('tailwindcss/defaultTheme')
 
 module.exports = {
   purge: {
+    mode: 'all',
     content: ['./**/*.liquid'],
 
     // These options are passed through directly to PurgeCSS
     options: {
-      whitelist: [''],
+      whitelist: ['h1', 'h2', 'h3', 'p', 'strong'],
     }
   },
   future: {
@@ -21,41 +22,45 @@ module.exports = {
       red: colors.red,
       green: colors.green,
       transparent: colors.transparent,
-      primary: {
-        100: 'var(--color-primary-100)',
-        200: 'var(--color-primary-200)',
-        300: 'var(--color-primary-300)',
-        400: 'var(--color-primary-400)',
-        500: 'var(--color-primary-500)',
-        600: 'var(--color-primary-600)',
-        700: 'var(--color-primary-700)',
-        800: 'var(--color-primary-800)',
-        900: 'var(--color-primary-900)',
-      },
-      secondary: {
-        100: 'var(--color-secondary-100)',
-        200: 'var(--color-secondary-200)',
-        300: 'var(--color-secondary-300)',
-        400: 'var(--color-secondary-400)',
-        500: 'var(--color-secondary-500)',
-        600: 'var(--color-secondary-600)',
-        700: 'var(--color-secondary-700)',
-        800: 'var(--color-secondary-800)',
-        900: 'var(--color-secondary-900)'
+      "button": {
+        "primary": 'var(--color-button-primary)',
+        "primary-hover": 'var(--color-button-primary-hover)',
+        "primary-text": 'var(--color-button-primary-text)',
+        "secondary": 'var(--color-button-secondary)',
+        "secondary-hover": 'var(--color-button-secondary-hover)',
+        "secondary-text": 'var(--color-button-secondary-text)',
       },
       "font-color": {
-        100: 'var(--color-font-color-100)',
-        200: 'var(--color-font-color-200)',
-        300: 'var(--color-font-color-300)',
-        400: 'var(--color-font-color-400)',
-        500: 'var(--color-font-color-500)',
-        600: 'var(--color-font-color-600)',
-        700: 'var(--color-font-color-700)',
-        800: 'var(--color-font-color-800)',
-        900: 'var(--color-font-color-900)'
+        "light": 'var(--color-font-color-light)',
+        "dark": 'var(--color-font-color-dark)',
+        "darkest": 'var(--color-font-color-darkest)'
       }
     },
-
+    typography: {
+      default: {
+        css: {
+          color: 'var(--color-font-color-dark)',
+          a: {
+            color: 'var(--color-font-color-dark)',
+            '&:hover': {
+              color: 'var(--color-font-color-darkest)',
+            },
+          },
+          h1: {
+            color: 'var(--color-font-color-darkest)',
+          },
+          h2: {
+            color: 'var(--color-font-color-darkest)',
+          },
+          h3: {
+            color: 'var(--color-font-color-darkest)',
+          },
+          h4: {
+            color: 'var(--color-font-color-darkest)',
+          },
+        },
+      },
+    },
     extend: {
       fontSize: {
         xxs: '0.5rem'

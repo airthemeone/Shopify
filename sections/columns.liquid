@@ -1,7 +1,7 @@
 <div id="columns-{{ section.id }}" class="container mx-auto px-3 sm:px-4 xl:px-0">
   {% if section.settings.title != blank %}
   	<div class="">
-		<h2 class="text-font-color-900 font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
+		<h2 class="text-font-color-darkest font-bold text-3xl leading-8 mb-6 text-center">{{ section.settings.title | escape }}</h2>
   	</div>
   {% endif %}
 
@@ -33,7 +33,7 @@
           {% endif %}
   
           {% if block.settings.title != blank %}
-            <h3 class="font-bold text-lg leading-8">{{ block.settings.title | escape }}</h3>
+            <h3 class="font-bold text-lg leading-8 text-font-color-darkest">{{ block.settings.title | escape }}</h3>
           {% endif %}
           {% if block.settings.text != blank %}
             <div class="prose">
@@ -44,7 +44,7 @@
           {% if block.settings.button_label != blank and block.settings.button_link != blank %}
             <a 
               href="{{ block.settings.button_link }}"
-              class="inline-flex items-center mt-3 md:mt-5 justify-center py-2 px-8 border border-transparent text-base leading-6 no-underline font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150"
+              class="inline-flex items-center mt-3 md:mt-5 justify-center py-2 px-8 border border-transparent text-base leading-6 no-underline font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
             >
               {{- block.settings.button_label | escape -}}
             </a>
