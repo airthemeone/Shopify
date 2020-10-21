@@ -110,8 +110,8 @@
                 </div>
             </div>
             <div
+                x-cloak
                 {% if section.settings.search_desktop == 'icon' %}
-                    x-cloak
                     class="hidden absolute md:relative md:flex lg:absolute mt-14 md:mt-0 lg:mt-20 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 justify-center"
                     :class="{'flex': search_open, 'hidden lg:hidden': !search_open}"
                 {% else %}
@@ -236,6 +236,7 @@
                     <span
                         x-show="cart_items_count > 0"
                         x-text="cart_items_count"
+                        x-cloak
                         class="text-xxs text-button-primary-text leading-none px-1 py-1 bg-button-primary rounded-full absolute top-0 -mt-1 right-0 -mr-1 flex items-center justify-center"
                     ></span>
                 </a>
@@ -327,7 +328,10 @@
                                 </a>
                                 
                                 {% if linklists[child_list_handle].links != blank %}
-                                    <div x-show="isOpen">
+                                    <div 
+                                        x-show="isOpen"
+                                        x-cloak
+                                    >
                                         {% for childlink in linklists[child_list_handle].links %}
                                             <a 
                                                 class="mt-1 block pl-6 pr-4 py-2 text-base font-medium text-font-color-dark focus:outline-none focus:text-font-color-darkest" 
