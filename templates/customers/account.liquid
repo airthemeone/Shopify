@@ -1,1 +1,66 @@
-<!-- /templates/customers/account.liquid -->
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+    <h1 class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4 flex justify-between items-center">
+        {{ 'customer.login.title' | t }}
+        
+        <a href="/account/logout" class="inline-flex justify-center items-center border py-1 px-4 rounded-md text-red-500 text-sm font-normal hover:bg-gray-200">{{ 'customer.log_out' | t }}</a>
+    </h1>
+
+    <div class="">
+        <h2 class="text-2xl font-semibold mb-2">{{ 'customer.orders.title' | t }}</h2>
+
+        {% paginate customer.orders by 20 %}
+            {% if customer.orders.size != 0 %}
+
+            <table class="w-full">
+                <thead class="bg-gray-200 border-b border-gray-600">
+                    <tr>
+                        <th class="text-left py-2" scope="col">{{ 'customer.orders.order_number' | t }}</th>
+                        <th class="text-left py-2" scope="col">{{ 'customer.orders.date' | t }}</th>
+                        <th class="py-2" scope="col">{{ 'customer.orders.payment_status' | t }}</th>
+                        <th class="py-2" scope="col">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                        <th class="py-2" scope="col">{{ 'customer.orders.total' | t }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for order in customer.orders %}
+                    <tr>
+                    <th class="text-left py-2" data-label="{{ 'customer.orders.order_number' | t }}" scope="row">
+                        <a 
+                            href="{{ order.customer_url }}" 
+                            class="font-bold" 
+                            aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"
+                        >
+                            {{ order.name }}
+                        </a>
+                    </th>
+                    <td class="py-2" data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+                    <td class="text-center py-2" data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                    <td class="text-center py-2" data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                    <td class="text-right py-2" data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% else %}
+
+            <p>{{ 'customer.orders.none' | t }}</p>
+
+            {% endif %}
+            {%- if paginate.pages > 1 -%}
+            {% include 'pagination', paginate: paginate %}
+            {%- endif -%}
+        {% endpaginate %}
+    </div>
+
+    <div class="mt-8">
+        <h2 class="text-2xl font-semibold mb-2">{{ 'customer.account.details' | t }}</h2>
+
+        {{ customer.default_address | format_address }}
+
+        <a 
+            href="{{ routes.account_addresses_url }}" 
+            class="underline"
+        >{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+    </div>
+</div>

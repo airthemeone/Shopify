@@ -1,1 +1,93 @@
-<!-- /templates/customers/register.liquid -->
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+  <h1 class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4 flex justify-between items-center">
+    {{ 'customer.register.title' | t }}
+      
+      <a 
+          href="{{ routes.account_url }}" 
+          class="inline-flex justify-center font-normal items-center border py-1 px-4 rounded-md text-base hover:bg-gray-200"
+      >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          {{ 'customer.account.return' | t }}
+      </a>
+  </h1>
+
+  <div class="max-w-md">
+    {%- assign formId = 'RegisterForm' -%}
+    {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+    {% include 'form-status', form: form, form_id: formId %}
+      <div class="mb-2">
+        <label class="block" for="{{ formId }}-FirstName">{{ 'customer.register.first_name' | t }}</label>
+        <input 
+          type="text" 
+          name="customer[first_name]" 
+          id="{{ formId }}-FirstName"
+          {% if form.first_name %}value="{{ form.first_name }}"{% endif %} 
+          autocomplete="given-name"
+          class="form-input w-full"
+        >
+      </div>
+      <div class="mb-2">
+        <label class="block" for="{{ formId }}-LastName">{{ 'customer.register.last_name' | t }}</label>
+        <input 
+          type="text" 
+          name="customer[last_name]" 
+          id="{{ formId }}-LastName" 
+          {% if form.last_name %}value="{{ form.last_name }}"{% endif %} 
+          autocomplete="family-name"
+          class="form-input w-full"
+        >
+      </div>
+
+      <div class="mb-2">
+        <label class="block" for="{{ formId }}-email">{{ 'customer.register.email' | t }}</label>
+        <input
+          type="email"
+          name="customer[email]"
+          id="{{ formId }}-email"
+          {% if form.email %} value="{{ form.email }}"{% endif %}
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          aria-required="true"
+          class="form-input w-full {% if form.errors contains 'email' %} border-red-500 {% endif %}"
+          {%- if form.errors contains 'email' -%}
+            class="form-input w-full border-red-500"
+            aria-invalid="true"
+            aria-describedby="{{ formId }}-email-error"
+          {%- endif -%}
+        >
+        {%- if form.errors contains 'email' -%}
+          <span id="{{ formId }}-email-error" class="text-red-500">
+            <span class="hidden">{{ 'general.accessibility.error' | t }} </span>
+            <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+          </span>
+        {%- endif -%}
+      </div>
+
+      <div class="mb-2">
+        <label class="block" for="{{ formId }}-password">{{ 'customer.register.password' | t }}</label>
+        <input
+          type="password"
+          name="customer[password]"
+          id="{{ formId }}-password"
+          class="form-input w-full {% if form.errors contains 'password' %} border-red-500 {% endif %}"
+          aria-required="true"
+          {%- if form.errors contains 'password' -%}
+            class="input--error"
+            aria-invalid="true"
+            aria-describedby="{{ formId }}-password-error"
+          {%- endif -%}
+        >
+        {%- if form.errors contains 'password' -%}
+          <span id="{{ formId}}-password-error" class="text-red-500">
+            <span>{{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.</span>
+          </span>
+        {%- endif -%}
+      </div>
+
+      <div>
+        <button type="submit" class="btn-primary py-2 px-4">{{ 'customer.register.submit' | t }}</button>
+      </div>
+    {% endform %}
+  </div>
+</div>

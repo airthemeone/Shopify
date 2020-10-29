@@ -1,1 +1,177 @@
-<!-- /templates/customers/login.liquid -->
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+    <h1 class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4">
+        {{ 'customer.login.title' | t }}
+    </h1>
+
+    <div 
+        class=""
+        x-data="{show_reset_password: false}"
+    >
+      
+        <div class="max-w-md">
+
+            {% form 'customer_login', novalidate: 'novalidate' %}
+
+                {%- if form.errors -%}
+                    <div class="bg-red-100 text-red-700 rounded px-4 py-2 my-4 ">
+                        {{ form.errors | default_errors }}
+                    </div>
+                {%- endif -%}
+
+                <label 
+                    for="CustomerEmail"
+                    class="block text-sm font-medium leading-5 text-font-color-dark"
+                >
+                    {{ 'customer.login.email' | t }}
+                </label>
+
+                <div
+                    class="mt-1 rounded-md shadow"
+                >
+
+                    <input
+                        type="email"
+                        name="customer[email]"
+                        id="CustomerEmail"
+                        autocomplete="email"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        {% if form.errors contains 'form' %}
+                            aria-invalid="true"
+                            class="form-input w-full border-red-500"
+                        {% else %}
+                            class="form-input w-full"
+                        {% endif %}
+                    >
+                </div>
+                
+
+            {% if form.password_needed %}
+                <label 
+                    for="CustomerPassword"
+                    class="block text-sm font-medium leading-5 text-font-color-dark mt-4"
+                >
+                    {{ 'customer.login.password' | t }}
+                </label>
+                
+                <div
+                    class="mt-1 rounded-md shadow"
+                >
+                    <input
+                        type="password"
+                        value=""
+                        name="customer[password]"
+                        id="CustomerPassword"
+                        {% if form.errors contains 'form' %}
+                            aria-invalid="true"
+                            class="form-input w-full border-red-500"
+                        {% else %}
+                            class="form-input w-full"
+                        {% endif %}
+                    >
+                </div>
+            {% endif %}
+
+            <div class="flex space-x-2 mt-4">
+                <input 
+                    type="submit" 
+                    class="btn-primary py-2 cursor-pointer w-full" 
+                    value="{{ 'customer.login.sign_in' | t }}"
+                >
+
+                <a 
+                    href="/account/register" 
+                    class="btn-secondary py-2 w-full" 
+                    id="customer_register_link"
+                >{{ 'customer.register.link' | t }}</a>
+            </div>
+
+            {% if form.password_needed %}
+                <a 
+                    href="#recover" 
+                    @click="show_reset_password = true"
+                    id="RecoverPassword"
+                    class="text-font-color-light mt-2"
+                >{{ 'customer.login.forgot_password' | t }}</a>
+            {% endif %}
+
+            {% endform %}
+        </div>
+
+        
+        {% form 'recover_customer_password' %}
+            {% if form.posted_successfully? %}
+                <span class="bg-green-100 text-green-600 rounded p-4 mb-4 inline">
+                    {{ 'customer.recover_password.success' | t }}
+                </span>
+            {% endif %}
+
+            <div 
+                id="recover" 
+                x-show="show_reset_password"
+                x-cloak
+                class="max-w-md mt-12"
+            >
+
+                <div class="">
+                    <h2 class="text-2xl font-semibold">
+                        {{ 'customer.recover_password.title' | t }}
+                    </h2>
+                    <p>{{ 'customer.recover_password.subtext' | t }}</p>
+                </div>
+
+                <div class="mt-4">
+                    <label 
+                        class="block text-sm font-medium leading-5 text-font-color-dark"
+                        for="RecoverEmail"
+                    >{{ 'customer.recover_password.email' | t }}</label>
+
+                    <div class="mt-1 rounded-md shadow">
+                        <input
+                            type="email"
+                            value=""
+                            name="email"
+                            id="RecoverEmail"
+                            autocorrect="off"
+                            autocapitalize="off"
+
+                            {% if form.errors contains 'form' %}
+                                aria-invalid="true"
+                                class="form-input w-full border-red-500"
+                            {% else %}
+                                class="form-input w-full"
+                            {% endif %}
+                        >
+                    </div>
+
+                    {%- if form.errors -%}
+                        <span class="block text-red-700 rounded py-2 mb-4">
+                            <span class="font-bold">{{ 'general.accessibility.error' | t }}:</span>
+                            <span>{{ form.errors.messages['form'] }}</span>
+                        </span>
+                        <script>
+                            window.addEventListener('load', () => {
+                                document.getElementById("RecoverPassword").click();
+                            })
+                        </script>
+                    {%- endif -%}
+
+                    <div class="flex space-x-2 mt-4">
+                        <input 
+                            type="submit" 
+                            class="block py-2 w-full btn-primary cursor-pointer"
+                            value="{{ 'customer.recover_password.submit' | t }}"
+                        >
+
+                        <a 
+                            @click="show_reset_password = false"
+                            href="#LoginHeading" 
+                            id="HideRecoverPasswordLink"
+                            class="btn-secondary py-2 w-full" 
+                        >{{ 'customer.recover_password.cancel' | t }}</a>
+                    </div>
+                </div>
+            </div>
+        {% endform %}
+    </div>
+</div>

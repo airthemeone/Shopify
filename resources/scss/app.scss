@@ -1,6 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 
+@import "components/buttons.scss";
+
 .placeholder-svg {
     display: block;
     fill: rgba(51,50,50,0.35);

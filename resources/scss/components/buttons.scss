@@ -1,0 +1,35 @@
+.btn-primary {
+    @apply text-center cursor-pointer border text-sm leading-5 font-medium rounded-md transition ease-in-out duration-150 text-button-primary-text bg-button-primary border-transparent;
+}
+
+.btn-primary:hover {
+    @apply bg-button-primary-hover;
+}
+
+
+.btn-primary:focus {
+    @apply outline-none bg-button-primary-hover;
+}
+
+
+.btn-primary:active {
+    @apply bg-button-primary-hover;
+}
+
+.btn-secondary {
+    @apply text-center border-gray-200 cursor-pointer border text-sm leading-5 font-medium rounded-md transition ease-in-out duration-150 text-button-secondary-text bg-button-secondary;
+}
+
+.btn-secondary:hover {
+    @apply bg-button-secondary-hover;
+}
+
+
+.btn-secondary:focus {
+    @apply outline-none bg-button-secondary-hover;
+}
+
+
+.btn-secondary:active {
+    @apply bg-button-secondary-hover;
+}

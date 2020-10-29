@@ -1,1 +1,59 @@
-<!-- /templates/customers/activate_account.liquid -->
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 py-8">
+    <h1 class="text-4xl font-extrabold leading-tight text-font-color-darkest mb-4">
+        {{ 'customer.activate_account.title' | t }}
+    </h1>
+    <p>{{ 'customer.activate_account.subtext' | t }}</p>
+
+    <div class="max-w-md">
+
+        {% form 'activate_customer_password' %}
+    
+            {%- if form.errors -%}
+                <div class="bg-red-100 text-red-700 rounded px-4 py-2 mb-4 mt-4 ">
+                    {{ form.errors | default_errors }}
+                </div>
+            {%- endif -%}
+    
+            <label
+                for="CustomerPassword" 
+                class="block text-sm font-medium leading-5 text-font-color-dark"
+            >{{ 'customer.activate_account.password' | t }}</label>
+            <input 
+                type="password" 
+                value="" 
+                name="customer[password]" 
+                id="CustomerPassword" 
+                placeholder="{{ 'customer.activate_account.password' | t }}"
+                class="form-input w-full"
+            >
+    
+            <label 
+                for="CustomerPasswordConfirmation" 
+                class="block text-sm font-medium leading-5 text-font-color-dark mt-2"
+            >{{ 'customer.activate_account.password_confirm' | t }}</label>
+            <input 
+                type="password" 
+                value="" 
+                name="customer[password_confirmation]" 
+                id="CustomerPasswordConfirmation" 
+                placeholder="{{ 'customer.activate_account.password_confirm' | t }}"
+                class="form-input w-full"
+            >
+    
+            <div class="flex space-x-2 mt-4">
+                <input 
+                    type="submit" 
+                    class="btn-primary py-2 w-full cursor-pointer" 
+                    value="{{ 'customer.activate_account.submit' | t }}"
+                >
+                
+                <input 
+                    type="submit" 
+                    name="decline" 
+                    class="btn-secondary py-2 w-full cursor-pointer" 
+                    value="{{ 'customer.activate_account.cancel' | t }}"
+                >
+            </div>
+        {% endform %}
+    </div>
+</div>

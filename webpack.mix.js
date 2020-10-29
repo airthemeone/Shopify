@@ -16,7 +16,7 @@ mix.sass('resources/scss/app.scss', 'assets')
 
 mix.sass('resources/scss/glide.scss', 'assets')
 
-del(['assets/async*.js', ['assets/async*.txt']]);
+del(['assets/async.*.*.js', ['assets/async.*.*.txt']]);
 
 mix.js('resources/js/app.js', 'assets')
     .webpackConfig({
@@ -26,3 +26,4 @@ mix.js('resources/js/app.js', 'assets')
     });
 
 mix.js('resources/js/lazysizes.js', 'assets');
+mix.js('resources/js/addresses.js', 'assets');
