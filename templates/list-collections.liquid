@@ -1,17 +1,17 @@
-{% for collection in collections %}
-  {% unless collection.handle == 'frontpage' %}
-    {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
-    <a href="{{ collection.url }}">More {{ collection_title }} &rsaquo;</a>
-    {% for product in collection.products limit:5 %}
-      {% assign grid_item_width = 'large--one-fifth medium--one-half' %}
-      <div>
-        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-        {{ product.price | money }}
-        {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
-        <a href="{{ product.url | within: collection }}">
-          <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
-        </a>
+<div class="container mx-auto px-2 sm:px-4 xl:px-0 mt-4">
+  {% for collection in collections %}
+  
+    {% unless collection.handle == 'frontpage' %}
+      <div class="mb-8">
+        <a class="text-3xl font-bold mb-2 block" href="{{ collection.url }}">{{ collection.title }}</a>
+          
+        <div class="grid gap-4 grid-cols-2 md:grid-cols-4">
+          {% for product in collection.products limit: limit %}
+            {% include 'product-card-grid', hide_add_to_cart: hide_add_to_cart %}
+          {% endfor %}
+        </div>
       </div>
-    {% endfor %}
-  {% endunless %}
-{% endfor %}
+    {% endunless %}
+  {% endfor %}
+</div>  
+
