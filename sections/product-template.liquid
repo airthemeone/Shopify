@@ -35,7 +35,7 @@
           </div>
         </div>
       {% else %}
-        <img src="{{ product.featured_image.src | img_url: '595x'  }}" alt="{{ product.featured_image.alt | escape }}">
+        {% include 'image', image_object: product.featured_image, alt: product.featured_image.alt, class: "w-full", disable_lazyload: true %}
       {% endif %}
 
       {% if product.media.size > 1 %}
