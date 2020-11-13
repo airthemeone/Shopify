@@ -4,10 +4,10 @@
 import "alpinejs";
 
 /**
- * Glide
+ * Componets
  */
-import glide from "./components/glide";
-glide.init();
+import product_images from "./components/product_images";
+product_images.init();
 
 /**
  * Utilities

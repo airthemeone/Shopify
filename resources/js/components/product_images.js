@@ -36,17 +36,18 @@ export default {
     },
 
     async loadGlide() {
-        window.Glide = await import('@glidejs/glide');
-
-        // @todo: Make this a utility
-        const head  = document.getElementsByTagName('head')[0];
-        const link  = document.createElement('link');
-        link.rel  = 'stylesheet';
-        link.type = 'text/css';
-        link.href =  window.theme.public_path.split('assets/')[0] + 'assets/glide.css?v=3';
-        link.media = 'all';
-        link.importance = 'low'
-        head.appendChild(link);
+        if(!window.theme.glideLoaded) {
+            window.Glide = await import('@glidejs/glide');
+            const head  = document.getElementsByTagName('head')[0];
+            const link  = document.createElement('link');
+            link.rel  = 'stylesheet';
+            link.type = 'text/css';
+            link.href =  window.theme.public_path.split('assets/')[0] + 'assets/glide.css?v=3';
+            link.media = 'all';
+            link.importance = 'low'
+            head.appendChild(link);
+            window.theme.glideLoaded = true;
+        }
 
 
         this.initProductImageSlider();
