@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "autoprefixer": "^10.0.2",
+    "postcss": "^8.1.7"
+  },
   "devDependencies": {
     "@glidejs/glide": "^3.4.1",
     "@shopify/theme-addresses": "^4.0.2",
@@ -17,7 +20,7 @@
     "lazysizes": "^5.2.2",
     "sass": "^1.26.10",
     "sass-loader": "10.0.1",
-    "tailwindcss": "1.7.6",
+    "tailwindcss": "^2.0.1",
     "vue-template-compiler": "^2.6.12"
   },
   "scripts": {

@@ -7,7 +7,7 @@ module.exports = {
 
     // These options are passed through directly to PurgeCSS
     options: {
-      whitelist: ['h1', 'h2', 'h3', 'p', 'strong'],
+      safelist: ['h1', 'h2', 'h3', 'p', 'strong'],
     }
   },
   future: {
