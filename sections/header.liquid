@@ -311,7 +311,7 @@
 
                                     {% if linklists[child_list_handle].links != blank %}
                                         <span 
-                                            @click.stop=" isOpen = !isOpen" 
+                                            @click.prevent=" isOpen = !isOpen" 
                                             class="p-3 cursor-pointer text-font-color-dark" 
                                         >
                                             <svg 
