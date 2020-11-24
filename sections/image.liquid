@@ -1,11 +1,11 @@
 <div class="container mx-auto px-2 sm:px-4 xl:px-0">
-    {% if section.settings.link %}
+    {% if section.settings.link != blank %}
         <a href="{{ section.settings.link }}">
     {% endif %}
 
     {% include 'image', image_object: section.settings.image, alt: section.settings.image.alt, disable_lazyload: section.settings.disable_lazyload %}
 
-    {% if section.settings.link %}
+    {% if section.settings.link != blank %}
         </a>
     {% endif %}
 </div>
@@ -20,10 +20,15 @@
                 "label": "Image"
             },
             {
-                "type": "text",
-                "id": "link",
-                "label": "Link"
-            },
+				"type": "url",
+				"id": "link",
+				"label": {
+					"en": "Link"
+				},
+				"info": {
+					"en": "Optional"
+				}
+			},
             {
                 "type": "checkbox",
                 "id": "disable_lazyload",
