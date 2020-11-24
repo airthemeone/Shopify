@@ -1,15 +1,27 @@
+{%- case section.settings.padding -%}
+	{%- when 'p-2' -%}
+		{%- assign margin = '-mx-2' -%}
+	{%- when 'p-4' -%}
+		{%- assign margin = '-mx-4' -%}
+	{%- when 'p-8' -%}
+		{%- assign margin = '-mx-8' -%}
+	{%- else -%}
+		{%- assign margin = "" -%}
+		
+{%- endcase -%}
+
 <div id="gallery-{{ section.id }}" class="container mx-auto px-2 sm:px-4 xl:px-0">
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap {{ margin }}">
     {% for block in section.blocks %}
-      <div class="{{ block.settings.column_width_mobile }} {{ block.settings.column_width_tablet }} {{ block.settings.column_width_desktop }} relative">
+      <div class="{{ block.settings.column_width_mobile }} {{ block.settings.column_width_tablet }} {{ block.settings.column_width_desktop }} {{ section.settings.padding }}">
         
         {% if block.settings.link != blank %}
           <a
-            class="block"
+            class="block relative"
             href="{{ block.settings.link }}"
           >
         {% else %}
-          <div>
+          <div class="relative">
         {% endif %}
 
         {% if block.settings.image != black %}
@@ -42,45 +54,80 @@
 	"name": {
 		"en": "Gallery"
 	},
-	"settings": [{
-		"type": "select",
-		"id": "section_height",
-		"label": {
-			"en": "Section height"
+	"settings": [
+		{
+			"type": "select",
+			"id": "section_height",
+			"label": {
+				"en": "Section height"
+			},
+			"default": "h-48",
+			"options": [{
+					"label": {
+						"en": "Extra Small"
+					},
+					"value": "h-12"
+				},
+				{
+					"label": {
+						"en": "Small"
+					},
+					"value": "h-24"
+				},
+				{
+					"label": {
+						"en": "Medium"
+					},
+					"value": "h-48"
+				},
+				{
+					"label": {
+						"en": "Large"
+					},
+					"value": "h-64"
+				},
+				{
+					"label": {
+						"en": "Extra Large"
+					},
+					"value": "h-80"
+				}
+			]
 		},
-		"default": "h-48",
-		"options": [{
-				"label": {
-					"en": "Extra Small"
-				},
-				"value": "h-12"
+		{
+			"type": "select",
+			"id": "padding",
+			"label": {
+				"en": "Padding"
 			},
-			{
-				"label": {
-					"en": "Small"
+			"default": "",
+			"options": [{
+					"label": {
+						"en": "None"
+					},
+					"value": ""
 				},
-				"value": "h-24"
-			},
-			{
-				"label": {
-					"en": "Medium"
+				{
+					"label": {
+						"en": "Small"
+					},
+					"value": "p-2"
 				},
-				"value": "h-48"
-			},
-			{
-				"label": {
-					"en": "Large"
+				{
+					"label": {
+						"en": "Medium"
+					},
+					"value": "p-4"
 				},
-				"value": "h-64"
-			},
-			{
-				"label": {
-					"en": "Extra Large"
-				},
-				"value": "h-80"
-			}
-		]
-	}],
+				{
+					"label": {
+						"en": "Large"
+					},
+					"value": "p-8"
+				}
+			]
+		}
+	],
 	"blocks": [{
 		"type": "image",
 		"name": {
