@@ -30,7 +30,7 @@
           </div>
           <div class="-mt-6 flex justify-center relative" data-glide-el="controls[nav]">
             {% for image in product.media %}
-              <button class="w-2 h-2 rounded-full bg-gray-200 block mx-1" data-glide-dir="{{ forloop.index }}"></button>
+              <button class="w-2 h-2 rounded-full bg-gray-200 block mx-1" data-glide-dir="={{ forloop.index }}"></button>
             {% endfor %}
           </div>
         </div>
