@@ -25,7 +25,7 @@
         {% endif %}
 
         {% if block.settings.image != black %}
-          {% capture class %}{{ block.settings.image_fit }} {{ section.settings.section_height }}{% endcapture %}
+          {% capture class %}{{ block.settings.image_fit }} {{ section.settings.section_height }} {{ block.settings.image_alignment }}{% endcapture %}
           {% include 'image', image_object: block.settings.image, alt: block.settings.image.alt, class: class %}
         {% else %}
           <div class="{{ section.settings.section_height }}">
@@ -291,6 +291,50 @@
 						"label": {
 							"en": "None"
 						}
+					}
+				]
+			},
+			{
+				"type": "select",
+				"id": "image_alignment",
+				"label": "Image alignment",
+				"default": "object-center",
+				"options": [
+					{
+						"value": "object-center",
+						"label": "Center"
+					},
+					{
+						"value": "object-bottom",
+						"label": "Bottom"
+					},
+					{
+						"value": "object-left",
+						"label": "Left"
+					},
+					{
+						"value": "object-left-bottom",
+						"label": "Left Bottom"
+					},
+					{
+						"value": "object-left-top",
+						"label": "Left Top"
+					},
+					{
+						"value": "object-right",
+						"label": "Right"
+					},
+					{
+						"value": "object-right-bottom",
+						"label": "Right Bottom"
+					},
+					{
+						"value": "object-right-top",
+						"label": "Right Top"
+					},
+					{
+						"value": "object-top",
+						"label": "Top"
 					}
 				]
 			},
