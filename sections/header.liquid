@@ -191,7 +191,7 @@
                     @click="
                         search_open = !search_open;
                         search_query = '';
-                        $nextTick(() => {refs.search_bar.focus()});
+                        $nextTick(() => {$refs.search_bar.focus()});
                     "
                     aria-label="{{ "general.button_labels.search" | t }}"
                     class="inline-flex md:hidden items-center justify-center p-2 rounded-md focus:outline-none transition duration-150 ease-in-out"
@@ -219,7 +219,7 @@
                     @click="
                         search_open = !search_open;
                         search_query = '';
-                        $nextTick(() => {refs.search_bar.focus()});
+                        $nextTick(() => {$refs.search_bar.focus()});
                     "
                     class="hidden {% if section.settings.search_desktop == 'icon' %}lg:inline-flex{% endif %} items-center justify-center p-2 rounded-md text-font-color-light focus:outline-none transition duration-150 ease-in-out"
                 >
