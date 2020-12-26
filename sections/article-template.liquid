@@ -125,7 +125,7 @@
                 type="text" 
                 name="comment[author]" 
                 id="{{ formId }}-author" 
-                class="form-input w-full {% if form.errors contains 'author' %} border-red-500{% endif %}" 
+                class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full {% if form.errors contains 'author' %} border-red-500{% endif %}" 
                 value="{{ form.author }}"
                 {% if form.errors contains 'author' %} aria-invalid="true" aria-describedby="{{ formId}}-author-error"{% endif %}
               >
@@ -152,7 +152,7 @@
                   type="email" 
                   name="comment[email]" 
                   id="{{ formId }}-email" 
-                  class="form-input w-full{% if form.errors contains 'email' %} border-red-500{% endif %}" 
+                  class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full{% if form.errors contains 'email' %} border-red-500{% endif %}" 
                   value="{{ form.email }}" 
                   autocorrect="off" 
                   autocapitalize="off" 
@@ -201,7 +201,7 @@
         
           <input 
             type="submit" 
-            class="mt-6 cursor-pointer inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
+            class="mt-6 cursor-pointer inline-flex items-center px-3 py-2 border border-gray-300 border-transparent text-sm leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
             value="{{ 'blogs.comments.post' | t }}"
           >
           {% if blog.moderated? %}
@@ -217,7 +217,7 @@
   <div class="text-center py-8">
     <a 
       href="{{ blog.url }}"
-      class="border-black border rounded px-4 py-2 leading-none text-sm hover:bg-gray-200 inline-block"
+      class="border-black border border-gray-300 rounded px-4 py-2 leading-none text-sm hover:bg-gray-200 inline-block"
     >
       {{ 'blogs.article.back_to_blog' | t: title: blog.title }}
     </a>

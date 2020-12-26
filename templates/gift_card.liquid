@@ -67,7 +67,7 @@
     {%- assign code_size = gift_card.code | format_code | size -%}
     <div class="absolute bottom-0 right-0 left-0 mx-12 mb-4 bg-white p-2 rounded">
       <input type="text"
-        class="form-input w-full text-center py-1 border border-dashed"
+        class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full text-center py-1 border border-gray-300 border-dashed"
         value="{{ gift_card.code | format_code }}"
         aria-label="{{ 'gift_cards.gift_card_code' | t }}"
         readonly 
@@ -83,7 +83,7 @@
 
     <div class="flex flex-col items-center">
       <a href="{{ shop.url }}"
-        class="inline-flex items-center mt-4 px-6 py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:border-button-primary-hover focus:outline-none transition ease-in-out duration-150"
+        class="inline-flex items-center mt-4 px-6 py-3 border border-gray-300 border-transparent text-sm leading-5 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:border-button-primary-hover focus:outline-none transition ease-in-out duration-150"
         target="_blank"
         rel="noopener"
         aria-describedby="a11y-new-window-message">
@@ -91,7 +91,7 @@
       </a>
       <button 
         type="button" 
-        class="inline-flex items-center mt-4 px-6 py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-button-secondard-text bg-button-secondary hover:bg-button-secondary-hover focus:border-button-secondary-hover focus:outline-none transition ease-in-out duration-150" 
+        class="inline-flex items-center mt-4 px-6 py-3 border border-gray-300 border-transparent text-sm leading-5 font-medium rounded-md text-button-secondard-text bg-button-secondary hover:bg-button-secondary-hover focus:border-button-secondary-hover focus:outline-none transition ease-in-out duration-150" 
         onclick="window.print();"
       >
         {{ 'gift_cards.print' | t }}

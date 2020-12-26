@@ -71,7 +71,7 @@
                         >
                             <a 
                                 href="{{ link.url }}"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-font-color-light hover:text-font-color-dark hover:border-gray-300 focus:outline-none focus:text-font-color-dark transition duration-200" 
+                                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-font-color-light hover:text-font-color-dark hover:border border-gray-300 focus:outline-none focus:text-font-color-dark transition duration-200" 
                             >
                                 {{ link.title }}
 
@@ -109,95 +109,100 @@
                     {% endfor %}
                 </div>
             </div>
-            <div
-                x-cloak
-                {% if section.settings.search_desktop == 'icon' %}
-                    class="hidden absolute md:relative md:flex lg:absolute mt-14 md:mt-0 lg:mt-20 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 justify-center"
-                    :class="{'flex': search_open, 'hidden lg:hidden': !search_open}"
-                {% else %}
-                    class="hidden absolute md:relative md:flex mt-14 md:mt-0 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 md:justify-end"
-                    :class="{'flex': search_open, 'hidden': !search_open}"
-                {% endif %}
-            >   
-                <form 
-                    action="/search" 
-                    method="get" 
-                    class="w-full mt-2 md:mt-0 md:max-w-sm {% if section.settings.search_desktop == 'search_bar' %}lg:max-w-xs{% endif %}" 
-                    role="search"
-                    @click.away="search_open = false"
-                >
-                    <label for="search" class="sr-only">{{ "general.search.placeholder" | t }}</label>
-                    <div class="relative">
-                        <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer">
-                            <svg class="h-6 w-6 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </button>
-                        <input 
-                            id="search"
-                            name="q"
-                            class="block w-full pl-10 pr-2 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" 
-                            placeholder="{{ "general.search.placeholder" | t }}"
-                            x-model="search_query"
-                            x-on:input.debounce.150ms="search()"
-                            autocomplete="off"
-                            x-ref="search_bar"
-                            @click="search_results_show = search_results.products.length > 0 ? true : false"
-                        />
-                        <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+            {%- unless section.settings.hide_search -%}
+                <div
+                    x-cloak
+                    {% if section.settings.search_desktop == 'icon' %}
+                        class="hidden absolute md:relative md:flex lg:absolute mt-14 md:mt-0 lg:mt-20 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 justify-center"
+                        :class="{'flex': search_open, 'hidden lg:hidden': !search_open}"
+                    {% else %}
+                        class="hidden absolute md:relative md:flex mt-14 md:mt-0 inset-x-0 mx-2 flex-1 items-center px-2 lg:ml-6 md:justify-end"
+                        :class="{'flex': search_open, 'hidden': !search_open}"
+                    {% endif %}
+                >   
+
+                    <form 
+                        action="/search" 
+                        method="get" 
+                        class="w-full mt-2 md:mt-0 md:max-w-sm {% if section.settings.search_desktop == 'search_bar' %}lg:max-w-xs{% endif %}" 
+                        role="search"
+                        @click.away="search_open = false"
+                    >
+                        <label for="search" class="sr-only">{{ "general.search.placeholder" | t }}</label>
+                        <div class="relative">
+                            <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer">
+                                <svg class="h-6 w-6 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </button>
+                            <input 
+                                id="search"
+                                name="q"
+                                class="block w-full pl-10 pr-2 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out" 
+                                placeholder="{{ "general.search.placeholder" | t }}"
+                                x-model="search_query"
+                                x-on:input.debounce.150ms="search()"
+                                autocomplete="off"
+                                x-ref="search_bar"
+                                @click="search_results_show = search_results.products.length > 0 ? true : false"
+                            />
+                            <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
 
 
-                        <div
-                            class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
-                            x-show="search_query.length"
-                            @click="clear_search()"
-                            x-cloak
-                        >
-                            <svg class="w-4 h-4 text-font-color-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </div>
-
-                        <div
-                            x-show="search_results_show"
-                            class="absolute top-0 right-0 max-height-search overflow-auto mt-10 border rounded shadow w-full"
-                            style="background-color: {{ section.settings.background_color }}"
-                            @click.away="search_results_show = false"
-                            x-cloak
-                        >
-                            <template
-                                x-for="(product, index) in search_results.products"
-                                :key="index"
+                            <div
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                                x-show="search_query.length"
+                                @click="clear_search()"
+                                x-cloak
                             >
-                                <a :href="product.url" class="flex p-4 hover:bg-gray-200">
-                                    <img 
-                                        class="w-24 mr-4"
-                                        :src="product.featured_image.url" 
-                                        :alt="product.featured_image.alt"
-                                    >
-                                    <div class="-mt-1">
-                                        <div class="font-bold" x-text="product.title"></div>
-                                        <div x-html="formatMoney(product.price)"></div>
-                                    </div>
-                                </a>
-                            </template>
+                                <svg class="w-4 h-4 text-font-color-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </div>
 
-                            <button 
-                                x-show="search_results.products.length == 10" 
-                                class="w-full text-center hover:bg-gray-200"
-                            >{{ "general.search.show_more" |t }}</button>
+                            <div
+                                x-show="search_results_show"
+                                class="absolute top-0 right-0 max-height-search overflow-auto mt-10 border border-gray-300 rounded shadow w-full"
+                                style="background-color: {{ section.settings.background_color }}"
+                                @click.away="search_results_show = false"
+                                x-cloak
+                            >
+                                <template
+                                    x-for="(product, index) in search_results.products"
+                                    :key="index"
+                                >
+                                    <a :href="product.url" class="flex p-4 hover:bg-gray-200">
+                                        <img 
+                                            class="w-24 mr-4"
+                                            :src="product.featured_image.url" 
+                                            :alt="product.featured_image.alt"
+                                        >
+                                        <div class="-mt-1">
+                                            <div class="font-bold" x-text="product.title"></div>
+                                            <div x-html="formatMoney(product.price)"></div>
+                                        </div>
+                                    </a>
+                                </template>
+
+                                <button 
+                                    x-show="search_results.products.length == 10" 
+                                    class="w-full text-center hover:bg-gray-200"
+                                >{{ "general.search.show_more" |t }}</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            {%- endunless -%}
             <div class="flex items-center lg:hidden">
-                <button
-                    @click="
-                        search_open = !search_open;
-                        search_query = '';
-                        $nextTick(() => {$refs.search_bar.focus()});
-                    "
-                    aria-label="{{ "general.button_labels.search" | t }}"
-                    class="inline-flex md:hidden items-center justify-center p-2 rounded-md focus:outline-none transition duration-150 ease-in-out"
-                >
-                    <svg class="h-6 w-6 text-font-color-dark" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
+                {%- unless section.settings.hide_search -%}
+                    <button
+                        @click="
+                            search_open = !search_open;
+                            search_query = '';
+                            $nextTick(() => {$refs.search_bar.focus()});
+                        "
+                        aria-label="{{ "general.button_labels.search" | t }}"
+                        class="inline-flex md:hidden items-center justify-center p-2 rounded-md focus:outline-none transition duration-150 ease-in-out"
+                    >
+                        <svg class="h-6 w-6 text-font-color-dark" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                {%- endunless -%}
                 <a 
                     href="/cart"
                     @click.prevent="cart_drawer = true"
@@ -215,16 +220,18 @@
             <div 
                 class="hidden lg:ml-4 lg:flex lg:items-center"
             >
-                <button
-                    @click="
-                        search_open = !search_open;
-                        search_query = '';
-                        $nextTick(() => {$refs.search_bar.focus()});
-                    "
-                    class="hidden {% if section.settings.search_desktop == 'icon' %}lg:inline-flex{% endif %} items-center justify-center p-2 rounded-md text-font-color-light focus:outline-none transition duration-150 ease-in-out"
-                >
-                    <svg class="h-6 w-6 text-font-color-light" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
+                {%- unless section.settings.hide_search -%}
+                    <button
+                        @click="
+                            search_open = !search_open;
+                            search_query = '';
+                            $nextTick(() => {$refs.search_bar.focus()});
+                        "
+                        class="hidden {% if section.settings.search_desktop == 'icon' %}lg:inline-flex{% endif %} items-center justify-center p-2 rounded-md focus:outline-none transition duration-150 ease-in-out"
+                    >
+                        <svg class="h-6 w-6 text-font-color-dark hover:text-font-color-darkest" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                {%- endunless -%}
 
                 <a 
                     href="/cart"
@@ -457,6 +464,17 @@
             "label": "Icon"
           }
         ]
+    },
+    {
+        "type": "checkbox",
+        "id": "hide_search",
+        "label": {
+            "en": "Hide Search"
+        },
+        "default": false,
+        "info": {
+            "en": "This will hide the search function everywhere"
+        }
     },
     {
         "type": "header",

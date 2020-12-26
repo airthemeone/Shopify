@@ -85,15 +85,15 @@
             x-data="variant()"
             x-init="$watch('variant', change_variant)"
           >
-            {% if product.options.size > 1 %}
-              <select class="form-select w-full" x-model="variant">
+              {% if product.options.size > 1 %}
+              <select class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full" x-model="variant">
                 {% for variant in product.variants %}
                   <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
                 {% endfor %}
               </select>
             {% elsif product.options.size == 1 and product.variants.size > 1 %}
                 <label class="text-sm block mb-1">{{ product.options[0] }}</label>
-                <select class="form-select w-full" x-model="variant">
+                <select class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full" x-model="variant">
                   {% for variant in product.variants %}
                     <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
                   {% endfor %}
@@ -112,7 +112,7 @@
               id="quantity" 
               name="quantity" 
               x-model="quantity"
-              class="form-input text-left w-16 mr-2 text-center"
+              class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary text-left w-16 mr-2 text-center"
             >
           </div>
         {% else %}
@@ -128,7 +128,7 @@
         <button 
           @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
           class="
-            inline-flex items-center mt-4 w-full justify-center py-3 border text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150
+            inline-flex items-center mt-4 w-full justify-center py-3 border border-gray-300 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150
             {% if product.available %}
               text-button-primary-text bg-button-primary hover:bg-button-primary-hover border-transparent focus:bg-button-primary-hover active:bg-button-primary-hover
             {% else %}

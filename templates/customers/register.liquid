@@ -4,7 +4,7 @@
       
       <a 
           href="{{ routes.account_url }}" 
-          class="inline-flex justify-center font-normal items-center border py-1 px-4 rounded-md text-base hover:bg-gray-200"
+          class="inline-flex justify-center font-normal items-center border border-gray-300 py-1 px-4 rounded-md text-base hover:bg-gray-200"
       >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           {{ 'customer.account.return' | t }}
@@ -23,7 +23,7 @@
           id="{{ formId }}-FirstName"
           {% if form.first_name %}value="{{ form.first_name }}"{% endif %} 
           autocomplete="given-name"
-          class="form-input w-full"
+          class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
         >
       </div>
       <div class="mb-2">
@@ -34,7 +34,7 @@
           id="{{ formId }}-LastName" 
           {% if form.last_name %}value="{{ form.last_name }}"{% endif %} 
           autocomplete="family-name"
-          class="form-input w-full"
+          class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
         >
       </div>
 
@@ -49,9 +49,9 @@
           autocapitalize="off"
           autocomplete="email"
           aria-required="true"
-          class="form-input w-full {% if form.errors contains 'email' %} border-red-500 {% endif %}"
+          class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full {% if form.errors contains 'email' %} border-red-500 {% endif %}"
           {%- if form.errors contains 'email' -%}
-            class="form-input w-full border-red-500"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full border-red-500"
             aria-invalid="true"
             aria-describedby="{{ formId }}-email-error"
           {%- endif -%}
@@ -70,7 +70,7 @@
           type="password"
           name="customer[password]"
           id="{{ formId }}-password"
-          class="form-input w-full {% if form.errors contains 'password' %} border-red-500 {% endif %}"
+          class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full {% if form.errors contains 'password' %} border-red-500 {% endif %}"
           aria-required="true"
           {%- if form.errors contains 'password' -%}
             class="input--error"

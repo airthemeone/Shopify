@@ -29,7 +29,7 @@
                     type="email"
                     name="contact[email]"
                     id="{{ formId }}-email"
-                    class="form-input h-12 focus:outline-none focus:shadow-none rounded-r-none block w-full{% if form.errors %} border-red-500{% endif %}"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary h-12 focus:outline-none focus:shadow-none rounded-r-none block w-full{% if form.errors %} border-red-500{% endif %}"
                     value="{{ form.email }}"
                     placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
                     aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
@@ -44,7 +44,7 @@
                 >
                 <button 
                     type="submit" 
-                    class="inline-flex items-center px-4 h-12 border border-transparent font-medium rounded-r-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
+                    class="inline-flex items-center px-4 h-12 border border-gray-300 border-transparent font-medium rounded-r-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
                     name="commit" 
                 >
                     {{ 'general.newsletter_form.submit' | t }}

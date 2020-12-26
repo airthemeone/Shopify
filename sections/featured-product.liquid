@@ -32,7 +32,7 @@
                     id="quantity" 
                     name="quantity" 
                     x-model="quantity"
-                    class="form-input text-left w-16 mr-2 text-center"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary text-left w-16 mr-2 text-center"
                 >
                 </div>
             {% else %}
@@ -48,7 +48,7 @@
         <div class="mt-4 max-w-xs">
           <button 
             @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
-            class="inline-flex items-center mt-4 w-full justify-center py-3 border border-transparent text-sm leading-5 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
+            class="inline-flex items-center mt-4 w-full justify-center py-3 border border-gray-300 border-transparent text-sm leading-5 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
           >
             <svg class="h-4 w-4 mr-1 fill-current text-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
               <g data-name="1">

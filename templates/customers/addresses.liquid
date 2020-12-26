@@ -6,7 +6,7 @@
       
       <a 
           href="{{ routes.account_url }}" 
-          class="inline-flex justify-center font-normal items-center border py-1 px-4 rounded-md text-base hover:bg-gray-200"
+          class="inline-flex justify-center font-normal items-center border border-gray-300 py-1 px-4 rounded-md text-base hover:bg-gray-200"
       >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           {{ 'customer.account.return' | t }}
@@ -66,7 +66,7 @@
                     id="AddressFirstName-{{ form.id }}" 
                     name="address[first_name]" 
                     value="{{ form.first_name }}"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="given-name"
                   >
                 </div>
@@ -78,7 +78,7 @@
                     id="AddressLastName-{{ form.id }}" 
                     name="address[last_name]" 
                     value="{{ address.last_name }}"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="family-name"
                   >
                 </div>
@@ -90,7 +90,7 @@
                     id="AddressCompany-{{ form.id }}" 
                     name="address[company]" 
                     value="{{ address.company }}"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="organization"
                   >
                 </div>
@@ -102,7 +102,7 @@
                     id="AddressAddress1-{{ form.id }}" 
                     name="address[address1]" 
                     value="{{ address.address1 }}"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="street-address address-line1"
                   >
                 </div>
@@ -114,7 +114,7 @@
                     id="AddressAddress2-{{ form.id }}" 
                     name="address[address2]" 
                     value="{{ address.address2 }}"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="street-address address-line2"
                   >
                 </div>
@@ -126,7 +126,7 @@
                     id="AddressCity-{{ form.id }}" 
                     name="address[city]" 
                     value="{{ address.city }}"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                   >
                 </div>
               
@@ -136,7 +136,7 @@
                     id="AddressCountry-{{ form.id }}" 
                     name="address[country]" 
                     data-default="{{ address.country_code }}"
-                    class="form-select w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="country"
                   ></select>
                 </div>
@@ -147,7 +147,7 @@
                     id="AddressProvince-{{ form.id }}" 
                     name="address[province]" 
                     data-default="{{ address.province }}"
-                    class="form-select w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="address-level1"
                   ></select>
                 </div>
@@ -160,7 +160,7 @@
                     name="address[zip]" 
                     value="{{ address.zip }}" 
                     autocapitalize="characters"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="postal-code"
                   >
                 </div>
@@ -172,7 +172,7 @@
                     id="AddressPhone-{{ form.id }}" 
                     name="address[phone]" 
                     value="{{ address.phone }}"
-                    class="form-input w-full"
+                    class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
                     autocomplete="phone"
                   >
                 </div>
@@ -220,7 +220,7 @@
             id="AddressFirstName" 
             name="address[first_name]" 
             value=""
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="given-name"
           >
         </div>
@@ -232,7 +232,7 @@
             id="AddressLastName" 
             name="address[last_name]" 
             value=""
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="family-name"
           >
         </div>
@@ -244,7 +244,7 @@
             id="AddressCompany" 
             name="address[company]" 
             value=""
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="organization"
           >
         </div>
@@ -256,7 +256,7 @@
             id="AddressAddress1" 
             name="address[address1]" 
             value=""
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="street-address address-line1"
           >
         </div>
@@ -268,7 +268,7 @@
             id="AddressAddress2" 
             name="address[address2]" 
             value=""
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="street-address address-line2"
           >
         </div>
@@ -280,7 +280,7 @@
             id="AddressCity" 
             name="address[city]" 
             value="{{ form.city }}"
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
           >
         </div>
       
@@ -290,7 +290,7 @@
             id="AddressCountry" 
             name="address[country]" 
             data-default="{{ form.country }}"
-            class="form-select w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="country"
           ></select>
         </div>
@@ -301,7 +301,7 @@
             id="AddressProvince" 
             name="address[province]" 
             data-default="{{ form.province }}"
-            class="form-select w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="address-level1"
           ></select>
         </div>
@@ -314,7 +314,7 @@
             name="address[zip]" 
             value="{{ form.zip }}" 
             autocapitalize="characters"
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="postal-code"
           >
         </div>
@@ -326,7 +326,7 @@
             id="AddressPhone" 
             name="address[phone]" 
             value="{{ form.phone }}"
-            class="form-input w-full"
+            class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full"
             autocomplete="phone"
           >
         </div>
