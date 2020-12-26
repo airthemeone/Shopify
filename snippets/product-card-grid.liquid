@@ -38,8 +38,12 @@
     </div>
   
     {% unless hide_add_to_cart %}
+      <script>
+        var product_{{ product.id }} = {{ product | json }};
+      </script>
+
       <div 
-        x-data="add_to_cart()"
+        x-data="add_to_cart({{ product.id }})"
         class="flex justify-center pt-2"
       >
         {%- if product.price_varies -%}
@@ -52,7 +56,7 @@
         {%- else -%}
   
           <button 
-            @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
+            @click.prevent="add_to_cart()"
             class="
               inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md transition ease-in-out duration-150
               {% if product.available %}

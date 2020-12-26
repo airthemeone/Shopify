@@ -1,8 +1,6 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
-{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
 
 {% section 'product-template' %}
-
 
 <script type="application/ld+json">
   {
@@ -39,25 +37,4 @@
       {%- endfor -%}
     ]
   }
-  </script>
-
-<script>
-
-var variant = function() {
-    let variant = 'manual';
-
-    if(window.location.search.match(/variant=([0-9]+)/)) {
-        const matches = window.location.search.match(/variant=([0-9]+)/);
-        
-        variant = matches[1];
-    }   
-
-    return {
-        variant: variant,
-    }
-}
-
-var change_variant = function(value) {
-    window.location.search = 'variant=' + value;
-}
 </script>

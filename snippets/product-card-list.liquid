@@ -32,8 +32,13 @@
             {% endif %}
         
         </div>
+        
+        <script>
+            var product_{{ product.id }} = {{ product | json }};
+        </script>
+    
         <div 
-            x-data="add_to_cart()"
+            x-data="add_to_cart({{ product.id }})"
             class="pt-4"
         >
             {%- if product.price_varies -%}
@@ -45,7 +50,7 @@
                 </div>
             {%- else -%}
                 <button 
-                    @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
+                    @click.prevent="add_to_cart()"
                     class="inline-flex items-center px-3 py-2 border border-gray-300 border-transparent text-sm leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
                 >
                     <svg class="h-4 w-4 mr-1 fill-current text-white" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">

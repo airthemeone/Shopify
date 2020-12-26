@@ -77,29 +77,34 @@
       {% endif %}
     </div>
 
-
-    <form x-data="add_to_cart()" action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+    <script>
+			var product_{{ product.id }} = {{ product | json }};
+		</script>
+  
+    <form 
+      x-data="add_to_cart({{ product.id }})"
+      x-init="$watch('selected_id', change_variant)"
+      action="/cart/add" 
+      method="post" 
+      enctype="multipart/form-data" 
+      id="AddToCartForm"
+    >
       <div class="max-w-sm">
         {% if product.variants.size > 1 %}
-          <div
-            x-data="variant()"
-            x-init="$watch('variant', change_variant)"
-          >
-              {% if product.options.size > 1 %}
-              <select class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full" x-model="variant">
-                {% for variant in product.variants %}
-                  <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-                {% endfor %}
-              </select>
-            {% elsif product.options.size == 1 and product.variants.size > 1 %}
-                <label class="text-sm block mb-1">{{ product.options[0] }}</label>
-                <select class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full" x-model="variant">
-                  {% for variant in product.variants %}
-                    <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-                  {% endfor %}
-                </select>
-            {% endif %}
-          </div>
+          {% if product.options.size > 1 %}
+            <select class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full" x-model="selected_id">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+              {% endfor %}
+            </select>
+          {% elsif product.options.size == 1 and product.variants.size > 1 %}
+            <label class="text-sm block mb-1">{{ product.options[0] }}</label>
+            <select class="rounded-md border border-gray-300 shadow-sm focus:border-button-primary w-full" x-model="selected_id">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+              {% endfor %}
+            </select>
+          {% endif %}
         {% else %}
           <input type="hidden" name="id" value="{{ variant.id }}" />
         {% endif %}
@@ -126,7 +131,7 @@
       
       <div class="mt-4 max-w-xs">
         <button 
-          @click.prevent="add_to_cart({{ product.selected_or_first_available_variant.id }})"
+          @click.prevent="add_to_cart()"
           class="
             inline-flex items-center mt-4 w-full justify-center py-3 border border-gray-300 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150
             {% if product.available %}
