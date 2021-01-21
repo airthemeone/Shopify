@@ -69,9 +69,9 @@
 {% endunless %}
 
 
-<body class="font-sans h-full {{ text_font }} {{ header_font }}">
+<body class="font-sans {{ text_font }} {{ header_font }}">
     <div
-        class="flex flex-col h-full"
+        class="flex flex-col"
         x-data="app()"
         x-init="update_cart()"
         @cartupdated.window="update_cart()"
