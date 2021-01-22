@@ -94,12 +94,49 @@
                         <div>{{ "cart.total" | t }}</div>
                         <div x-html="formatMoney(cart.total_price)"></div>
                     </div>
-        
-                    <button
-                        type="submit" 
-                        name="checkout" 
-                        class="mt-6 block w-full text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
-                    >{{ "cart.to_payment" | t }}</button>
+
+                    <div 
+                        class="mt-6 "
+                        x-data="{approved_terms: {%- if settings.display_tos -%}false{%- else -%}true{%- endif -%}}"
+                    >
+                        {% if settings.display_tos %}
+                            <label 
+                                for="approve_terms" 
+                                class="flex items-center text-sm"
+                            >
+                                <input 
+                                    type="checkbox" 
+                                    id="approve_terms" 
+                                    required
+                                    x-model="approved_terms"
+                                    class="mr-2 rounded shadow-sm border-gray-300 border focus:border-button-primary"
+                                >
+                                {{ 'cart.approve_terms' | t }}
+                                
+                                {% if settings.tos_page != blank %}
+                                    <a 
+                                        href="{{ pages[settings.tos_page].url }}" 
+                                        target="_blank" 
+                                        rel="noopener"
+                                        class="ml-1 text-button-primary"
+                                    >{{ 'cart.view_terms' | t }}</a>
+                                {% endif %}
+                            </label>
+                        {% endif %}
+                        <span
+                            x-show="!approved_terms"
+                            type="submit" 
+                            name="checkout" 
+                            class="mt-2 block w-full text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150 opacity-50 cursor-not-allowed"
+                        >{{ "cart.to_payment" | t }}</span>
+                        
+                        <button
+                            x-show="approved_terms"
+                            type="submit" 
+                            name="checkout" 
+                            class="mt-2 block w-full text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:bg-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
+                        >{{ "cart.to_payment" | t }}</button>
+                    </div>
                 </div>
             </div>
             

@@ -349,5 +349,27 @@
         }
       }
     ]
+  },
+  {
+    "name": {
+      "en": "Cart"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": "Agree to terms"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_tos",
+        "label": "Show 'agree to terms' checkbox",
+        "default": true
+      },
+      {
+        "type": "page",
+        "id": "tos_page",
+        "label": "Select 'Agree to terms' page"
+      }
+    ]
   }
 ]

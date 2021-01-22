@@ -81,7 +81,9 @@
     "to_payment": "Goto payment",
     "note": "Add a note to your order",
     "notification": "Added to cart",
-    "show_cart": "Show cart"
+    "show_cart": "Show cart",
+    "approve_terms": "Agree to Terms",
+    "view_terms": "(View terms)"
   },
   "checkout": {
     "to_checkout": "Goto checkout"

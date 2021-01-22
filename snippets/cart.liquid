@@ -97,15 +97,50 @@
                         </div>
                     </template>
                 </div>
-                <div class="flex flex-col py-5 px-2">
-                    <a 
-                        class="mb-2 block text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:border-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
-                        href="/checkout"
-                    >{{ "checkout.to_checkout" | t }}</a>
-                    <a 
-                        class="block text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-secondary-text bg-button-secondary hover:bg-button-secondary-hover focus:outline-none focus:bg-gray-300 focus:shadow-outline-primary active:bg-gray-300 transition ease-in-out duration-150"
-                        href="/cart"
-                    >{{ "cart.to_cart" | t }}</a>
+                <div x-data="{approved_terms: false}">
+                    {% if settings.display_tos %}
+                        <div class="px-2">
+                            <label 
+                                for="approve_terms" 
+                                class="flex items-center text-sm"
+                            >
+
+                                <input 
+                                    type="checkbox" 
+                                    id="approve_terms" 
+                                    required
+                                    x-model="approved_terms"
+                                    class="mr-2 rounded shadow-sm border-gray-300 border focus:border-button-primary"
+                                >
+                                {{ 'cart.approve_terms' | t }}
+                                
+                                {% if settings.tos_page != blank %}
+                                    <a 
+                                        href="{{ pages[settings.tos_page].url }}" 
+                                        target="_blank" 
+                                        rel="noopener"
+                                        class="ml-1 text-button-primary"
+                                    >{{ 'cart.view_terms' | t }}</a>
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endif %}
+                    <div class="flex flex-col py-5 px-2">
+
+                        <span 
+                            x-show="!approved_terms"
+                            class="mb-2 block text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:border-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150 opacity-50 cursor-not-allowed"
+                        >{{ "checkout.to_checkout" | t }}</span>
+                        <a 
+                            x-show="approved_terms"
+                            class="mb-2 block text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-primary-text bg-button-primary hover:bg-button-primary-hover focus:outline-none focus:border-button-primary-hover focus:shadow-outline-primary active:bg-button-primary-hover transition ease-in-out duration-150"
+                            href="/checkout"
+                        >{{ "checkout.to_checkout" | t }}</a>
+                        <a 
+                            class="block text-center items-center py-3 border border-gray-300 border-transparent leading-4 font-medium rounded-md text-button-secondary-text bg-button-secondary hover:bg-button-secondary-hover focus:outline-none focus:bg-gray-300 focus:shadow-outline-primary active:bg-gray-300 transition ease-in-out duration-150"
+                            href="/cart"
+                        >{{ "cart.to_cart" | t }}</a>
+                    </div>
                 </div>
           </div>
         </div>
