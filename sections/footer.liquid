@@ -25,7 +25,7 @@
 
 {%- capture payment_icon_markup -%}
 	{%- if show_payment_icons -%}
-		<ul class="flex justify-center space-x-2">
+		<ul class="flex flex-wrap justify-center space-x-2">
 			{%- for type in shop.enabled_payment_types -%}
 				<li class="">
 					{{ type | payment_type_svg_tag: class: 'h-10 w-10' }}
