@@ -4,7 +4,11 @@
 			{%- if section.settings.image == blank -%}
 				{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
 			{%- else -%}
-					
+				{% render 'image', 
+					image_object: section.settings.image, 
+					alt: section.settings.image.alt, 
+					class: "w-full"
+				%}
 			{%- endif -%}
 		</div>
 
