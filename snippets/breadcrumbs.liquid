@@ -1,8 +1,8 @@
-<nav class="flex items-center text-sm leading-4 font-medium">
+<nav class="flex flex-wrap items-center text-sm leading-5 font-medium">
     <a 
         href="{{ shop.url }}" 
         title="{{ shop.name | escape }}"
-        class="text-font-color-light hover:text-font-color-dark"
+        class="text-font-color-light hover:text-font-color-dark whitespace-nowrap"
     >
         {{ 'general.breadcrumbs.home' | t }}
     </a>
@@ -13,7 +13,7 @@
         <a 
             href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" 
             title="{{ collection.title | escape }}"
-            class="text-font-color-light hover:text-font-color-dark"
+            class="text-font-color-light hover:text-font-color-dark whitespace-nowrap"
         >
             {% unless collection.title %} {{ 'general.breadcrumbs.all' | t }} {% else %} {{ collection.title }} {% endunless %}
         </a>
@@ -24,7 +24,7 @@
                 <a 
                     href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}"
                     title="{{ tag | escape }}"
-                    class="text-font-color-light hover:text-font-color-dark"
+                    class="text-font-color-light hover:text-font-color-dark whitespace-nowrap"
                 >
                     {{ tag }}
                 </a>
@@ -32,14 +32,14 @@
         {% endif %}
 
         {% include 'icons', name: 'chevron-right', size: 'w-4 h-4 text-font-color-light' %}
-        <span>
+        <span class="whitespace-nowrap">
             {{ product.title }}
         </span>
     {% elsif template contains 'collection' %}
         <a 
             href="{{ routes.collections_url }}/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" 
             title="{{ collection.title | escape }}"
-            class="text-font-color-light hover:text-font-color-dark"
+            class="text-font-color-light hover:text-font-color-dark whitespace-nowrap"
         >
             {% unless collection.title %} {{ 'general.breadcrumbs.all' | t }} {% else %} {{ collection.title }} {% endunless %}
         </a>
@@ -48,7 +48,7 @@
         <a 
             href="{{ routes.search_url }}" 
             title="{{ 'general.search.title' | t | escape }}"
-            class="text-font-color-light hover:text-font-color-dark"
+            class="text-font-color-light hover:text-font-color-dark whitespace-nowrap"
         >
             {{ 'general.search.title' | t }}
         </a>
@@ -56,7 +56,7 @@
         <a 
             href="{{ blog.url }}" 
             title="{{ blog.title | escape }}"
-            class="text-font-color-light hover:text-font-color-dark"
+            class="text-font-color-light hover:text-font-color-dark whitespace-nowrap"
         >
             {{ blog.title }}
         </a>
