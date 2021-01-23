@@ -36,8 +36,21 @@ module.exports = {
         "darkest": 'var(--color-font-color-darkest)'
       }
     },
+    extend: {
+      fontSize: {
+        xxs: '0.5rem'
+      },
+      inset: {
+        '1/2': '50%',
+        'full': '100%'
+      },
+      spacing: {
+        '14': '3.5rem',
+        '80': '20rem',
+      }
+    },
     typography: {
-      default: {
+      DEFAULT: {
         css: {
           color: 'var(--color-font-color-dark)',
           a: {
@@ -60,19 +73,6 @@ module.exports = {
           },
         },
       },
-    },
-    extend: {
-      fontSize: {
-        xxs: '0.5rem'
-      },
-      inset: {
-        '1/2': '50%',
-        'full': '100%'
-      },
-      spacing: {
-        '14': '3.5rem',
-        '80': '20rem',
-      }
     },
   },
   variants: {
