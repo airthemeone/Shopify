@@ -1,0 +1,246 @@
+{
+  "cart": {
+    "approve_terms": "Godkend handelsbetingelser",
+    "view_terms": "(se betingelser)",
+    "your_cart": "Din kurv",
+    "to_cart": "Gå til kurven",
+    "remove": "Fjern",
+    "title": "Kurv",
+    "total": "I alt",
+    "sub_total": "Subtotal",
+    "to_payment": "Gå til betaling",
+    "note": "Tilføj en kommentar til din ordre",
+    "notification": "Tilføjet til kurven",
+    "show_cart": "Vis kurv"
+  },
+  "general": {
+    "404": {
+      "title": "Side ikke fundet",
+      "subtext": "Siden du ledte efter findes ikke",
+      "link": "Fortsæt med at shoppe"
+    },
+    "button_labels": {
+      "menu": "Menu",
+      "search": "Søg",
+      "cart": "Kurv"
+    },
+    "accessibility": {
+      "error": "Fejl"
+    },
+    "breadcrumbs": {
+      "home": "Hjem",
+      "page": "Side {{ current_page }} af {{ pages }}",
+      "all": "Alle"
+    },
+    "pagination": {
+      "previous": "Forrige",
+      "next": "Næste"
+    },
+    "newsletter_form": {
+      "confirmation": "Tak for din tilmelding.",
+      "newsletter_email": "Tilmeld dig vores nyhedsbrev",
+      "email_placeholder": "E-mail-adresse",
+      "submit": "Tilmeld"
+    },
+    "form": {
+      "name": "Navn",
+      "email": "E-mail",
+      "phone": "Telefonnummer",
+      "message": "Besked",
+      "send": "Send",
+      "error_heading": "Venligst ret følgende:"
+    },
+    "search": {
+      "placeholder": "Søg",
+      "show_more": "Vis flere resultater",
+      "title": "Søg",
+      "results_with_count": {
+        "one": "{{ count }} resultat for “{{ terms }}”",
+        "other": "{{ count }} resultater for “{{ terms }}”"
+      },
+      "no_results": "Prøv at kontrollere din stavemåde eller brug andre ord.",
+      "button": "Søg"
+    },
+    "payment": {
+      "method": "Betalingsmetoder"
+    }
+  },
+  "collections": {
+    "general": {
+      "empty_title": "Navnet på din kollektion",
+      "no_matches": "Ingen produkter fundet",
+      "view_all": "Se alle"
+    },
+    "sorting": {
+      "title": "Søg efter",
+      "filter": "Filtrer efter",
+      "filter_collection": "Filteret {{ title }}",
+      "featured": "Fremhævede",
+      "best_selling": "Bedst sælgende",
+      "az": "Alfabetisk: A-Z",
+      "za": "Alfabetisk: Z-A",
+      "price_ascending": "Pris: laveste først",
+      "price_descending": "Pris: højeste først",
+      "date_descending": "Dato: Nyeste først",
+      "date_ascending": "Dato: Ældste først"
+    }
+  },
+  "checkout": {
+    "to_checkout": "Gå til kassen"
+  },
+  "products": {
+    "product": {
+      "sold_out": "Udsolgt",
+      "from": "fra",
+      "see_more": "Se mere",
+      "add_to_cart": "Føj til kuv",
+      "quantity": "Antal",
+      "view_full_description": "Se alle produktinformationer",
+      "description": "Beskrivelse",
+      "regular_price": "Normalpris"
+    }
+  },
+  "blogs": {
+    "article": {
+      "by_author": "Af {{ author }}",
+      "read_more": "Læs mere",
+      "back_to_blog": "Tilbage til {{ title }}",
+      "view_all": "Se alle"
+    },
+    "comments": {
+      "title": "Skriv en kommentar",
+      "name": "Navn",
+      "email": "E-mail",
+      "message": "Besked",
+      "post": "Indsend kommentar",
+      "moderated": "Bemærk at kommentarer skal godkendes, før de bliver offentliggjort",
+      "success_moderated": "Din kommentar er modtaget. Den bliver offentliggjort så snart vi har gennemgået den.",
+      "success": "Din kommentar blev offentliggjort. Tak!",
+      "unapproved": "Den angivne e-mail-adresse kan ikke bruges til at indsende kommentarer med.",
+      "comments_with_count": {
+        "one": "{{ count }} kommentar",
+        "other": "{{ count }} kommentarer"
+      },
+      "error_header": "Venligst ret følgende:",
+      "post_success": "Tak for din kommentar"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Min konto",
+      "details": "Kontooplysninger",
+      "view_addresses": "Se adresser",
+      "return": "Tilbage til kontooplysninger"
+    },
+    "activate_account": {
+      "title": "Aktiverk onto",
+      "subtext": "Opret en adgangskode for at aktivere din konto.",
+      "password": "Adgangskode",
+      "password_confirm": "Bekræft adgangskode",
+      "submit": "Aktiver konto",
+      "cancel": "Afvis invitation"
+    },
+    "addresses": {
+      "title": "Dine adresser",
+      "default": "Standardadresse",
+      "add_new": "Tilføj en ny adresse",
+      "edit_address": "Ret adresse",
+      "first_name": "Fornavn",
+      "last_name": "Efternavn",
+      "company": "Firmanavn",
+      "address1": "Adresse",
+      "address2": "Adresse - yderligere informationer",
+      "city": "By",
+      "country": "Land",
+      "province": "Område",
+      "zip": "Postnummer",
+      "phone": "Telefonnummer",
+      "set_default": "Angiv som standardadresse",
+      "add": "Tilføj adresse",
+      "update": "Opdater adresse",
+      "cancel": "Annuller",
+      "edit": "Ret",
+      "delete": "Slet",
+      "delete_confirm": "Er du sikker på, du vil slette denne adresse?"
+    },
+    "login": {
+      "title": "Log ind",
+      "email": "E-mail",
+      "password": "Adgangskode",
+      "forgot_password": "Glemt din adgangskode?",
+      "sign_in": "Log ind",
+      "guest_title": "Fortsæt som gæst",
+      "guest_continue": "Fortsæt"
+    },
+    "log_out": "Log ud",
+    "orders": {
+      "title": "Ordrehistorik",
+      "order_number": "Ordre",
+      "order_number_link": "Ordrenummer {{ number }}",
+      "date": "Dato",
+      "payment_status": "Betalingssstatus",
+      "fulfillment_status": "Status for behandling",
+      "total": "I alt",
+      "none": "Du har ikke nogen ordrer endnu."
+    },
+    "order": {
+      "title": "Ordre {{ name }}",
+      "date_html": "Afgivet {{ date }}",
+      "cancelled_html": "Ordre annulleret {{ date }}",
+      "cancelled_reason": "Grund: {{ reason }}",
+      "billing_address": "Faktureringsadresse",
+      "payment_status": "Betalingsstatus",
+      "shipping_address": "Leveringsadresse",
+      "fulfillment_status": "Status for behandling",
+      "discount": "Rabat",
+      "shipping": "Forsendelse",
+      "tax": "Moms",
+      "product": "Produkt",
+      "sku": "SKU",
+      "price": "Pris",
+      "quantity": "Antal",
+      "total": "I alt",
+      "fulfilled_at_html": "Færdigbehandlet {{ dato }}",
+      "subtotal": "Subtotal",
+      "track_shipment": "Spor forsendelse"
+    },
+    "recover_password": {
+      "title": "Nulstil din adgangskode",
+      "email": "E-mail",
+      "submit": "Godkend",
+      "cancel": "Annuller",
+      "subtext": "Vi sender dig en e-mail med information om, hvordan du nulstiller din adgangskode.",
+      "success": "Vi har sendt din e-mail med et link, hor du kan opdatere din agangskode."
+    },
+    "reset_password": {
+      "title": "Nulstil adgangskode til konto",
+      "subtext": "Angiv en ny adgangskode til {{ email }}",
+      "password": "Adgangskode",
+      "password_confirm": "Bekræft adgangskode",
+      "submit": "Nulstil adgangskode"
+    },
+    "register": {
+      "link": "Opret konto",
+      "title": "Opret konto",
+      "first_name": "Fornavn",
+      "last_name": "Efternavn",
+      "email": "E-mail",
+      "password": "Adgangskode",
+      "submit": "Opret"
+    }
+  },
+  "gift_cards": {
+    "subtext": "Dit gavekort",
+    "title_html": "Her er dit gavekort til {{ shop }} med en værdi på {{ value }}",
+    "gift_card_code": "Gavekortskode",
+    "disabled": "Ikke muligt",
+    "expired": "Udløb {{ expiry }}",
+    "active": "Udløber {{ expiry }}",
+    "redeem_html": "Brug denne kode i kassen for at benytte dit gavekort med en værdi på {{ value }}",
+    "shop_link": "Kom i gang med at shoppe",
+    "print": "Print gavekortet",
+    "remaining_html": "{{ balance }} tilbage",
+    "add_to_apple_wallet": "Tilføj Apple Wallet",
+    "qr_image_alt": "QR-kode - scan for at få gavekortet"
+  }
+}
