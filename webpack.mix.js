@@ -18,7 +18,7 @@ mix.sass('resources/scss/glide.scss', 'assets')
 mix.js('resources/js/app.js', 'assets')
     .webpackConfig({
         output: {
-            chunkFilename: 'assets/async.[name].[chunkhash:5].js',
+            chunkFilename: 'assets/async.[chunkhash:5].js',
         }
     });
 
