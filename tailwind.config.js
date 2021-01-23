@@ -47,29 +47,29 @@ module.exports = {
       spacing: {
         '14': '3.5rem',
         '80': '20rem',
-      }
-    },
-    typography: {
-      DEFAULT: {
-        css: {
-          color: 'var(--color-font-color-dark)',
-          a: {
+      },
+      typography: {
+        DEFAULT: {
+          css: {
             color: 'var(--color-font-color-dark)',
-            '&:hover': {
+            a: {
+              color: 'var(--color-font-color-dark)',
+              '&:hover': {
+                color: 'var(--color-font-color-darkest)',
+              },
+            },
+            h1: {
               color: 'var(--color-font-color-darkest)',
             },
-          },
-          h1: {
-            color: 'var(--color-font-color-darkest)',
-          },
-          h2: {
-            color: 'var(--color-font-color-darkest)',
-          },
-          h3: {
-            color: 'var(--color-font-color-darkest)',
-          },
-          h4: {
-            color: 'var(--color-font-color-darkest)',
+            h2: {
+              color: 'var(--color-font-color-darkest)',
+            },
+            h3: {
+              color: 'var(--color-font-color-darkest)',
+            },
+            h4: {
+              color: 'var(--color-font-color-darkest)',
+            },
           },
         },
       },
